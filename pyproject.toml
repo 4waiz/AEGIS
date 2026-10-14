@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aegis"
+version = "0.1.0"
+description = "AEGIS: efficiency-guided multitask classification of vulnerabilities and SATD (NLBSE'27 tool competition)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Awaiz Ahmed" }]
+dependencies = [
+  "torch>=2.4",
+  "transformers>=4.51,<5",
+  "datasets>=3.0",
+  "huggingface_hub>=0.30",
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "pyarrow>=15",
+  "scikit-learn>=1.4",
+  "pyyaml>=6.0",
+  "tqdm>=4.66",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+aegis = "aegis.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

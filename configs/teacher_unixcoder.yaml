@@ -1,0 +1,18 @@
+# Teacher candidate T1: full 12-layer UniXcoder-base, whitespace-normalized input.
+name: teacher_unixcoder
+model:
+  init: microsoft/unixcoder-base
+data:
+  normalize: single_line
+  max_length: 512
+  truncation: head
+train:
+  epochs: 3
+  batch_size: 32
+  lr: 2.0e-5
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  seed: 42
+  bf16: true
+  eval_every_epochs: 0.5
+  patience: 2

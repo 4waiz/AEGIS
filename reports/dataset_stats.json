@@ -1,0 +1,190 @@
+{
+  "dataset_revision": "feca19b90d1cc9fcf8ba5d6e693c4a94e249585c",
+  "train_n": 214586,
+  "train_vuln_prev": 0.32794,
+  "train_mat_prev": 0.01649,
+  "test_public_n": 30655,
+  "test_public_vuln_prev": 0.32791,
+  "test_public_mat_prev": 0.01647,
+  "internal_fit_n": 193343,
+  "internal_fit_vuln_prev": 0.32789,
+  "internal_fit_mat_prev": 0.0165,
+  "internal_val_n": 21243,
+  "internal_val_vuln_prev": 0.32839,
+  "internal_val_mat_prev": 0.01638,
+  "label_correlation_phi_train": 0.0925,
+  "p_vuln_given_mat_train": 0.6632,
+  "p_vuln_given_not_mat_train": 0.3223,
+  "train_tok": {
+    "mean": 234.4,
+    "max": 2745,
+    "p5": 36.0,
+    "p25": 90.0,
+    "p50": 176.0,
+    "p75": 327.0,
+    "p90": 522.0,
+    "p95": 633.0,
+    "p99": 788.0,
+    "frac_gt_128": 0.626,
+    "frac_gt_256": 0.3446,
+    "frac_gt_512": 0.1052
+  },
+  "test_tok": {
+    "mean": 235.1,
+    "max": 2273,
+    "p5": 36.0,
+    "p25": 90.0,
+    "p50": 175.0,
+    "p75": 329.0,
+    "p90": 524.0,
+    "p95": 637.0,
+    "p99": 794.0,
+    "frac_gt_128": 0.6249,
+    "frac_gt_256": 0.3453,
+    "frac_gt_512": 0.106
+  },
+  "test_padding_efficiency_official": 0.4301,
+  "vuln_prev_by_length_quartile_train": {
+    "Q1": 0.0846,
+    "Q2": 0.2344,
+    "Q3": 0.3916,
+    "Q4": 0.6033
+  },
+  "train_frac_with_comment": 0.1418,
+  "train_mat_given_comment": 0.1055,
+  "train_mat_pos_without_comment": 329,
+  "train_mat_pos_without_keyword": 463,
+  "train_rule_satd_word_in_comments": {
+    "precision": 0.9984,
+    "recall": 0.8598,
+    "f1": 0.9239,
+    "tp": 3043,
+    "fp": 5,
+    "fn": 496
+  },
+  "train_rule_satd_substring_in_comments": {
+    "precision": 0.9875,
+    "recall": 0.8692,
+    "f1": 0.9246,
+    "tp": 3076,
+    "fp": 39,
+    "fn": 463
+  },
+  "train_rule_satd_substring_anywhere": {
+    "precision": 0.7653,
+    "recall": 0.8717,
+    "f1": 0.8151,
+    "tp": 3085,
+    "fp": 946,
+    "fn": 454
+  },
+  "train_kw_todo": {
+    "n": 1214,
+    "p_mat": 1.0
+  },
+  "train_kw_fixme": {
+    "n": 966,
+    "p_mat": 1.0
+  },
+  "train_kw_hack": {
+    "n": 169,
+    "p_mat": 1.0
+  },
+  "train_kw_xxx": {
+    "n": 757,
+    "p_mat": 0.9934
+  },
+  "test_frac_with_comment": 0.1443,
+  "test_mat_given_comment": 0.1045,
+  "test_mat_pos_without_comment": 43,
+  "test_mat_pos_without_keyword": 62,
+  "test_rule_satd_word_in_comments": {
+    "precision": 1.0,
+    "recall": 0.8772,
+    "f1": 0.9346,
+    "tp": 443,
+    "fp": 0,
+    "fn": 62
+  },
+  "test_rule_satd_substring_in_comments": {
+    "precision": 0.9911,
+    "recall": 0.8772,
+    "f1": 0.9307,
+    "tp": 443,
+    "fp": 4,
+    "fn": 62
+  },
+  "test_rule_satd_substring_anywhere": {
+    "precision": 0.7708,
+    "recall": 0.8792,
+    "f1": 0.8215,
+    "tp": 444,
+    "fp": 132,
+    "fn": 61
+  },
+  "test_kw_todo": {
+    "n": 167,
+    "p_mat": 1.0
+  },
+  "test_kw_fixme": {
+    "n": 149,
+    "p_mat": 1.0
+  },
+  "test_kw_hack": {
+    "n": 26,
+    "p_mat": 1.0
+  },
+  "test_kw_xxx": {
+    "n": 110,
+    "p_mat": 1.0
+  },
+  "train_extensions": {
+    ".c": 174311,
+    ".h": 18816,
+    ".cc": 14317,
+    ".cpp": 6322,
+    "<none>": 535,
+    ".objs": 189,
+    ".txt": 38,
+    ".s": 11,
+    ".texi": 11,
+    ".target": 10,
+    ".hx": 6,
+    ".json": 5
+  },
+  "n_projects_train": 15,
+  "projects_only_in_test": [],
+  "train_dup_rows_exact_ws_normalized": 1315,
+  "test_rows_in_train_exact_ws_normalized": 386,
+  "test_overlap_vuln_label_agreement_exact_ws_normalized": 0.956,
+  "train_dup_groups_exact_ws_normalized": 1193,
+  "train_dup_groups_conflicting_vuln_exact_ws_normalized": 39,
+  "train_dup_groups_conflicting_mat_exact_ws_normalized": 3,
+  "train_dup_rows_identifier_abstracted": 28845,
+  "test_rows_in_train_identifier_abstracted": 5553,
+  "test_overlap_vuln_label_agreement_identifier_abstracted": 0.9815,
+  "train_dup_groups_identifier_abstracted": 10145,
+  "train_dup_groups_conflicting_vuln_identifier_abstracted": 245,
+  "train_dup_groups_conflicting_mat_identifier_abstracted": 87,
+  "test_rows_with_filepath_in_train": 29303,
+  "metadata_probe_filepath_majority_vuln": {
+    "precision": 0.505,
+    "recall": 0.3685,
+    "f1": 0.4261,
+    "tp": 3704,
+    "fp": 3630,
+    "fn": 6348
+  },
+  "metadata_probe_project_majority_vuln": {
+    "precision": 0.7033,
+    "recall": 0.0688,
+    "f1": 0.1254,
+    "tp": 692,
+    "fp": 292,
+    "fn": 9360
+  },
+  "length_probe_vuln_f1_best_threshold": [
+    0.6033,
+    175
+  ]
+}

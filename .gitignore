@@ -1,0 +1,41 @@
+# Data and heavy artifacts (never commit)
+data/raw/
+data/processed/
+artifacts/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+*.onnx
+wandb/
+mlruns/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# LaTeX build
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large numeric dumps (regenerable)
+*.npz
+*.npy

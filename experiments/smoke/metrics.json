@@ -1,0 +1,81 @@
+{
+  "name": "smoke",
+  "config": {
+    "name": "smoke",
+    "model": {
+      "init": "microsoft/unixcoder-base",
+      "num_layers": 2
+    },
+    "data": {
+      "normalize": "single_line",
+      "max_length": 256,
+      "truncation": "head"
+    },
+    "train": {
+      "subsample": 4000,
+      "epochs": 1,
+      "batch_size": 32,
+      "lr": 5e-05,
+      "warmup_ratio": 0.06,
+      "weight_decay": 0.01,
+      "seed": 42,
+      "bf16": true,
+      "patience": 1
+    }
+  },
+  "best": {
+    "val_mean_f1_tuned": 0.37699669744557524,
+    "val_tuned": {
+      "f1_vuln": 0.6458852867830424,
+      "f1_mat": 0.10810810810810811,
+      "p_vuln": 0.5351239669421488,
+      "r_vuln": 0.8144654088050315,
+      "p_mat": 0.09090909090909091,
+      "r_mat": 0.13333333333333333,
+      "mean_f1": 0.37699669744557524
+    },
+    "val_at_0.5": {
+      "f1_vuln": 0.6298507462686567,
+      "f1_mat": 0,
+      "p_vuln": 0.5994318181818182,
+      "r_vuln": 0.6635220125786163,
+      "p_mat": 0,
+      "r_mat": 0.0,
+      "mean_f1": 0.31492537313432833
+    },
+    "thresholds": [
+      0.38999999999999996,
+      0.05
+    ],
+    "epoch": 1.0
+  },
+  "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\smoke\\best",
+  "train_time_s": 5.2,
+  "peak_gpu_mem_gb": 2.3,
+  "params": {
+    "total": 55052546,
+    "embedding": 40284672,
+    "non_embedding": 14767874
+  },
+  "n_fit": 4000,
+  "n_val": 1000,
+  "mean_fit_tokens": 133.41125,
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "unknown",
+    "disk_free_gb": 231.8,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "28.44 W, 175.00 W, 0 MHz, 3090 MHz, P0",
+    "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+  }
+}

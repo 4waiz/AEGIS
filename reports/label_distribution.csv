@@ -1,0 +1,17 @@
+split,joint_label,count,fraction
+train,"[0,0]",143022,0.6665
+train,"[0,1]",1192,0.00555
+train,"[1,0]",68025,0.31701
+train,"[1,1]",2347,0.01094
+test_public,"[0,0]",20433,0.66655
+test_public,"[0,1]",170,0.00555
+test_public,"[1,0]",9717,0.31698
+test_public,"[1,1]",335,0.01093
+internal_fit,"[0,0]",128872,0.66655
+internal_fit,"[0,1]",1075,0.00556
+internal_fit,"[1,0]",61280,0.31695
+internal_fit,"[1,1]",2116,0.01094
+internal_val,"[0,0]",14150,0.6661
+internal_val,"[0,1]",117,0.00551
+internal_val,"[1,0]",6745,0.31752
+internal_val,"[1,1]",231,0.01087

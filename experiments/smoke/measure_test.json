@@ -1,0 +1,78 @@
+{
+  "scores": [
+    {
+      "cat": "Vulnerability",
+      "precision": 0.5245010277833035,
+      "recall": 0.786908077994429,
+      "f1": 0.6294513189830104,
+      "accuracy": 0.6961996411678356,
+      "tp": 7910,
+      "fp": 7171,
+      "tn": 13432,
+      "fn": 2142
+    },
+    {
+      "cat": "MAT",
+      "precision": 0.043859649122807015,
+      "recall": 0.04950495049504951,
+      "f1": 0.046511627906976744,
+      "accuracy": 0.9665633664981242,
+      "tp": 25,
+      "fp": 545,
+      "tn": 29605,
+      "fn": 480
+    }
+  ],
+  "avg_precision": 0.2841803384530553,
+  "avg_recall": 0.41820651424473926,
+  "avg_f1": 0.3379814734449936,
+  "avg_runtime": 7.964029431343079,
+  "avg_flops": 118587.29364457501,
+  "score": 0.5932902586044225,
+  "n_samples": 30655,
+  "batching": "sorted",
+  "batch_size": 600,
+  "extra": {
+    "checkpoint": "C:/Users/awaiz/aegis_artifacts/smoke/best",
+    "split": "test",
+    "thresholds": [
+      0.38999999999999996,
+      0.05
+    ],
+    "aegis": {
+      "max_length": 256,
+      "normalize": "single_line",
+      "prefix_tokens": null,
+      "thresholds": [
+        0.38999999999999996,
+        0.05
+      ],
+      "truncation": "head"
+    },
+    "analytic": {
+      "linear_gflops": 118571.20375296,
+      "attention_gflops": 4755.73650432,
+      "total_gflops": 123326.94025728
+    },
+    "mean_input_tokens": 134.17073886804764,
+    "attn_implementation": "sdpa",
+    "env": {
+      "python": "3.12.10",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+      "torch": "2.11.0+cu128",
+      "transformers": "4.57.6",
+      "numpy": "2.4.6",
+      "cuda_available": true,
+      "git_commit": "unknown",
+      "disk_free_gb": 230.2,
+      "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+      "gpu_mem_gb": 17.1,
+      "gpu_capability": "12.0",
+      "cuda": "12.8",
+      "cudnn": 91900,
+      "gpu_power_state": "22.29 W, 175.00 W, 180 MHz, 3090 MHz, P4",
+      "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+    }
+  }
+}

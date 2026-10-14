@@ -1,0 +1,18 @@
+name: smoke
+model:
+  init: microsoft/unixcoder-base
+  num_layers: 2
+data:
+  normalize: single_line
+  max_length: 256
+  truncation: head
+train:
+  subsample: 4000
+  epochs: 1
+  batch_size: 32
+  lr: 5.0e-05
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  seed: 42
+  bf16: true
+  patience: 1

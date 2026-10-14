@@ -1,0 +1,48 @@
+{
+  "model": "NLBSE/nlbse27-code-comment-classification-baseline",
+  "procedure": "official_notebook_replica",
+  "padded_length": 512,
+  "scores": [
+    {
+      "cat": "Vulnerability",
+      "precision": 0.9428399518652226,
+      "recall": 0.9353362514922403,
+      "f1": 0.9390731122652817,
+      "tp": 9402,
+      "fp": 570,
+      "tn": 20033,
+      "fn": 650
+    },
+    {
+      "cat": "MAT",
+      "precision": 0.9782608695652174,
+      "recall": 0.801980198019802,
+      "f1": 0.8813928182807399,
+      "tp": 405,
+      "fp": 9,
+      "tn": 30141,
+      "fn": 100
+    }
+  ],
+  "avg_f1": 0.9102329652730108,
+  "avg_runtime": 193.90301287174225,
+  "avg_flops": 2666497.659072002,
+  "score": 0.7295926659846579,
+  "attn_implementation": "sdpa",
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "unknown",
+    "disk_free_gb": 231.8,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900
+  }
+}
