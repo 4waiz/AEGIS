@@ -1,0 +1,37 @@
+fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/unixcoder-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{"epoch": 0.5, "train_loss": 0.1602427670657382, "elapsed_s": 557.5} val@0.5 0.9119 (V 0.9025 M 0.9214) tuned 0.9162 thr [0.27999999999999997, 0.09999999999999999]
+{"epoch": 1.0, "train_loss": 0.0803785350750432, "elapsed_s": 1127.3} val@0.5 0.9275 (V 0.9297 M 0.9252) tuned 0.9301 thr [0.4099999999999999, 0.7699999999999999]
+{"epoch": 1.5, "train_loss": 0.06027446745677741, "elapsed_s": 1693.1} val@0.5 0.9321 (V 0.9385 M 0.9256) tuned 0.9350 thr [0.37999999999999995, 0.8099999999999999]
+{"epoch": 2.0, "train_loss": 0.056019029823638676, "elapsed_s": 2235.6} val@0.5 0.9376 (V 0.9455 M 0.9297) tuned 0.9377 thr [0.4799999999999999, 0.06]
+{"epoch": 2.5, "train_loss": 0.043410971890074486, "elapsed_s": 2781.3} val@0.5 0.9371 (V 0.9445 M 0.9297) tuned 0.9377 thr [0.38999999999999996, 0.24]
+{"epoch": 3.0, "train_loss": 0.041164523676301835, "elapsed_s": 3326.9} val@0.5 0.9384 (V 0.9471 M 0.9297) tuned 0.9397 thr [0.36999999999999994, 0.13]
+{
+  "val_mean_f1_tuned": 0.9396748289878061,
+  "val_tuned": {
+    "f1_vuln": 0.948051948051948,
+    "f1_mat": 0.931297709923664,
+    "p_vuln": 0.9438761011651037,
+    "r_vuln": 0.9522649082568807,
+    "p_mat": 0.993485342019544,
+    "r_mat": 0.8764367816091954,
+    "mean_f1": 0.9396748289878061
+  },
+  "val_at_0.5": {
+    "f1_vuln": 0.947088042617522,
+    "f1_mat": 0.9296636085626911,
+    "p_vuln": 0.9512653651482285,
+    "r_vuln": 0.942947247706422,
+    "p_mat": 0.9934640522875817,
+    "r_mat": 0.8735632183908046,
+    "mean_f1": 0.9383758255901066
+  },
+  "thresholds": [
+    0.36999999999999994,
+    0.13
+  ],
+  "epoch": 3.0
+}

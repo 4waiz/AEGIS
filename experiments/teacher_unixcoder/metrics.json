@@ -1,0 +1,80 @@
+{
+  "name": "teacher_unixcoder",
+  "config": {
+    "name": "teacher_unixcoder",
+    "model": {
+      "init": "microsoft/unixcoder-base"
+    },
+    "data": {
+      "normalize": "single_line",
+      "max_length": 512,
+      "truncation": "head"
+    },
+    "train": {
+      "epochs": 3,
+      "batch_size": 32,
+      "lr": 2e-05,
+      "warmup_ratio": 0.06,
+      "weight_decay": 0.01,
+      "seed": 42,
+      "bf16": true,
+      "eval_every_epochs": 0.5,
+      "patience": 2
+    }
+  },
+  "best": {
+    "val_mean_f1_tuned": 0.9396748289878061,
+    "val_tuned": {
+      "f1_vuln": 0.948051948051948,
+      "f1_mat": 0.931297709923664,
+      "p_vuln": 0.9438761011651037,
+      "r_vuln": 0.9522649082568807,
+      "p_mat": 0.993485342019544,
+      "r_mat": 0.8764367816091954,
+      "mean_f1": 0.9396748289878061
+    },
+    "val_at_0.5": {
+      "f1_vuln": 0.947088042617522,
+      "f1_mat": 0.9296636085626911,
+      "p_vuln": 0.9512653651482285,
+      "r_vuln": 0.942947247706422,
+      "p_mat": 0.9934640522875817,
+      "r_mat": 0.8735632183908046,
+      "mean_f1": 0.9383758255901066
+    },
+    "thresholds": [
+      0.36999999999999994,
+      0.13
+    ],
+    "epoch": 3.0
+  },
+  "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\teacher_unixcoder\\best",
+  "train_time_s": 3327.3,
+  "peak_gpu_mem_gb": 8.64,
+  "params": {
+    "total": 125931266,
+    "embedding": 40284672,
+    "non_embedding": 85646594
+  },
+  "n_fit": 193343,
+  "n_val": 21243,
+  "mean_fit_tokens": 153.0089271398499,
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "unknown",
+    "disk_free_gb": 230.2,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "28.34 W, 175.00 W, 0 MHz, 3090 MHz, P0",
+    "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+  }
+}
