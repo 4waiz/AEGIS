@@ -197,6 +197,9 @@ def train(config_path: str) -> dict:
                 sched.step()
                 opt.zero_grad(set_to_none=True)
                 step += 1
+                if step % tcfg.get("log_every_steps", 500) == 0:
+                    print(f"step {step}/{total_steps} loss {running / max(1, n_run):.4f} "
+                          f"{(time.time() - t_start) / 60:.1f} min", flush=True)
             if b_i in eval_at:
                 val_logits = predict_logits(model, val_inputs, pad_id, device)
                 probs = 1 / (1 + np.exp(-val_logits))

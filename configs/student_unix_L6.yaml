@@ -1,0 +1,20 @@
+# Student without distillation: first 6 layer(s) of UniXcoder-base (768 wide).
+name: student_unix_L6
+model:
+  init: microsoft/unixcoder-base
+  num_layers: 6
+  layer_selection: first
+data:
+  normalize: single_line
+  max_length: 512
+  truncation: head
+train:
+  epochs: 4
+  batch_size: 32
+  lr: 5.0e-5
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  seed: 42
+  bf16: true
+  eval_every_epochs: 0.5
+  patience: 2

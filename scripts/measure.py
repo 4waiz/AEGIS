@@ -52,10 +52,7 @@ def main() -> None:
     def forward(ids, mask):
         return model(input_ids=ids, attention_mask=mask)
 
-    # warm-up (CUDA context, kernels) outside the measured region
-    warm, _ = make_batches(inputs[:64], tokenizer.pad_token_id, 64, "sorted")
-    with torch.no_grad(), torch.autocast(device_type=device.type, dtype=torch.float16):
-        forward(warm[0][0].to(device), warm[0][1].to(device))
+    # No warm-up: the official notebook times the very first batch too.
     result, probs = evaluate_official(forward, inputs, labels, tokenizer.pad_token_id, device,
                                       batch_size=args.batch_size, batching=args.batching, threshold=thr)
     batches, _ = make_batches(inputs, tokenizer.pad_token_id, args.batch_size, args.batching)

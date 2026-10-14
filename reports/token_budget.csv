@@ -1,0 +1,13 @@
+split,tokenizer,normalize,mean,median,p95,frac_gt_512,mean_clipped_512,total_tokens_clipped_512,official_padded_positions
+train,microsoft/codebert-base,raw,234.4,176.0,633.0,0.1052,220.0,47216982,109868032
+train,microsoft/codebert-base,collapse,188.9,143.0,505.0,0.0463,186.0,39909576,109868032
+train,microsoft/codebert-base,single_line,172.8,130.0,459.0,0.025,171.7,36837297,109868032
+train,microsoft/unixcoder-base,raw,181.7,137.0,488.0,0.0378,179.7,38570298,109868032
+train,microsoft/unixcoder-base,collapse,168.8,127.0,451.0,0.0204,168.1,36076656,109868032
+train,microsoft/unixcoder-base,single_line,153.2,116.0,407.0,0.0049,153.1,32849115,109868032
+test,microsoft/codebert-base,raw,235.1,175.0,637.0,0.106,220.2,6750131,15695360
+test,microsoft/codebert-base,collapse,189.3,142.0,505.0,0.0467,186.3,5710959,15695360
+test,microsoft/codebert-base,single_line,173.2,130.0,460.0,0.0263,172.1,5274417,15695360
+test,microsoft/unixcoder-base,raw,182.0,137.0,486.0,0.0383,180.0,5516910,15695360
+test,microsoft/unixcoder-base,collapse,169.2,128.0,451.0,0.0213,168.4,5161731,15695360
+test,microsoft/unixcoder-base,single_line,153.5,115.0,408.2999999999993,0.0053,153.4,4702705,15695360

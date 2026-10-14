@@ -35,7 +35,9 @@ Hugging Face API queried), not via search snippets.
 | Hidden test | 61,311 instances, held by organizers; "the delta between F1 (public) and F1 (hidden) is less than 0.5%". | V |
 | Paper length | 2-4 pages. CFP: "Tool competition entries … 4" pages. | V |
 | Paper content | architecture; preprocessing; tuning procedure on the training set; results on the validation (public test) set; link to documented code. | V |
-| Format | ICSE'27 formatting and submission instructions. | V |
+| Format | ICSE'27 formatting and submission instructions: **IEEE** this year ("IEEE format is being used this year, whereas last year it was ACM format"); LaTeX `\documentclass[10pt,conference]{IEEEtran}` without compsoc options; 10pt body; PDF. | V (conf.researchr.org/track/icse-2027/icse-2027-research-track) |
+| Generative-AI disclosure | ICSE'27 quotes IEEE policy: AI-generated content "shall be disclosed in the acknowledgements section of any paper submitted to an IEEE Conference". The AEGIS paper must include this disclosure. | V (same page) |
+| ORCID | ICSE asks authors to obtain an ORCID iD. | V (same page) |
 | Anonymity | Competition page: "need not be double-blind". General CFP: "All submissions must be anonymized". Resolved in favour of the competition-specific page (D1); confirmation requested. | V (conflict documented) |
 | Submission channel | Google Form on the competition page (not HotCRP). | V |
 | Acceptance criteria | clarity and detail; open-source code including training/tuning/evaluation pipeline; correct training/tuning/evaluation on the provided data; correct metric reporting; clear documentation. | V |
@@ -48,7 +50,8 @@ Hugging Face API queried), not via search snippets.
 
 - Columns: `Projectname`, `Filepath`, `Function`, `Label` (`int8[2]`, order `[weakness, MAT]`). There is **no separate comment column**. The instructions notebook says so explicitly: "The current two-label CSV files contain Function but no separate developer-comment column." Comments occur only inside `Function`. (V)
 - Weakness label = Boolean OR of the Devign, Big-Vul and "W" annotations of MADE-WIC. (V, README)
-- MAT = the SATD annotation produced by the MAT ("Matches task Annotation Tags") keyword heuristic of Guo et al. (TOSEM 2021) as used in MADE-WIC. The data supports this: in the public test split, a word-boundary match of `todo|fixme|hack|xxx` inside comments gives MAT P=1.000, R=0.877, F1=0.935 (reports/dataset_stats.json). The terminology is being verified in the MADE-WIC paper (research/related_work.md). (data: V; terminology: pending)
+- MAT = the SATD annotation produced by the "Matches task Annotation Tags" heuristic of Guo et al. (TOSEM 2021, doi 10.1145/3447247). MADE-WIC labels a function TD "if at least one comment" carries TODO, FIXME, XXX or HACK (MADE-WIC, arXiv 2408.05163). The data agrees: in the public test split, a word-boundary match of `todo|fixme|hack|xxx` inside comments gives MAT P=1.000, R=0.877, F1=0.935 (reports/dataset_stats.json). (V)
+- The weakness source "W" consists of CWE-derived heuristics from the WeakSATD replication package (Russo, Camilli, Mock, MSR 2022), per the MADE-WIC paper. (V, via research agent reading arXiv 2408.05163)
 - Data preparation (README, V): clang-format (LLVM style); functions with > 500 `cl100k_base` tokens removed; over-represented joint classes downsampled; deterministic jointly stratified 70/10/20 split.
 
 ## 4. Official evaluation and scoring (extracted from the notebook)
@@ -83,7 +86,13 @@ score = 0.6 * avg_F1
 | Runtime (s) | 198.93 | 193.90 |
 | Score (formula) | 0.7286 | 0.7296 |
 
-Training hyperparameters were recovered from `training_args.bin` by disassembling the pickle (not executed): HF Trainer, batch 8, lr 2e-5, weight decay 0.01, 5 epochs, linear decay without warmup, seed 42, fp32, no evaluation during training, transformers 4.51.3. The max sequence length used in training is not recorded (U).
+Training hyperparameters were recovered from `training_args.bin` by disassembling the pickle (not executed): HF Trainer, batch 8, lr 2e-5, weight decay 0.01, 5 epochs, linear decay without warmup, seed 42, fp32, no evaluation during training, transformers 4.51.3.
+
+They are confirmed by the organizers' setup repository **github.com/moritzmock/NLBSE2027-setup** (created 2026-08-15, last push 2026-08-25; read 2026-10-15). It contains `curate_dataset.py`, `codebert_train.py` and `codebert_train.sbatch`. (V)
+- `codebert_train.py`: `microsoft/codebert-base`, `max_length=512` with truncation, `DataCollatorWithPadding` (dynamic padding during training), batch 8, lr 2e-5, weight decay 0.01, 5 epochs, seed 42, threshold 0.5.
+- The job script passes `--train-limit 0`, i.e. the full training split, on one 80 GB GPU.
+- `curate_dataset.py` loads `LeadingComment` (the comment *above* a function) but the final output columns are `("Projectname", "Filepath", "Function", "Label")`. **The leading comment is not released.** This is consistent with the 13% of MAT positives that have no SATD keyword inside `Function`: their tag sits in the dropped leading comment.
+- Split naming: the organizers' pipeline creates train/validation/test = 70/10/20. The Hugging Face `test` split (30,655) corresponds to their **validation** split; their `test` split (61,311) is the hidden one.
 
 ## 5. Implications for strategy
 - Exchange rate implied by the formula: **0.01 mean-F1 = 0.006 score = 90,000 GFLOPs = 30 s**.
