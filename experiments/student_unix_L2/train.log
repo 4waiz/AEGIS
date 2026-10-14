@@ -1,0 +1,85 @@
+warning: in the working copy of 'pyproject.toml', LF will be replaced by CRLF the next time Git touches it
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/unixcoder-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+step 500/24168 loss 0.4369 0.3 min
+step 1000/24168 loss 0.3302 0.5 min
+step 1500/24168 loss 0.2842 0.8 min
+step 2000/24168 loss 0.2544 1.1 min
+step 2500/24168 loss 0.2320 1.3 min
+step 3000/24168 loss 0.2159 1.6 min
+{"epoch": 0.5, "train_loss": 0.21522532942193415, "elapsed_s": 102.5} val@0.5 0.8713 (V 0.8509 M 0.8917) tuned 0.8765 thr [0.36999999999999994, 0.58]
+step 3500/24168 loss 0.1343 2.0 min
+step 4000/24168 loss 0.1310 2.3 min
+step 4500/24168 loss 0.1297 2.5 min
+step 5000/24168 loss 0.1268 2.8 min
+step 5500/24168 loss 0.1245 3.1 min
+step 6000/24168 loss 0.1233 3.3 min
+{"epoch": 1.0, "train_loss": 0.12303607575028139, "elapsed_s": 207.7} val@0.5 0.8994 (V 0.8756 M 0.9231) tuned 0.9031 thr [0.3499999999999999, 0.19]
+step 6500/24168 loss 0.1036 3.7 min
+step 7000/24168 loss 0.1036 4.0 min
+step 7500/24168 loss 0.1017 4.3 min
+step 8000/24168 loss 0.1006 4.5 min
+step 8500/24168 loss 0.0997 4.8 min
+step 9000/24168 loss 0.0993 5.1 min
+{"epoch": 1.5, "train_loss": 0.09936806430997162, "elapsed_s": 312.9} val@0.5 0.9018 (V 0.8885 M 0.9152) tuned 0.9054 thr [0.42999999999999994, 0.8899999999999999]
+step 9500/24168 loss 0.0962 5.5 min
+step 10000/24168 loss 0.0940 5.7 min
+step 10500/24168 loss 0.0947 6.0 min
+step 11000/24168 loss 0.0937 6.2 min
+step 11500/24168 loss 0.0950 6.5 min
+step 12000/24168 loss 0.0944 6.8 min
+{"epoch": 2.0, "train_loss": 0.09431209387159045, "elapsed_s": 414.8} val@0.5 0.9106 (V 0.8933 M 0.9278) tuned 0.9118 thr [0.4599999999999999, 0.14999999999999997]
+step 12500/24168 loss 0.0738 7.1 min
+step 13000/24168 loss 0.0733 7.4 min
+step 13500/24168 loss 0.0738 7.7 min
+step 14000/24168 loss 0.0729 8.0 min
+step 14500/24168 loss 0.0737 8.2 min
+step 15000/24168 loss 0.0742 8.5 min
+{"epoch": 2.5, "train_loss": 0.07440777828267818, "elapsed_s": 518.9} val@0.5 0.9105 (V 0.8959 M 0.9250) tuned 0.9119 thr [0.4099999999999999, 0.7]
+step 15500/24168 loss 0.0755 8.9 min
+step 16000/24168 loss 0.0752 9.1 min
+step 16500/24168 loss 0.0748 9.4 min
+step 17000/24168 loss 0.0743 9.7 min
+step 17500/24168 loss 0.0742 10.0 min
+step 18000/24168 loss 0.0739 10.2 min
+{"epoch": 3.0, "train_loss": 0.07348269199303856, "elapsed_s": 623.7} val@0.5 0.9093 (V 0.9005 M 0.9182) tuned 0.9137 thr [0.5199999999999999, 0.8499999999999999]
+step 18500/24168 loss 0.0620 10.6 min
+step 19000/24168 loss 0.0605 10.9 min
+step 19500/24168 loss 0.0586 11.1 min
+step 20000/24168 loss 0.0582 11.4 min
+step 20500/24168 loss 0.0586 11.7 min
+step 21000/24168 loss 0.0588 12.0 min
+{"epoch": 3.5, "train_loss": 0.05845854111722612, "elapsed_s": 728.9} val@0.5 0.9103 (V 0.8968 M 0.9238) tuned 0.9133 thr [0.5599999999999999, 0.8799999999999999]
+step 21500/24168 loss 0.0566 12.3 min
+step 22000/24168 loss 0.0565 12.6 min
+step 22500/24168 loss 0.0574 12.9 min
+step 23000/24168 loss 0.0580 13.2 min
+step 23500/24168 loss 0.0573 13.5 min
+step 24000/24168 loss 0.0577 13.8 min
+{"epoch": 4.0, "train_loss": 0.057596477564764624, "elapsed_s": 838.7} val@0.5 0.9099 (V 0.8972 M 0.9226) tuned 0.9135 thr [0.5399999999999999, 0.94]
+{
+  "val_mean_f1_tuned": 0.913674418231488,
+  "val_tuned": {
+    "f1_vuln": 0.9007433318758198,
+    "f1_mat": 0.9266055045871561,
+    "p_vuln": 0.916098428698488,
+    "r_vuln": 0.885894495412844,
+    "p_mat": 0.9901960784313726,
+    "r_mat": 0.8706896551724138,
+    "mean_f1": 0.913674418231488
+  },
+  "val_at_0.5": {
+    "f1_vuln": 0.9004505159133849,
+    "f1_mat": 0.9181818181818181,
+    "p_vuln": 0.9130562923666372,
+    "r_vuln": 0.8881880733944955,
+    "p_mat": 0.9711538461538461,
+    "r_mat": 0.8706896551724138,
+    "mean_f1": 0.9093161670476015
+  },
+  "thresholds": [
+    0.5199999999999999,
+    0.8499999999999999
+  ],
+  "epoch": 3.0
+}
