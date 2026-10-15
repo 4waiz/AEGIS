@@ -14,15 +14,24 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from aegis.evaluation.official import submission_score  # noqa: E402
 from aegis.paths import EXPERIMENTS_DIR, REPORTS_DIR  # noqa: E402
 
 BASELINE_SCORE_OFFICIAL = 0.7286  # formula applied to the organizers' printed T4 values
+# Real tokens in the public test split for UniXcoder + single-line input (reports/token_budget.csv).
+TEST_TOKENS_UNIXCODER_SINGLE_LINE = 4_702_705
+
+
+def test_over_val(r: dict) -> float:
+    """Cost scales with processed tokens: ratio of public-test tokens to this run's val tokens.
+    Valid for UniXcoder-tokenized single-line inputs (all AEGIS students)."""
+    return TEST_TOKENS_UNIXCODER_SINGLE_LINE / (r["n_samples"] * r["extra"]["mean_input_tokens"])
 
 
 def main() -> None:
     rows = []
     for d in sorted(EXPERIMENTS_DIR.iterdir()):
-        if not d.is_dir():
+        if not d.is_dir() or d.name.startswith("smoke"):
             continue
         m = json.loads((d / "metrics.json").read_text()) if (d / "metrics.json").exists() else {}
         best = m.get("best", {})
@@ -46,7 +55,12 @@ def main() -> None:
                 "f1_vuln": r["scores"][0]["f1"], "f1_mat": r["scores"][1]["f1"],
                 "mean_f1": r["avg_f1"], "runtime_s": r["avg_runtime"], "gflops": r["avg_flops"],
                 "analytic_total_gflops": r.get("extra", {}).get("analytic", {}).get("total_gflops"),
-                "score": r["score"], "delta_vs_official_baseline": r["score"] - BASELINE_SCORE_OFFICIAL,
+                "score": r["score"],
+                # Cost scales with processed tokens; project val measurements to the public-test size.
+                "projected_test_score": submission_score(
+                    r["avg_f1"], r["avg_runtime"] * test_over_val(r), r["avg_flops"] * test_over_val(r))
+                if r.get("extra", {}).get("split") == "val" else r["score"],
+                "delta_vs_official_baseline": r["score"] - BASELINE_SCORE_OFFICIAL,
                 "batching": r.get("batching"), "hardware": f"{env.get('gpu', '?')} | {env.get('gpu_power_state', '?')}",
             })
     df = pd.DataFrame(rows)

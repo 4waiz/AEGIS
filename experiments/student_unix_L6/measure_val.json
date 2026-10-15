@@ -1,0 +1,78 @@
+{
+  "scores": [
+    {
+      "cat": "Vulnerability",
+      "precision": 0.9417322834645669,
+      "recall": 0.942947247706422,
+      "f1": 0.942339373970346,
+      "accuracy": 0.9621051640540413,
+      "tp": 6578,
+      "fp": 407,
+      "tn": 13860,
+      "fn": 398
+    },
+    {
+      "cat": "MAT",
+      "precision": 0.9934640522875817,
+      "recall": 0.8735632183908046,
+      "f1": 0.9296636085626911,
+      "accuracy": 0.9978345808030881,
+      "tp": 304,
+      "fp": 2,
+      "tn": 20893,
+      "fn": 44
+    }
+  ],
+  "avg_precision": 0.9675981678760743,
+  "avg_recall": 0.9082552330486133,
+  "avg_f1": 0.9360014912665185,
+  "avg_runtime": 18.75414288043976,
+  "avg_flops": 290235.09954473993,
+  "score": 0.9385010595475073,
+  "n_samples": 21243,
+  "batching": "sorted",
+  "batch_size": 600,
+  "extra": {
+    "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\student_unix_L6\\best",
+    "split": "val",
+    "thresholds": [
+      0.3999999999999999,
+      0.8899999999999999
+    ],
+    "aegis": {
+      "max_length": 512,
+      "normalize": "single_line",
+      "prefix_tokens": null,
+      "thresholds": [
+        0.3999999999999999,
+        0.8899999999999999
+      ],
+      "truncation": "head"
+    },
+    "analytic": {
+      "linear_gflops": 290200.97935872,
+      "attention_gflops": 16030.2219264,
+      "total_gflops": 306231.20128512
+    },
+    "mean_input_tokens": 153.7405262910135,
+    "attn_implementation": "sdpa",
+    "env": {
+      "python": "3.12.10",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+      "torch": "2.11.0+cu128",
+      "transformers": "4.57.6",
+      "numpy": "2.4.6",
+      "cuda_available": true,
+      "git_commit": "c2fbb46b45012545f47b133268efb3555da87820-dirty",
+      "disk_free_gb": 227.9,
+      "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+      "gpu_mem_gb": 17.1,
+      "gpu_capability": "12.0",
+      "cuda": "12.8",
+      "cudnn": 91900,
+      "gpu_power_state": "26.36 W, 175.00 W, 232 MHz, 3090 MHz, P4",
+      "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+    }
+  }
+}

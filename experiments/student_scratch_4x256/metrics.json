@@ -1,0 +1,89 @@
+{
+  "name": "student_scratch_4x256",
+  "config": {
+    "name": "student_scratch_4x256",
+    "model": {
+      "init": "scratch",
+      "scratch_base": "microsoft/unixcoder-base",
+      "tokenizer": "microsoft/unixcoder-base",
+      "scratch": {
+        "hidden_size": 256,
+        "num_hidden_layers": 4,
+        "num_attention_heads": 4,
+        "intermediate_size": 1024
+      },
+      "embed_init": "pca:microsoft/unixcoder-base"
+    },
+    "data": {
+      "normalize": "single_line",
+      "max_length": 512,
+      "truncation": "head"
+    },
+    "train": {
+      "epochs": 8,
+      "batch_size": 64,
+      "lr": 0.0003,
+      "warmup_ratio": 0.06,
+      "weight_decay": 0.01,
+      "seed": 42,
+      "bf16": true,
+      "eval_every_epochs": 1.0,
+      "patience": 3
+    }
+  },
+  "best": {
+    "val_mean_f1_tuned": 0.8592198250498219,
+    "val_tuned": {
+      "f1_vuln": 0.8026662963477295,
+      "f1_mat": 0.9157733537519143,
+      "p_vuln": 0.7783463506598438,
+      "r_vuln": 0.8285550458715596,
+      "p_mat": 0.980327868852459,
+      "r_mat": 0.8591954022988506,
+      "mean_f1": 0.8592198250498219
+    },
+    "val_at_0.5": {
+      "f1_vuln": 0.8012765957446808,
+      "f1_mat": 0.9143730886850153,
+      "p_vuln": 0.7929533969679955,
+      "r_vuln": 0.809776376146789,
+      "p_mat": 0.9771241830065359,
+      "r_mat": 0.8591954022988506,
+      "mean_f1": 0.857824842214848
+    },
+    "thresholds": [
+      0.4499999999999999,
+      0.8999999999999999
+    ],
+    "epoch": 2.0
+  },
+  "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\student_scratch_4x256\\best",
+  "train_time_s": 415.6,
+  "peak_gpu_mem_gb": 2.04,
+  "params": {
+    "total": 16653570,
+    "embedding": 13428224,
+    "non_embedding": 3225346
+  },
+  "n_fit": 193343,
+  "n_val": 21243,
+  "mean_fit_tokens": 153.0089271398499,
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "c2fbb46b45012545f47b133268efb3555da87820-dirty",
+    "disk_free_gb": 240.9,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "28.79 W, 175.00 W, 690 MHz, 3090 MHz, P0",
+    "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+  }
+}
