@@ -1,0 +1,39 @@
+Predicting...:   0%|          | 0/36 [00:00<?, ?it/s]Predicting...:   3%|2         | 1/36 [00:02<01:41,  2.90s/it]Predicting...:   6%|5         | 2/36 [00:05<01:24,  2.50s/it]Predicting...:   8%|8         | 3/36 [00:07<01:14,  2.25s/it]Predicting...:  11%|#1        | 4/36 [00:09<01:09,  2.16s/it]Predicting...:  14%|#3        | 5/36 [00:11<01:04,  2.07s/it]Predicting...:  17%|#6        | 6/36 [00:13<01:01,  2.05s/it]Predicting...:  19%|#9        | 7/36 [00:14<00:58,  2.02s/it]Predicting...:  22%|##2       | 8/36 [00:17<00:57,  2.05s/it]Predicting...:  25%|##5       | 9/36 [00:19<00:54,  2.02s/it]Predicting...:  28%|##7       | 10/36 [00:21<00:52,  2.02s/it]Predicting...:  31%|###       | 11/36 [00:23<00:50,  2.01s/it]Predicting...:  33%|###3      | 12/36 [00:25<00:48,  2.01s/it]Predicting...:  36%|###6      | 13/36 [00:27<00:45,  2.00s/it]Predicting...:  39%|###8      | 14/36 [00:29<00:44,  2.03s/it]Predicting...:  42%|####1     | 15/36 [00:31<00:42,  2.00s/it]Predicting...:  44%|####4     | 16/36 [00:33<00:40,  2.01s/it]Predicting...:  47%|####7     | 17/36 [00:35<00:38,  2.00s/it]Predicting...:  50%|#####     | 18/36 [00:37<00:36,  2.00s/it]Predicting...:  53%|#####2    | 19/36 [00:39<00:34,  2.00s/it]Predicting...:  56%|#####5    | 20/36 [00:41<00:32,  2.04s/it]Predicting...:  58%|#####8    | 21/36 [00:43<00:30,  2.02s/it]Predicting...:  61%|######1   | 22/36 [00:45<00:28,  2.02s/it]Predicting...:  64%|######3   | 23/36 [00:47<00:26,  2.01s/it]Predicting...:  67%|######6   | 24/36 [00:49<00:24,  2.01s/it]Predicting...:  69%|######9   | 25/36 [00:51<00:22,  2.01s/it]Predicting...:  72%|#######2  | 26/36 [00:53<00:20,  2.05s/it]Predicting...:  75%|#######5  | 27/36 [00:55<00:18,  2.02s/it]Predicting...:  78%|#######7  | 28/36 [00:57<00:16,  2.01s/it]Predicting...:  81%|########  | 29/36 [00:59<00:14,  2.01s/it]Predicting...:  83%|########3 | 30/36 [01:01<00:12,  2.00s/it]Predicting...:  86%|########6 | 31/36 [01:03<00:10,  2.00s/it]Predicting...:  89%|########8 | 32/36 [01:05<00:08,  2.05s/it]Predicting...:  92%|#########1| 33/36 [01:07<00:06,  2.01s/it]Predicting...:  94%|#########4| 34/36 [01:09<00:04,  2.01s/it]Predicting...:  97%|#########7| 35/36 [01:11<00:02,  2.01s/it]Predicting...: 100%|##########| 36/36 [01:12<00:00,  1.66s/it]Predicting...: 100%|##########| 36/36 [01:12<00:00,  2.01s/it]
+warning: in the working copy of 'paper/AEGIS.tex', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/aegis/training/train.py', LF will be replaced by CRLF the next time Git touches it
+{
+ "scores": [
+  {
+   "cat": "Vulnerability",
+   "precision": 0.9419429564210221,
+   "recall": 0.9326261467889908,
+   "f1": 0.9372613988331052,
+   "accuracy": 0.9589982582497764,
+   "tp": 6506,
+   "fp": 401,
+   "tn": 13866,
+   "fn": 470
+  },
+  {
+   "cat": "MAT",
+   "precision": 0.9836065573770492,
+   "recall": 0.8620689655172413,
+   "f1": 0.9188361408882082,
+   "accuracy": 0.9975050604905146,
+   "tp": 300,
+   "fp": 5,
+   "tn": 20890,
+   "fn": 48
+  }
+ ],
+ "avg_precision": 0.9627747568990357,
+ "avg_recall": 0.8973475561531161,
+ "avg_f1": 0.9280487698606568,
+ "avg_runtime": 33.49768531322479,
+ "avg_flops": 461975.9544990721,
+ "score": 0.9193313278871442,
+ "n_samples": 21243,
+ "batching": "official",
+ "batch_size": 600
+}
+analytic {'linear_gflops': 461917.450257408, 'attention_gflops': 51321.369526272, 'total_gflops': 513238.81978368}

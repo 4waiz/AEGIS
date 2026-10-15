@@ -55,9 +55,16 @@ def collate(seqs: list[np.ndarray], pad_id: int) -> tuple[torch.Tensor, torch.Te
     return ids, mask
 
 
-def prepare_split(df, tokenizer, data_cfg: dict, tag: str) -> list[np.ndarray]:
-    mode = data_cfg.get("normalize", "raw")
-    texts = [normalize(s, mode) for s in df["Function"].tolist()]
+def prepare_split(df, tokenizer, data_cfg: dict, tag: str, mode: str | None = None) -> list[np.ndarray]:
+    """Normalize, tokenize (cached) and truncate. mode="mixed" (training only) normalizes a fixed,
+    seeded half of the functions as single_line and leaves the other half raw, so that the model
+    sees both input formats."""
+    mode = mode or data_cfg.get("normalize", "raw")
+    if mode == "mixed":
+        pick = np.random.default_rng(0).random(len(df)) < 0.5
+        texts = [normalize(s, "single_line" if p else "raw") for s, p in zip(df["Function"].tolist(), pick)]
+    else:
+        texts = [normalize(s, mode) for s in df["Function"].tolist()]
     cache = tokenize_cached(texts, tokenizer, f"{tag}_{mode}")
     prefix = tokenizer.convert_tokens_to_ids(data_cfg["prefix_tokens"]) if data_cfg.get("prefix_tokens") else None
     return build_inputs(cache, tokenizer.cls_token_id, tokenizer.sep_token_id,
@@ -129,7 +136,7 @@ def train(config_path: str) -> dict:
     if mcfg["init"] == "scratch":
         tok_tag = mcfg["tokenizer"]
     tok_tag = tok_tag.replace("/", "_")
-    fit_inputs = prepare_split(splits["fit"], tokenizer, dcfg, f"fit_{tok_tag}")
+    fit_inputs = prepare_split(splits["fit"], tokenizer, dcfg, f"fit_{tok_tag}", mode=dcfg.get("train_normalize"))
     val_inputs = prepare_split(splits["val"], tokenizer, dcfg, f"val_{tok_tag}")
     y_fit = splits["fit"][["y_vuln", "y_mat"]].to_numpy().astype(np.float32)
     y_val = splits["val"][["y_vuln", "y_mat"]].to_numpy()

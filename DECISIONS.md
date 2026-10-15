@@ -88,3 +88,20 @@ Each entry: date, decision, evidence, consequences. Newest last.
 - Before scoring anything on the public test, we run `collapse` normalization (indentation removed,
   line breaks kept) and a second raw seed. The final input format is chosen on internal-validation
   projected score only; round-5 public-test scoring was stopped before it started and waits for this.
+
+## D14 (2026-10-15): Final model = kd_teacher_L3_mixed with thresholds folded into the output bias
+- Still decided on internal validation only (no public-test scores of any student had been computed).
+- Input-format ablation (internal val, KD, 3 layers): single-line 0.9337 (3 seeds), collapse 0.9347,
+  raw 0.9332/0.9336 (2 seeds). Line structure helps weakness (raw 0.942 vs 0.937) and hurts MAT;
+  the extra tokens cost about as much score as the F1 changes return.
+- The organizers may run the unmodified notebook (raw input, global padding, threshold 0.5) instead of
+  our inference code (open question 1). A single-line-trained model drops to 0.925 mean F1 there.
+  Training on a seeded 50/50 mix of raw and single-line inputs gives 0.9329 with our pipeline and 0.9289
+  in the vanilla notebook (raw model: 0.9332 / 0.9332). Projected score, our pipeline / vanilla:
+  single-line 0.9434 / 0.9009, mixed 0.9430 / 0.9033, raw 0.9403 / 0.9059. The mixed model has the
+  smallest worst-case loss (0.0026) and is chosen.
+- Threshold folding: subtracting logit(t_k) from the bias of output k makes sigmoid > 0.5 equivalent to
+  sigmoid > t_k, so the tuned thresholds also apply in any 0.5-threshold pipeline. Exported model:
+  `aegis_final` (see src/aegis/optimization/export.py); thresholds in its config become [0.5, 0.5].
+- If the organizers confirm that participants' own inference code is used, single-line-only training
+  would be +0.0004 projected (within seed noise); not worth a switch.

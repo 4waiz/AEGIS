@@ -1,0 +1,83 @@
+warning: in the working copy of 'src/aegis/training/train.py', LF will be replaced by CRLF the next time Git touches it
+step 500/24168 loss 1.0856 1.0 min
+step 1000/24168 loss 0.8578 1.7 min
+step 1500/24168 loss 0.7541 2.9 min
+step 2000/24168 loss 0.6933 4.0 min
+step 2500/24168 loss 0.6484 4.7 min
+step 3000/24168 loss 0.6168 5.4 min
+{"epoch": 0.5, "train_loss": 0.6155079722069068, "elapsed_s": 343.3} val@0.5 0.9102 (V 0.8987 M 0.9217) tuned 0.9132 thr [0.7999999999999999, 0.9199999999999999]
+step 3500/24168 loss 0.4522 6.6 min
+step 4000/24168 loss 0.4458 7.4 min
+step 4500/24168 loss 0.4427 8.4 min
+step 5000/24168 loss 0.4366 9.3 min
+step 5500/24168 loss 0.4337 10.3 min
+step 6000/24168 loss 0.4305 11.2 min
+{"epoch": 1.0, "train_loss": 0.4299982071455564, "elapsed_s": 688.1} val@0.5 0.9237 (V 0.9225 M 0.9250) tuned 0.9246 thr [0.5099999999999999, 0.5399999999999999]
+step 6500/24168 loss 0.4036 12.3 min
+step 7000/24168 loss 0.3997 13.3 min
+step 7500/24168 loss 0.3961 14.2 min
+step 8000/24168 loss 0.3950 15.2 min
+step 8500/24168 loss 0.3947 16.1 min
+step 9000/24168 loss 0.3950 17.1 min
+{"epoch": 1.5, "train_loss": 0.39502948482121036, "elapsed_s": 1047.7} val@0.5 0.9251 (V 0.9255 M 0.9247) tuned 0.9269 thr [0.61, 0.07]
+step 9500/24168 loss 0.3876 18.2 min
+step 10000/24168 loss 0.3889 19.1 min
+step 10500/24168 loss 0.3872 20.0 min
+step 11000/24168 loss 0.3862 20.8 min
+step 11500/24168 loss 0.3878 21.8 min
+step 12000/24168 loss 0.3867 22.7 min
+{"epoch": 2.0, "train_loss": 0.3865207686640497, "elapsed_s": 1385.4} val@0.5 0.9296 (V 0.9325 M 0.9266) tuned 0.9314 thr [0.72, 0.95]
+step 12500/24168 loss 0.3620 23.9 min
+step 13000/24168 loss 0.3647 24.7 min
+step 13500/24168 loss 0.3648 25.6 min
+step 14000/24168 loss 0.3651 26.6 min
+step 14500/24168 loss 0.3654 27.5 min
+step 15000/24168 loss 0.3653 28.5 min
+{"epoch": 2.5, "train_loss": 0.3658018853639933, "elapsed_s": 1732.6} val@0.5 0.9301 (V 0.9352 M 0.9250) tuned 0.9312 thr [0.42999999999999994, 0.12]
+step 15500/24168 loss 0.3619 29.6 min
+step 16000/24168 loss 0.3628 30.1 min
+step 16500/24168 loss 0.3620 30.5 min
+step 17000/24168 loss 0.3635 30.9 min
+step 17500/24168 loss 0.3639 31.3 min
+step 18000/24168 loss 0.3640 31.7 min
+{"epoch": 3.0, "train_loss": 0.36308666476249224, "elapsed_s": 1916.3} val@0.5 0.9318 (V 0.9371 M 0.9266) tuned 0.9327 thr [0.43999999999999995, 0.9299999999999999]
+step 18500/24168 loss 0.3561 32.3 min
+step 19000/24168 loss 0.3520 32.6 min
+step 19500/24168 loss 0.3498 33.0 min
+step 20000/24168 loss 0.3501 33.4 min
+step 20500/24168 loss 0.3502 33.8 min
+step 21000/24168 loss 0.3500 34.2 min
+{"epoch": 3.5, "train_loss": 0.34980131846534146, "elapsed_s": 2068.8} val@0.5 0.9313 (V 0.9361 M 0.9266) tuned 0.9329 thr [0.72, 0.7899999999999999]
+step 21500/24168 loss 0.3555 34.8 min
+step 22000/24168 loss 0.3520 35.2 min
+step 22500/24168 loss 0.3509 35.6 min
+step 23000/24168 loss 0.3507 36.0 min
+step 23500/24168 loss 0.3504 36.4 min
+step 24000/24168 loss 0.3512 36.8 min
+{"epoch": 4.0, "train_loss": 0.3509993904702753, "elapsed_s": 2226.4} val@0.5 0.9331 (V 0.9395 M 0.9266) tuned 0.9347 thr [0.48999999999999994, 0.95]
+{
+  "val_mean_f1_tuned": 0.9346759355487657,
+  "val_tuned": {
+    "f1_vuln": 0.9399040183367954,
+    "f1_mat": 0.9294478527607362,
+    "p_vuln": 0.9392984967788117,
+    "r_vuln": 0.9405103211009175,
+    "p_mat": 0.9967105263157895,
+    "r_mat": 0.8706896551724138,
+    "mean_f1": 0.9346759355487657
+  },
+  "val_at_0.5": {
+    "f1_vuln": 0.9395155510964598,
+    "f1_mat": 0.9266055045871561,
+    "p_vuln": 0.9393809114359415,
+    "r_vuln": 0.9396502293577982,
+    "p_mat": 0.9901960784313726,
+    "r_mat": 0.8706896551724138,
+    "mean_f1": 0.9330605278418079
+  },
+  "thresholds": [
+    0.48999999999999994,
+    0.95
+  ],
+  "epoch": 4.0
+}

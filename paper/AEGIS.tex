@@ -130,11 +130,28 @@ the T4 used for the official ranking differ; GFLOPs do not depend on the hardwar
 
 \section{Limitations}
 \label{sec:limitations}
-% labels: keyword MAT, heuristic W, noisy Big-Vul/Devign; clone overlap and random split;
-% runtime hardware dependence; not a production vulnerability detector.
+\textbf{Labels.} Both labels are partly heuristic: MAT is a keyword rule, W is a set of CWE-derived
+patterns, and Big-Vul and Devign labels are known to be noisy~\cite{croft2023dataquality,ding2025primevul}.
+High F1 on this benchmark measures agreement with these annotations, not the ability to find real
+vulnerabilities, and AEGIS should not be used as a security tool on that basis.
+\textbf{Generalization.} The split is random and stratified, and \CloneTestPct\% of test functions have a
+structural clone in training, so our scores likely overestimate performance on unseen projects or on later
+code. Weakness prevalence also depends strongly on length and project, which a model may exploit as shortcuts.
+\textbf{Measurement.} Runtime depends on the GPU, driver and power mode; our runtimes come from a laptop GPU,
+while the ranking uses a T4. GFLOPs follow the profiler's convention and omit fused attention, which our
+analytic model quantifies separately. Several scoring details (number of repetitions, constants for the
+larger hidden split) are ambiguous in the official material; we follow the published notebook code.
+\textbf{Scope.} We explored one encoder family and a single distillation objective, and ran seed repeats
+only for the final configuration and its no-distillation counterpart.
 
 \section{Conclusion}
 \label{sec:conclusion}
+Under an efficiency-weighted ranking, the largest gains for NLBSE'27 came from reading the score: shrinking
+what the model processes (whitespace normalization, a compact tokenizer, dynamic padding) and choosing depth
+by the projected score. Multitask distillation then recovers most of the gap to the 12-layer teacher at a
+quarter of its cost. MAT is effectively solved up to the information missing from the released functions;
+remaining errors are in weakness detection, especially for short functions. Code, configurations, experiment
+logs and the trained model are available at \url{https://github.com/4waiz/AEGIS}.
 
 \section*{Acknowledgment}
 % IEEE policy (quoted in the ICSE'27 instructions): use of AI-generated content must be disclosed here.
