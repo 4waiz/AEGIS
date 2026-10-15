@@ -39,3 +39,6 @@ Thumbs.db
 # Large numeric dumps (regenerable)
 *.npz
 *.npy
+
+# Local tool binaries (e.g. tectonic)
+tools/

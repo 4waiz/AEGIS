@@ -92,6 +92,7 @@ def main() -> None:
         m["FinalMeanGain"] = f"{mt['avg_f1'] - b_off['avg_f1']:+.3f}"
         m["FinalMatGain"] = f"{mt['scores'][1]['f1'] - b_off['scores'][1]['f1']:+.3f}"
         m["FinalVulnDelta"] = f"{mt['scores'][0]['f1'] - b_off['scores'][0]['f1']:+.3f}"
+        m["FinalVulnGap"] = f"{abs(mt['scores'][0]['f1'] - b_off['scores'][0]['f1']):.3f}"
         m["FinalMatRecall"], m["BaseMatRecall"] = f"{mt['scores'][1]['recall']:.2f}", f"{b_off['scores'][1]['recall']:.2f}"
         ea = load(f"reports/error_analysis_{name}_test.json")
         m["EaMatFn"] = str(ea["overall"]["mat"]["fn"])

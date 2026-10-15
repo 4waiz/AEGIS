@@ -24,7 +24,7 @@ is worth 0.006 score, as much as 30 s of runtime or 90,000 GFLOPs.
 | Model | Weakness F1 | MAT F1 | Mean F1 | Runtime (s)* | GFLOPs | Score* |
 |---|---|---|---|---|---|---|
 | CodeBERT baseline (official procedure) | 0.939 | 0.881 | 0.910 | 71.0 | 2,666,498 | 0.754 |
-| **AEGIS** (3-layer distilled UniXcoder student) | 0.932 | 0.931 | **0.932** | **6.2** | **206,123** | **0.944** |
+| **AEGIS** (3-layer distilled UniXcoder student) | 0.932 | 0.931 | **0.931** | **6.2** | **206,123** | **0.944** |
 
 \*Measured on one RTX 5080 Laptop GPU in the same session (the organizers' T4 is slower; the official
 baseline score on T4 is 0.729). Full table, ablations and error analysis: [PROJECT_STATUS.md](PROJECT_STATUS.md),

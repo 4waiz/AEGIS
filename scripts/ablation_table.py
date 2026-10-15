@@ -19,20 +19,21 @@ from leaderboard import test_over_val  # noqa: E402
 
 from aegis.evaluation.official import submission_score  # noqa: E402
 
-ROWS = [  # (group, label, experiments [seeds])
+ROWS = [  # (group, label (LaTeX-safe), experiments [seeds])
     ("Depth (no KD)", "1 layer", ["student_unix_L1"]),
     ("Depth (no KD)", "2 layers", ["student_unix_L2"]),
-    ("Depth (no KD)", "3 layers", ["student_unix_L3", "student_unix_L3_s43", "student_unix_L3_s44"]),
+    ("Depth (no KD)", "3 layers$^\\dagger$", ["student_unix_L3", "student_unix_L3_s43", "student_unix_L3_s44"]),
     ("Depth (no KD)", "4 layers", ["student_unix_L4"]),
     ("Depth (no KD)", "6 layers", ["student_unix_L6"]),
     ("Depth (no KD)", "12 layers (teacher)", ["teacher_unixcoder"]),
     ("Distillation", "2 layers + KD", ["kd_teacher_L2"]),
-    ("Distillation", "3 layers + KD (AEGIS)", ["kd_teacher_L3", "kd_teacher_L3_s43", "kd_teacher_L3_s44"]),
+    ("Distillation", "3 layers + KD$^\\dagger$", ["kd_teacher_L3", "kd_teacher_L3_s43", "kd_teacher_L3_s44"]),
     ("Distillation", "4 layers + KD", ["kd_teacher_L4"]),
-    ("Variants of AEGIS", "pretrained init (2 layers)", ["kd_pre_L2"]),
-    ("Variants of AEGIS", "6 epochs", ["kd_teacher_L3_e6"]),
-    ("Variants of AEGIS", "raw input (no normalization)", ["kd_teacher_L3_raw"]),
-    ("Reference", "4x256 from scratch", ["student_scratch_4x256"]),
+    ("Variants", "2L + KD, pretrained init", ["kd_pre_L2"]),
+    ("Variants", "3L + KD, 6 epochs", ["kd_teacher_L3_e6"]),
+    ("Variants", "3L + KD, raw input", ["kd_teacher_L3_raw"]),
+    ("Variants", "3L + KD, mixed input (final)", ["kd_teacher_L3_mixed"]),
+    ("Reference", "4$\\times$256 from scratch", ["student_scratch_4x256"]),
 ]
 
 
@@ -61,12 +62,7 @@ def main() -> None:
           "formula with cost scaled to the public-test size.", "",
           "| Group | Model | seeds | Weakness F1 | MAT F1 | Mean F1 | Mean F1@0.5 | GFLOPs (val) | Runtime s (val) | Proj. score |",
           "|---|---|---|---|---|---|---|---|---|---|"]
-    tex = [r"\begin{table}[t]", r"\centering", r"\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; "
-           r"cost is measured with the official loop on internal validation; the score projects that cost to the public-test size. "
-           r"Rows with $\pm$ average three seeds. These costs were measured with the GPU in a lower power mode than "
-           r"Table~\ref{tab:main}, so only rows within this table are comparable.}", r"\label{tab:ablations}", r"\setlength{\tabcolsep}{3pt}", r"\footnotesize",
-           r"\begin{tabular}{lcccrc}", r"\toprule", r"Model & Weak.\ F1 & MAT F1 & Mean F1 & GFLOPs & Score \\", r"\midrule"]
-    group = None
+    body, sds, group = [], [], None
     for g, label, names in ROWS:
         s = stats(names)
         if s is None:
@@ -75,11 +71,19 @@ def main() -> None:
         md.append(f"| {g} | {label} | {s['n']} | {s['vuln']:.4f} | {s['mat']:.4f} | {s['mean']:.4f}{sd} | {s['mean05']:.4f} | "
                   f"{s['gflops']:,.0f} | {s['runtime']:.2f} | {s['proj']:.4f} |")
         if g != group and group is not None:
-            tex.append(r"\midrule")
+            body.append(r"\midrule")
         group = g
-        sdt = f"$\\pm${s['mean_sd']:.4f}" if s["mean_sd"] is not None else ""
-        tex.append(f"{label} & {s['vuln']:.3f} & {s['mat']:.3f} & {s['mean']:.3f}{sdt} & {s['gflops'] / 1e3:.0f}k & {s['proj']:.3f} \\\\")
-    tex += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+        if s["mean_sd"] is not None:
+            sds.append(f"{s['mean_sd']:.4f}")
+        body.append(f"{label} & {s['vuln']:.3f} & {s['mat']:.3f} & {s['mean']:.3f} & {s['gflops'] / 1e3:.0f}k & {s['proj']:.3f} \\\\")
+    caption = (r"\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; cost (GFLOPs) is measured "
+               r"with the official loop on internal validation and the score projects it to the public-test size. "
+               rf"$^\dagger$Mean of three seeds (standard deviation of mean F1: {' and '.join(sds)}). "
+               r"Costs were measured in a lower GPU power mode than Table~\ref{tab:main}.}")
+    tex = [r"\begin{table}[t]", r"\centering", caption, r"\label{tab:ablations}", r"\setlength{\tabcolsep}{3pt}",
+           r"\resizebox{\columnwidth}{!}{%", r"\begin{tabular}{lccccc}", r"\toprule",
+           r"Model & Weak.\ F1 & MAT F1 & Mean F1 & GFLOPs & Score \\", r"\midrule",
+           *body, r"\bottomrule", r"\end{tabular}}", r"\end{table}"]
     (ROOT / "reports" / "ablations.md").write_text("\n".join(md) + "\n")
     (ROOT / "paper" / "table_ablations.tex").write_text("\n".join(tex) + "\n")
     print("\n".join(md))

@@ -1,7 +1,7 @@
 # Next steps (ordered)
 
-1. **LaTeX toolchain** (needs the user): install MiKTeX/TeX Live, or allow a portable `tectonic` download, or
-   compile on Overleaf. Then compile paper/AEGIS.tex, check the 4-page limit and inspect every page.
+1. Paper compiles (tools/tectonic, 4 pages). Re-run `python scripts/paper_numbers.py` and recompile after any
+   new result.
 2. **Fill author details** in paper/AEGIS.tex (affiliation, e-mail) and confirm the AI-use disclosure wording.
 3. **Host the model** on the Hugging Face Hub under the user's account (needs approval and a token), then run
    notebooks/AEGIS_T4_evaluation.ipynb on a Colab T4 (the user runs it) to get T4 runtime numbers.

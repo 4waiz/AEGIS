@@ -14,7 +14,7 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 | 8. Error analysis | Done (internal val and public test) | reports/error_analysis_kd_teacher_L3*.md |
 | 9. Software package | Working: training, measurement, export, inference, tests | src/aegis/, scripts/, tests/ |
 | 10. Demo | Not started (optional) | |
-| 11. Paper | Full draft; **not compiled yet (no LaTeX toolchain)** | paper/AEGIS.tex, paper/numbers.tex |
+| 11. Paper | Compiled with tectonic 0.17.0: 4 pages incl. references, IEEEtran, no overfull boxes; author details and AI-disclosure wording pending | paper/AEGIS.pdf |
 | 12. Reviewer audit | Not started | |
 | 13. Submission package | Not started; needs T4 run, HF model upload, public repo at submission | |
 
@@ -46,4 +46,4 @@ on Colab after the model is hosted.
 - Windows 11, Python 3.12.10, torch 2.11.0+cu128, transformers 4.57.6.
 - ASUS ROG Strix G18, RTX 5080 Laptop (16 GB). Silent mode caps the GPU at ~55 W; Turbo mode draws ~130 W
   (66 TFLOPS fp16 matmul measured). Experiments up to round 4c ran in Silent mode; the public-test table ran in Turbo.
-- No LaTeX toolchain installed.
+- LaTeX: portable tectonic 0.17.0 in tools/tectonic (git-ignored; SHA-256 verified against the GitHub release). Build: `cd paper && ../tools/tectonic/tectonic.exe AEGIS.tex`.

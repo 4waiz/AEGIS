@@ -1,29 +1,30 @@
 \begin{table}[t]
 \centering
-\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; cost is measured with the official loop on internal validation; the score projects that cost to the public-test size. Rows with $\pm$ average three seeds. These costs were measured with the GPU in a lower power mode than Table~\ref{tab:main}, so only rows within this table are comparable.}
+\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; cost (GFLOPs) is measured with the official loop on internal validation and the score projects it to the public-test size. $^\dagger$Mean of three seeds (standard deviation of mean F1: 0.0008 and 0.0002). Costs were measured in a lower GPU power mode than Table~\ref{tab:main}.}
 \label{tab:ablations}
 \setlength{\tabcolsep}{3pt}
-\footnotesize
-\begin{tabular}{lcccrc}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccccc}
 \toprule
 Model & Weak.\ F1 & MAT F1 & Mean F1 & GFLOPs & Score \\
 \midrule
 1 layer & 0.805 & 0.917 & 0.861 & 48k & 0.911 \\
 2 layers & 0.901 & 0.927 & 0.914 & 97k & 0.937 \\
-3 layers & 0.930 & 0.931 & 0.931$\pm$0.0008 & 145k & 0.941 \\
+3 layers$^\dagger$ & 0.930 & 0.931 & 0.931 & 145k & 0.941 \\
 4 layers & 0.933 & 0.931 & 0.932 & 193k & 0.937 \\
 6 layers & 0.942 & 0.930 & 0.936 & 290k & 0.928 \\
 12 layers (teacher) & 0.948 & 0.931 & 0.940 & 580k & 0.897 \\
 \midrule
 2 layers + KD & 0.908 & 0.925 & 0.917 & 97k & 0.939 \\
-3 layers + KD (AEGIS) & 0.937 & 0.931 & 0.934$\pm$0.0002 & 145k & 0.943 \\
+3 layers + KD$^\dagger$ & 0.937 & 0.931 & 0.934 & 145k & 0.943 \\
 4 layers + KD & 0.943 & 0.931 & 0.937 & 193k & 0.940 \\
 \midrule
-pretrained init (2 layers) & 0.907 & 0.928 & 0.917 & 97k & 0.939 \\
-6 epochs & 0.938 & 0.930 & 0.934 & 145k & 0.943 \\
-raw input (no normalization) & 0.942 & 0.924 & 0.933 & 169k & 0.940 \\
+2L + KD, pretrained init & 0.907 & 0.928 & 0.917 & 97k & 0.939 \\
+3L + KD, 6 epochs & 0.938 & 0.930 & 0.934 & 145k & 0.943 \\
+3L + KD, raw input & 0.942 & 0.924 & 0.933 & 169k & 0.940 \\
+3L + KD, mixed input (final) & 0.935 & 0.931 & 0.933 & 145k & 0.943 \\
 \midrule
-4x256 from scratch & 0.803 & 0.916 & 0.859 & 22k & 0.913 \\
+4$\times$256 from scratch & 0.803 & 0.916 & 0.859 & 22k & 0.913 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
