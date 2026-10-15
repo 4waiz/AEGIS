@@ -105,3 +105,13 @@ Each entry: date, decision, evidence, consequences. Newest last.
   `aegis_final` (see src/aegis/optimization/export.py); thresholds in its config become [0.5, 0.5].
 - If the organizers confirm that participants' own inference code is used, single-line-only training
   would be +0.0004 projected (within seed noise); not worth a switch.
+
+## D15 (2026-10-15): Incident: orphaned round-5 run; all public-test measurements repeated
+- Stopping the round-5 background task killed only its wrapper shell. The inner script kept waiting and,
+  after round 4 finished, scored kd_teacher_L3, student_unix_L3 and the teacher on the public test
+  (08:10-08:40) while round 4b was training on the same GPU. These files were never read before D14
+  (decided on internal-validation numbers only, at 09:38) and were committed unchanged in commit 28bc8e7.
+- Their F1 and GFLOPs are unaffected, but their runtimes were measured under GPU contention and are
+  invalid. All public-test measurements (baselines included) are re-run sequentially on an idle GPU
+  by scripts/queue_round5b.sh; the paper uses only those.
+- Lesson: background queues are now stopped by killing the python/bash processes, not only the wrapper.

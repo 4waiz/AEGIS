@@ -26,9 +26,9 @@
   "avg_precision": 0.9605504107152201,
   "avg_recall": 0.8686582247560212,
   "avg_f1": 0.9102329652730108,
-  "avg_runtime": 189.68523740768433,
+  "avg_runtime": 71.01537871360779,
   "avg_flops": 2666497.659072002,
-  "score": 0.7304362210774694,
+  "score": 0.7541701928162847,
   "n_samples": 30655,
   "batching": "official",
   "batch_size": 600,
@@ -63,15 +63,15 @@
       "transformers": "4.57.6",
       "numpy": "2.4.6",
       "cuda_available": true,
-      "git_commit": "7c861cf16ce13268e1f4590b2e2096b78a0ed674-dirty",
-      "disk_free_gb": 229.2,
+      "git_commit": "28bc8e794c5e312068157449e93e3486b8a9be47-dirty",
+      "disk_free_gb": 236.7,
       "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
       "gpu_mem_gb": 17.1,
       "gpu_capability": "12.0",
       "cuda": "12.8",
       "cudnn": 91900,
-      "gpu_power_state": "17.86 W, 175.00 W, 232 MHz, 3090 MHz, P4",
-      "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+      "gpu_power_state": "20.70 W, 175.00 W, 225 MHz, 3090 MHz, P4",
+      "power_scheme": "Power Scheme GUID: 6fecc5ae-f350-48a5-b669-b472cb895ccf  (Turbo)"
     }
   }
 }

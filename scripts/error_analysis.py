@@ -38,10 +38,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("experiment")
     ap.add_argument("--test", help="probs .npy from scripts/measure.py on the public test split")
+    ap.add_argument("--threshold", type=float,
+                    help="override thresholds, e.g. 0.5 for an exported model with folded thresholds")
     args = ap.parse_args()
     exp = EXPERIMENTS_DIR / args.experiment
     metrics = json.loads((exp / "metrics.json").read_text())
-    thr = np.asarray(metrics["best"]["thresholds"])
+    thr = np.asarray([args.threshold] * 2 if args.threshold is not None else metrics["best"]["thresholds"])
     splits = load_internal_splits()
     if args.test:
         df = splits["test"].copy()

@@ -21,7 +21,16 @@ email (to be completed)}}
 \maketitle
 
 \begin{abstract}
-% Written last, from measured results only.
+The NLBSE'27 tool competition ranks single multitask models that detect weaknesses and self-admitted
+technical debt (SATD) in C/C++ functions by a score that combines mean F1 with inference runtime and GFLOPs.
+AEGIS treats this score as the design objective. An audit of the data shows that the SATD label is a keyword
+annotation whose evidence is partly missing from the released functions, and that the official pipeline
+wastes most of its computation on padding. AEGIS shortens the input with whitespace normalization and a
+compact tokenizer, pads batches dynamically, chooses encoder depth by the projected score, and distills a
+12-layer UniXcoder teacher into a 3-layer student with per-task thresholds folded into the model. On the public
+test split, AEGIS improves mean F1 from \BaseMeanFone{} to \FinalMeanFone{} while using
+\FinalGflopsRatio$\times$ fewer GFLOPs than the CodeBERT baseline, raising the competition score from
+\BaseScoreLocal{} to \FinalScore{} on the same GPU.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -121,12 +130,56 @@ are trained with AdamW (learning rate $2\cdot10^{-5}$ for the teacher, $5\cdot10
 batch size 32, linear warmup (6\%) and decay, bf16, length-grouped batches and seed 42 unless stated
 otherwise. The teacher trains for 3 epochs and students for 4. Inference cost is measured with the official
 measurement loop (two timed forward passes per batch under fp16 autocast and \texttt{torch.profiler}),
-re-implemented and validated against the official notebook, on an RTX 5080 Laptop GPU. Runtimes on
-the T4 used for the official ranking differ; GFLOPs do not depend on the hardware.
+re-implemented and validated against the official notebook (identical GFLOPs and predictions for the
+baseline), on an RTX 5080 Laptop GPU. All rows of Table~\ref{tab:main} were measured in one session in the same
+power mode; the ablations were measured earlier in a lower power mode. Runtimes on the T4 used for the official
+ranking differ; GFLOPs do not depend on the hardware.
 
 \section{Results}
 \label{sec:results}
-% Main table (public test, official loop); depth/frontier figure; ablations; error analysis.
+\input{table_main}
+
+\textbf{Main results.} Table~\ref{tab:main} reports every model on the public test split with the official
+measurement loop. AEGIS reaches a mean F1 of \FinalMeanFone{} (\FinalMeanGain{} over the baseline) while
+processing \FinalGflopsRatio$\times$ fewer GFLOPs and running \FinalRuntimeRatio$\times$ faster than the baseline on
+the same GPU, which raises the score from \BaseScoreLocal{} to \FinalScore{}. The F1 gain comes from MAT
+(\FinalMatGain{}; recall \BaseMatRecall{}$\to$\FinalMatRecall{}); on weakness AEGIS is \FinalVulnDelta{} below the
+12-layer CodeBERT. Length-sorted dynamic padding alone, applied to the unchanged baseline checkpoint, keeps its
+predictions and lifts its score to \BaseSortedScore{}. The 12-layer teacher is the most accurate model
+(\TeacherTestMeanFone{}) but scores \TeacherTestScore{} because of its cost.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{../figures/depth_tradeoff.pdf}
+\caption{Encoder depth vs.\ internal-validation mean F1 (top) and projected competition score (bottom).
+Points at 3 layers average three seeds.}
+\label{fig:depth}
+\end{figure}
+
+\textbf{Depth and distillation.} Mean F1 grows with depth, but the projected score peaks at three layers
+(Fig.~\ref{fig:depth}): from one to two layers weakness F1 rises by almost 0.1, while beyond three layers the
+added cost outweighs the remaining gains. Distillation helps at every depth we tried (Table~\ref{tab:ablations}).
+Over three seeds at three layers it raises internal-validation mean F1 from \NoKDMean$\pm$\NoKDSd{} to
+\KDMean$\pm$\KDSd{} (Welch $p=\KDpMean$); the gain is entirely in weakness F1 (+\KDVulnGain, $p=\KDpVuln$),
+since MAT is already at its ceiling. Threshold calibration adds about \ThrGain{} mean F1, raw (non-normalized) input
+trades weakness F1 for MAT F1 at \RawCostPct\% more cost, and a narrow encoder trained from scratch stays at \ScratchFone,
+which suggests that code pretraining matters more than width at this budget.
+
+\input{table_ablations}
+
+\textbf{Robustness to the evaluation procedure.} It is not specified whether the organizers run
+participants' inference code or the published notebook unchanged. The submitted model is trained on a seeded
+50/50 mix of raw and whitespace-normalized functions, and its thresholds are folded into the output bias
+($b_t \leftarrow b_t - \mathrm{logit}(\tau_t)$), which reproduces the tuned decisions exactly at a 0.5 threshold.
+Run through the unmodified notebook (raw input, padding to 512), AEGIS still reaches a mean F1 of
+\VanillaMeanFone{}, at \VanillaGflopsK{}k GFLOPs and a score of \VanillaScore{}.
+
+\textbf{Error analysis.} On the public test split, \EaMatFnNoTag{} of the \EaMatFn{} MAT false negatives contain
+no SATD tag in the released function, and on functions with a tag MAT F1 is \EaMatFoneTag. Weakness errors
+concentrate on short functions (F1 \EaVulnShort{} up to 64 tokens vs.\ \EaVulnLong{} for 257--512 tokens) and vary
+strongly by project: F1 is \EaVulnLinux{} on the Linux kernel (\LinuxSharePct\% of the test split) but \EaVulnChrome{} on Chrome,
+and \EaVulnFfmpeg{} and \EaVulnQemu{} on the two Devign projects, FFmpeg and qemu. Functions with a
+structural clone in the training split reach \EaVulnClone{} vs.\ \EaVulnNoClone{} for the rest.
 
 \section{Limitations}
 \label{sec:limitations}
@@ -154,7 +207,11 @@ remaining errors are in weakness detection, especially for short functions. Code
 logs and the trained model are available at \url{https://github.com/4waiz/AEGIS}.
 
 \section*{Acknowledgment}
-% IEEE policy (quoted in the ICSE'27 instructions): use of AI-generated content must be disclosed here.
+% DRAFT for the author to confirm or edit. IEEE policy (quoted in the ICSE'27 instructions) requires
+% disclosing AI-generated content in the acknowledgements.
+The author used an AI assistant (Claude, Anthropic) to implement the experiment code, run the experiments,
+analyze the results and draft this manuscript. All numbers are generated by the released scripts from the
+logged experiment outputs; the author is responsible for the content of the paper.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

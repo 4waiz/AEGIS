@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{Public-test results with the official measurement loop (two timed forward passes per batch, fp16, \texttt{torch.profiler}). Runtime and GFLOPs are totals over the 30{,}655 functions. Except for the first row (values printed in the official notebook, Colab T4), all rows were measured on one RTX 5080 Laptop GPU in the same session; runtimes are hardware-dependent, GFLOPs are not. The last row runs AEGIS through the unmodified official notebook procedure (raw input, padding to 512, threshold 0.5).}
+\label{tab:main}
+\begin{tabular}{lcrrrrrr}
+\toprule
+Model & Layers & Weak.\ F1 & MAT F1 & Mean F1 & Runtime (s) & GFLOPs & Score \\
+\midrule
+CodeBERT baseline, organizers (T4) & 12 & 0.939 & 0.881 & 0.910 & 198.9 & 2{,}667k & 0.729 \\
+CodeBERT baseline, official loop & 12 & 0.939 & 0.881 & 0.910 & 71.0 & 2{,}666k & 0.754 \\
+\quad + sorted dynamic padding & 12 & 0.939 & 0.881 & 0.910 & 30.5 & 1{,}172k & 0.862 \\
+UniXcoder teacher & 12 & 0.949 & 0.928 & 0.938 & 21.5 & 824k & 0.904 \\
+Student, no distillation & 3 & 0.929 & 0.927 & 0.928 & 6.0 & 206k & 0.942 \\
+\textbf{AEGIS} & 3 & 0.932 & 0.931 & 0.931 & 6.2 & 206k & 0.944 \\
+\quad AEGIS in the unmodified notebook & 3 & 0.935 & 0.918 & 0.927 & 19.0 & 667k & 0.908 \\
+\bottomrule
+\end{tabular}
+\end{table*}

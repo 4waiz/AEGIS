@@ -19,6 +19,17 @@ score = 0.6 * meanF1 + 0.2 * max((1000 - runtime_s) / 1000, 0) + 0.2 * max((3e6 
 measured on a Colab T4 with `torch.profiler` over the whole test split. One point of mean F1 (0.01)
 is worth 0.006 score, as much as 30 s of runtime or 90,000 GFLOPs.
 
+## Results (public test split, official measurement loop)
+
+| Model | Weakness F1 | MAT F1 | Mean F1 | Runtime (s)* | GFLOPs | Score* |
+|---|---|---|---|---|---|---|
+| CodeBERT baseline (official procedure) | 0.939 | 0.881 | 0.910 | 71.0 | 2,666,498 | 0.754 |
+| **AEGIS** (3-layer distilled UniXcoder student) | 0.932 | 0.931 | **0.932** | **6.2** | **206,123** | **0.944** |
+
+\*Measured on one RTX 5080 Laptop GPU in the same session (the organizers' T4 is slower; the official
+baseline score on T4 is 0.729). Full table, ablations and error analysis: [PROJECT_STATUS.md](PROJECT_STATUS.md),
+[reports/ablations.md](reports/ablations.md), [DECISIONS.md](DECISIONS.md).
+
 ## Setup
 
 ```bash
@@ -38,6 +49,9 @@ Large checkpoints are written to `$AEGIS_ARTIFACTS` (default `./artifacts`, git-
 | Train a model | `python scripts/train.py configs/<config>.yaml` |
 | Score a checkpoint with the official protocol | `python scripts/measure.py $AEGIS_ARTIFACTS/<name>/best --split test` |
 | Lexical reference (TF-IDF + LR) | `python scripts/linear_reference.py` |
+| Export with thresholds folded into the output bias | `python -m aegis.optimization.export $AEGIS_ARTIFACTS/<name>/best $AEGIS_ARTIFACTS/aegis_final` |
+| Regenerate tables, figure and paper numbers | `python scripts/leaderboard.py && python scripts/ablation_table.py && python scripts/paper_numbers.py && python scripts/make_figures.py` |
+| Error analysis | `python scripts/error_analysis.py <experiment> [--test probs.npy --threshold 0.5]` |
 
 ## Data usage rules followed
 

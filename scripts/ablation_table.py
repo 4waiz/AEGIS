@@ -63,7 +63,8 @@ def main() -> None:
           "|---|---|---|---|---|---|---|---|---|---|"]
     tex = [r"\begin{table}[t]", r"\centering", r"\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; "
            r"cost is measured with the official loop on internal validation; the score projects that cost to the public-test size. "
-           r"Rows with $\pm$ average three seeds.}", r"\label{tab:ablations}", r"\setlength{\tabcolsep}{3pt}", r"\footnotesize",
+           r"Rows with $\pm$ average three seeds. These costs were measured with the GPU in a lower power mode than "
+           r"Table~\ref{tab:main}, so only rows within this table are comparable.}", r"\label{tab:ablations}", r"\setlength{\tabcolsep}{3pt}", r"\footnotesize",
            r"\begin{tabular}{lcccrc}", r"\toprule", r"Model & Weak.\ F1 & MAT F1 & Mean F1 & GFLOPs & Score \\", r"\midrule"]
     group = None
     for g, label, names in ROWS:
