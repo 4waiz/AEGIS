@@ -1,0 +1,24 @@
+name: kd_teacher_L3_s44
+model:
+  init: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/best
+  tokenizer: microsoft/unixcoder-base
+  num_layers: 3
+  layer_selection: first
+data:
+  normalize: single_line
+  max_length: 512
+  truncation: head
+distill:
+  teacher_logits: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz
+train:
+  epochs: 4
+  batch_size: 32
+  lr: 5.0e-05
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  seed: 44
+  bf16: true
+  kd_alpha: 0.5
+  kd_temperature: 2.0
+  eval_every_epochs: 0.5
+  patience: 2

@@ -47,3 +47,44 @@ Each entry: date, decision, evidence, consequences. Newest last.
 ## D7 (2026-10-15): Heavy artifacts outside the OneDrive-synced repo
 - Checkpoints go to `$AEGIS_ARTIFACTS` (default `./artifacts`, git-ignored). On the development
   machine it points outside OneDrive to avoid syncing multi-GB files.
+
+## D8 (2026-10-15): Encoder family and input = UniXcoder + single-line normalization
+- Evidence: reports/token_budget.csv. UniXcoder's tokenizer on whitespace-collapsed input yields
+  153.5 tokens/function on public test vs 235.1 for CodeBERT on raw input (-35%), and truncates 0.5%
+  vs 10.6% of functions at 512 tokens. The 12-layer UniXcoder teacher reaches internal-val mean F1
+  0.940 (3 epochs). Other encoders were not tried; the budget went to depth/distillation instead.
+
+## D9 (2026-10-15): Student depth chosen by projected score, not F1
+- Projected public-test score (internal-val F1, val-measured cost scaled by 30,655/21,243):
+  L1 0.911, L2 0.937, L3 0.941, L4 0.937, L6 0.928, L12 0.897 (no KD). Efficiency terms saturate,
+  so depth beyond 3 costs more score than its F1 gain returns.
+- Narrow 4x256 encoder trained from scratch plateaus at val mean F1 0.859: code pretraining matters.
+
+## D10 (2026-10-15): Multitask distillation from the 12-layer teacher
+- Same-seed comparison, internal val mean F1: L2 0.914 -> 0.917, L3 0.930 -> 0.934, L4 0.932 -> 0.937.
+  Initializing the L2 student from the teacher or from pretrained UniXcoder makes no difference (0.9169 vs 0.9172).
+- Lead candidate: kd_teacher_L3 (projected 0.943). Seed repeats (43, 44) of L3 with and without KD
+  run in round 3 to test whether the gain exceeds seed variance.
+
+## D11 (2026-10-15): MAT is at its ceiling
+- Error analysis (reports/error_analysis_kd_teacher_L3.md): every MAT false negative lacks an SATD tag
+  in the input (tags sit in the unreleased leading comment); on functions with a tag, MAT F1 is 0.998.
+  No further modelling effort goes into MAT; weakness is the only lever.
+
+## D12 (2026-10-15): Final model = kd_teacher_L3 (fixed before any public-test scoring of students)
+- 3-layer UniXcoder student, initialized from the fine-tuned teacher's first 3 layers, multitask
+  distillation (alpha 0.5, T 2), 4 epochs, seed 42, single-line input, per-task thresholds from
+  internal validation.
+- Seed repeats (internal val, 3 seeds): KD 0.9337 +/- 0.0002 vs no-KD 0.9306 +/- 0.0008 mean F1
+  (Welch p = 0.018); weakness F1 0.9366 +/- 0.0009 vs 0.9301 +/- 0.0006 (p = 0.0013); MAT unchanged.
+- A 6-epoch schedule gives no gain (0.9338 vs 0.9338). The seed-42 run is used because it was the
+  pre-declared primary run, not because it scored best (the three seeds agree within 0.0003).
+- Public test is now scored once for: the final model, the no-KD L3 student and the teacher
+  (reported comparisons; no further selection).
+
+## D13 (2026-10-15): D12 reopened for input normalization (before any public-test scoring)
+- The raw-input ablation (kd_teacher_L3_raw, internal val) gave the same mean F1 (0.9332 vs 0.9337) but
+  higher weakness F1 (0.9419 vs 0.9366) and lower MAT F1 (0.9245 vs 0.9308) at +17% GFLOPs.
+- Before scoring anything on the public test, we run `collapse` normalization (indentation removed,
+  line breaks kept) and a second raw seed. The final input format is chosen on internal-validation
+  projected score only; round-5 public-test scoring was stopped before it started and waits for this.

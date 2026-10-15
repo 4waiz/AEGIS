@@ -33,6 +33,7 @@ def main() -> None:
     ap.add_argument("--batching", default="sorted", choices=["sorted", "official"])
     ap.add_argument("--batch-size", type=int, default=600)
     ap.add_argument("--threshold", default="tuned")
+    ap.add_argument("--normalize", help="override the checkpoint's input normalization (e.g. raw)")
     ap.add_argument("--out")
     args = ap.parse_args()
 
@@ -43,8 +44,10 @@ def main() -> None:
     tokenizer = AutoTokenizer.from_pretrained(args.checkpoint)
     aegis_cfg = getattr(model.config, "aegis", None) or {"normalize": "raw", "max_length": 512,
                                                           "truncation": "head", "thresholds": [0.5, 0.5]}
+    if args.normalize:
+        aegis_cfg = {**aegis_cfg, "normalize": args.normalize}
     df = load_internal_splits()[args.split]
-    tag = f"{args.split}_{Path(args.checkpoint).parent.name}"
+    tag = f"{args.split}_{Path(args.checkpoint).parent.name}_{aegis_cfg['normalize']}"
     inputs = prepare_split(df, tokenizer, aegis_cfg, tag)
     labels = df[["y_vuln", "y_mat"]].to_numpy()
     thr = aegis_cfg["thresholds"] if args.threshold == "tuned" else [float(args.threshold)] * 2

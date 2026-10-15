@@ -1,0 +1,112 @@
+warning: in the working copy of 'DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/measure.py', LF will be replaced by CRLF the next time Git touches it
+step 500/36252 loss 1.1671 0.4 min
+step 1000/36252 loss 0.9121 0.8 min
+step 1500/36252 loss 0.7966 1.1 min
+step 2000/36252 loss 0.7270 1.5 min
+step 2500/36252 loss 0.6786 1.9 min
+step 3000/36252 loss 0.6437 2.3 min
+{"epoch": 0.5, "train_loss": 0.6424943552787475, "elapsed_s": 144.6} val@0.5 0.9024 (V 0.8869 M 0.9179) tuned 0.9068 thr [0.24, 0.9199999999999999]
+step 3500/36252 loss 0.4641 2.8 min
+step 4000/36252 loss 0.4547 3.2 min
+step 4500/36252 loss 0.4502 3.6 min
+step 5000/36252 loss 0.4444 4.0 min
+step 5500/36252 loss 0.4409 4.3 min
+step 6000/36252 loss 0.4390 4.7 min
+{"epoch": 1.0, "train_loss": 0.4384515792111694, "elapsed_s": 293.1} val@0.5 0.9210 (V 0.9157 M 0.9264) tuned 0.9228 thr [0.31999999999999995, 0.10999999999999999]
+step 6500/36252 loss 0.4026 5.2 min
+step 7000/36252 loss 0.4046 5.6 min
+step 7500/36252 loss 0.4020 6.0 min
+step 8000/36252 loss 0.4025 6.4 min
+step 8500/36252 loss 0.4015 6.7 min
+step 9000/36252 loss 0.4011 7.1 min
+{"epoch": 1.5, "train_loss": 0.4010119954409563, "elapsed_s": 437.9} val@0.5 0.9208 (V 0.9192 M 0.9224) tuned 0.9228 thr [0.6, 0.83]
+step 9500/36252 loss 0.3976 7.6 min
+step 10000/36252 loss 0.3955 8.0 min
+step 10500/36252 loss 0.3941 8.3 min
+step 11000/36252 loss 0.3923 8.7 min
+step 11500/36252 loss 0.3935 9.1 min
+step 12000/36252 loss 0.3929 9.4 min
+{"epoch": 2.0, "train_loss": 0.39287722602521136, "elapsed_s": 578.0} val@0.5 0.9248 (V 0.9270 M 0.9226) tuned 0.9282 thr [0.4599999999999999, 0.95]
+step 12500/36252 loss 0.3665 9.9 min
+step 13000/36252 loss 0.3689 10.3 min
+step 13500/36252 loss 0.3697 10.7 min
+step 14000/36252 loss 0.3696 11.0 min
+step 14500/36252 loss 0.3703 11.4 min
+step 15000/36252 loss 0.3705 11.8 min
+{"epoch": 2.5, "train_loss": 0.37117896927721017, "elapsed_s": 720.3} val@0.5 0.9280 (V 0.9304 M 0.9256) tuned 0.9310 thr [0.4799999999999999, 0.8699999999999999]
+step 15500/36252 loss 0.3705 12.3 min
+step 16000/36252 loss 0.3705 12.7 min
+step 16500/36252 loss 0.3694 13.1 min
+step 17000/36252 loss 0.3702 13.4 min
+step 17500/36252 loss 0.3713 13.8 min
+step 18000/36252 loss 0.3708 14.2 min
+{"epoch": 3.0, "train_loss": 0.36982215813199876, "elapsed_s": 865.7} val@0.5 0.9294 (V 0.9332 M 0.9256) tuned 0.9322 thr [0.7499999999999999, 0.9199999999999999]
+step 18500/36252 loss 0.3587 14.7 min
+step 19000/36252 loss 0.3564 15.1 min
+step 19500/36252 loss 0.3547 15.4 min
+step 20000/36252 loss 0.3547 15.8 min
+step 20500/36252 loss 0.3545 16.2 min
+step 21000/36252 loss 0.3544 16.5 min
+{"epoch": 3.5, "train_loss": 0.35395257823102644, "elapsed_s": 1007.8} val@0.5 0.9321 (V 0.9357 M 0.9285) tuned 0.9337 thr [0.6, 0.9299999999999999]
+step 21500/36252 loss 0.3555 17.1 min
+step 22000/36252 loss 0.3544 17.4 min
+step 22500/36252 loss 0.3551 17.8 min
+step 23000/36252 loss 0.3555 18.2 min
+step 23500/36252 loss 0.3542 18.6 min
+step 24000/36252 loss 0.3551 19.0 min
+{"epoch": 4.0, "train_loss": 0.3548400588666552, "elapsed_s": 1155.4} val@0.5 0.9324 (V 0.9364 M 0.9285) tuned 0.9334 thr [0.4099999999999999, 0.8499999999999999]
+step 24500/36252 loss 0.3476 19.5 min
+step 25000/36252 loss 0.3438 19.9 min
+step 25500/36252 loss 0.3430 20.3 min
+step 26000/36252 loss 0.3426 20.6 min
+step 26500/36252 loss 0.3430 21.0 min
+step 27000/36252 loss 0.3436 21.4 min
+{"epoch": 4.5, "train_loss": 0.3437760698503313, "elapsed_s": 1300.2} val@0.5 0.9325 (V 0.9367 M 0.9282) tuned 0.9327 thr [0.42999999999999994, 0.36999999999999994]
+step 27500/36252 loss 0.3458 21.9 min
+step 28000/36252 loss 0.3439 22.3 min
+step 28500/36252 loss 0.3415 22.7 min
+step 29000/36252 loss 0.3420 23.0 min
+step 29500/36252 loss 0.3433 23.4 min
+step 30000/36252 loss 0.3440 23.8 min
+{"epoch": 5.0, "train_loss": 0.3435821964897805, "elapsed_s": 1443.7} val@0.5 0.9320 (V 0.9356 M 0.9285) tuned 0.9331 thr [0.8699999999999999, 0.94]
+step 30500/36252 loss 0.3367 24.3 min
+step 31000/36252 loss 0.3351 24.6 min
+step 31500/36252 loss 0.3366 25.0 min
+step 32000/36252 loss 0.3380 25.4 min
+step 32500/36252 loss 0.3376 25.8 min
+step 33000/36252 loss 0.3376 26.1 min
+{"epoch": 5.5, "train_loss": 0.3374229669176321, "elapsed_s": 1585.8} val@0.5 0.9317 (V 0.9364 M 0.9271) tuned 0.9338 thr [0.83, 0.8999999999999999]
+step 33500/36252 loss 0.3438 26.6 min
+step 34000/36252 loss 0.3401 27.0 min
+step 34500/36252 loss 0.3388 27.4 min
+step 35000/36252 loss 0.3377 27.8 min
+step 35500/36252 loss 0.3376 28.2 min
+step 36000/36252 loss 0.3379 28.6 min
+{"epoch": 6.0, "train_loss": 0.33820668855809644, "elapsed_s": 1732.9} val@0.5 0.9324 (V 0.9378 M 0.9271) tuned 0.9333 thr [0.6, 0.84]
+{
+  "val_mean_f1_tuned": 0.9337957727004408,
+  "val_tuned": {
+    "f1_vuln": 0.9377134966203938,
+    "f1_mat": 0.9298780487804877,
+    "p_vuln": 0.9510541058528674,
+    "r_vuln": 0.9247419724770642,
+    "p_mat": 0.9902597402597403,
+    "r_mat": 0.8764367816091954,
+    "mean_f1": 0.9337957727004408
+  },
+  "val_at_0.5": {
+    "f1_vuln": 0.9363849598407847,
+    "f1_mat": 0.9270516717325228,
+    "p_vuln": 0.9286620611870858,
+    "r_vuln": 0.9442373853211009,
+    "p_mat": 0.9838709677419355,
+    "r_mat": 0.8764367816091954,
+    "mean_f1": 0.9317183157866538
+  },
+  "thresholds": [
+    0.83,
+    0.8999999999999999
+  ],
+  "epoch": 5.5
+}
