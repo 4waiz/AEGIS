@@ -3,12 +3,13 @@
 1. Paper compiles (tools/tectonic, 4 pages). Re-run `python scripts/paper_numbers.py` and recompile after any
    new result.
 2. **Fill author details** in paper/AEGIS.tex (affiliation, e-mail) and confirm the AI-use disclosure wording.
-3. **Host the model** on the Hugging Face Hub under the user's account (needs approval and a token), then run
-   notebooks/AEGIS_T4_evaluation.ipynb on a Colab T4 (the user runs it) to get T4 runtime numbers.
+3. **Run the T4 evaluation** (user): open notebooks/AEGIS_T4_evaluation.ipynb in Colab with a T4 runtime, run
+   all cells (the login cell needs a read token while the HF repo 4waiz/aegis-nlbse27 is private), and save the
+   outputs into experiments/colab_t4/ so the paper can report T4 numbers.
 4. **Decide on sending** research/organizer_questions.md (needs the user's approval).
 5. Reviewer audit (reports/reviewer_audit.md) and fixes.
 6. Submission package: submission/ directory, checklist, README reproduction commands tested end to end.
-7. Make the GitHub repository public at submission time (needs the user's approval).
+7. Make the GitHub repository and the HF model public at submission time (needs the user's approval).
 8. Optional: demo UI; extra seeds for the mixed-format model; project-held-out diagnostic.
 
 ## How to resume

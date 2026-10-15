@@ -9,7 +9,7 @@ import json
 import sys
 from pathlib import Path
 
-MODEL_ID = sys.argv[1] if len(sys.argv) > 1 else "<hf-user>/aegis-nlbse27"
+MODEL_ID = sys.argv[1] if len(sys.argv) > 1 else "4waiz/aegis-nlbse27"
 
 CELLS = [
     ("markdown", f"""# AEGIS: official NLBSE'27 measurement on a Colab T4
@@ -21,6 +21,8 @@ The measurement loop below is copied from the official `CodeBERT_baseline.ipynb`
 timing (input normalization, tokenizer, length-sorted batching with dynamic padding) and the
 per-task decision thresholds stored in the model config. Model: `{MODEL_ID}`."""),
     ("code", "!pip -q install datasets\nimport torch, transformers; print(torch.__version__, transformers.__version__, torch.cuda.get_device_name(0))"),
+    ("code", "# Needed only while the model repository is private: paste a Hugging Face *read* token.\n"
+             "from huggingface_hub import login\nlogin()"),
     ("code", """import re, time, numpy as np, pandas as pd, torch
 from datasets import load_dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, RobertaForSequenceClassification, RobertaTokenizer

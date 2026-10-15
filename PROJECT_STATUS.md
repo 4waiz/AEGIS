@@ -16,7 +16,7 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 | 10. Demo | Not started (optional) | |
 | 11. Paper | Compiled with tectonic 0.17.0: 4 pages incl. references, IEEEtran, no overfull boxes; author details and AI-disclosure wording pending | paper/AEGIS.pdf |
 | 12. Reviewer audit | Not started | |
-| 13. Submission package | Not started; needs T4 run, HF model upload, public repo at submission | |
+| 13. Submission package | Model hosted (private) at huggingface.co/4waiz/aegis-nlbse27 @2011b2f, verified identical to the local export; T4 run and public release pending | docs/model_card.md, notebooks/AEGIS_T4_evaluation.ipynb |
 
 ## Final model (D14)
 `kd_teacher_L3_mixed`, exported as `$AEGIS_ARTIFACTS/aegis_final`:
@@ -39,8 +39,8 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 | AEGIS final, unmodified official notebook | 0.9348 | 0.9182 | 0.9265 | 19.03 | 666,661 | 0.9077 |
 
 Runtimes depend on the GPU: this laptop in Turbo mode runs the baseline 2.8x faster than the organizers' T4.
-GFLOPs are hardware-independent. A T4 measurement of AEGIS requires running notebooks/AEGIS_T4_evaluation.ipynb
-on Colab after the model is hosted.
+GFLOPs are hardware-independent. A T4 measurement of AEGIS requires running notebooks/AEGIS_T4_evaluation.ipynb on Colab
+(the model is hosted; the notebook was smoke-tested locally on 2,000 functions).
 
 ## Environment
 - Windows 11, Python 3.12.10, torch 2.11.0+cu128, transformers 4.57.6.
