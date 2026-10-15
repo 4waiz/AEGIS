@@ -4,7 +4,6 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{multirow}
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
@@ -13,7 +12,7 @@
 
 \begin{document}
 
-\title{AEGIS: Efficiency-Guided Multitask Learning for Joint Vulnerability and Technical-Debt Detection}
+\title{AEGIS: Efficiency-Guided Multitask Distillation for Joint Vulnerability and Technical-Debt Detection}
 
 \author{\IEEEauthorblockN{Awaiz Ahmed}
 \IEEEauthorblockA{\textit{Affiliation (to be completed)}\\
@@ -32,41 +31,107 @@ vulnerability detection, self-admitted technical debt, multitask learning, knowl
 \section{Introduction}
 The NLBSE'27 tool competition asks for a single model that reads a C/C++ function and predicts two
 labels: whether the function is associated with a weakness or vulnerability, and whether it carries a
-self-admitted technical debt (SATD) annotation~\cite{nlbse2027}. Submissions are ranked by a score
-that weights mean F1 by 0.6, and inference runtime and GFLOPs, measured on a Colab T4 over the whole
-test split, by 0.2 each. The organizers' CodeBERT~\cite{feng2020codebert} baseline reaches a mean F1 of
-0.910 but uses almost the entire GFLOPs budget.
+self-admitted technical debt (SATD) annotation~\cite{nlbse2027}. Submissions are ranked by a score that
+weights the mean of the two F1 scores by 0.6 and the inference runtime and GFLOPs, measured with
+\texttt{torch.profiler} over the whole test split on a Colab T4, by 0.2 each. The CodeBERT~\cite{feng2020codebert}
+baseline of the organizers reaches a mean F1 of \BaseMeanFone{} but consumes \BaseGflopsM{}M of the 3M-GFLOPs
+budget, so its score is \BaseScoreOfficial{}.
 
-AEGIS treats the ranking score itself as the design objective. We (i)~derive the exchange rates the
-score implies between F1, runtime and FLOPs and an analytic cost model that matches the official
-profiler count, (ii)~shrink the processed input before touching the model (whitespace normalization, a
-compact tokenizer, length-sorted dynamic padding), and (iii)~spend the remaining budget on a shallow
-student distilled from a full-depth multitask teacher, with per-task decision thresholds calibrated on
-held-out training data.
+AEGIS treats the ranking score itself as the design objective. Our contributions are:
+(i)~an analysis of the task and the score: the SATD label is a keyword annotation whose evidence is
+partly missing from the input, and the score implies fixed exchange rates between F1, runtime and FLOPs
+that an analytic cost model predicts to within \CostModelErr{}\%;
+(ii)~input compaction and length-sorted dynamic padding, which alone raise the score of the unchanged
+baseline checkpoint from \BaseScoreLocal{} to \BaseSortedScore{};
+(iii)~a \StudentLayers{}-layer multitask student distilled from a 12-layer UniXcoder~\cite{guo2022unixcoder}
+teacher, whose depth was chosen by the score rather than by F1. It is exported as a standard
+Hugging Face model that loads in the official notebook.
 
-\section{Task, Data and Scoring}
+\section{Task, Data, and Scoring}
 \label{sec:task}
-% Dataset: MADE-WIC derived (OSPR, Big-Vul, Devign) \cite{mock2024madewic}; label semantics (MAT);
-% splits; audit findings: MAT keyword ceiling, length confound, clone overlap.
+\textbf{Data.} The dataset derives from MADE-WIC~\cite{mock2024madewic}, which merges OSPR (Linux, Chromium,
+Firefox), Devign~\cite{zhou2019devign} and Big-Vul~\cite{fan2020bigvul}. The weakness label is the logical OR of the
+Devign, Big-Vul and CWE-heuristic (W~\cite{russo2022weaksatd}) annotations. The SATD label is MAT, the
+``Matches task Annotation Tags'' heuristic~\cite{guo2021mat}: a function is positive if a comment contains
+TODO, FIXME, XXX or HACK. Functions are clang-formatted, split 70/10/20 with joint stratification
+(\TrainN{} training and \TestN{} public test functions; 61{,}311 hidden), and only the \texttt{Function}
+text may be used as input. Weakness prevalence is \VulnPrev\%, MAT prevalence \MatPrev\%.
 
-% Scoring: formula, measurement loop, exchange rates (0.01 F1 = 0.006 = 90k GFLOPs = 30 s),
-% profiler coverage (linear layers only).
+\textbf{Audit findings.} (1) A word-boundary match of the four tags inside comments reaches MAT
+precision \RuleMatP{}, recall \RuleMatR{} and F1 \RuleMatFone{} on the public test split. The misses
+are functions whose tag sits in the comment \emph{above} the function: the organizers' curation script
+loads this leading comment but does not release it. Roughly \MatNoTagPct\% of MAT positives therefore
+cannot be recovered from the input, which caps MAT F1 near \RuleMatFone{}.
+(2) Weakness correlates with length: its prevalence rises from \VulnQOne\% to \VulnQFour\% across length
+quartiles. (3) \CloneTestPct\% of test functions have an identifier-abstracted clone in the training
+split, whose weakness label agrees in \CloneAgreePct\% of cases. Random splits are known to inflate
+vulnerability-detection scores~\cite{croft2023dataquality,ding2025primevul}.
+
+\textbf{Scoring.} With $\bar F_1$ the mean F1, $t$ the runtime in seconds and $G$ the GFLOPs (both totals
+over the split, averaged over two timed forward passes),
+\begin{equation}
+S = 0.6\,\bar F_1 + 0.2\max\!\Big(\tfrac{1000-t}{1000},0\Big) + 0.2\max\!\Big(\tfrac{3\cdot 10^6-G}{3\cdot 10^6},0\Big).
+\end{equation}
+One F1 point ($0.01$) is thus worth $0.006$ score, as much as 30\,s of runtime or 90{,}000 GFLOPs.
+\texttt{torch.profiler} attributes FLOPs only to matrix multiplications, so for an encoder with $L$
+layers, hidden size $d$ and feed-forward size $d_{\mathit{ff}}$,
+\begin{equation}
+G \approx 10^{-9}\sum_{b} B_b W_b \, L\,(8d^2 + 4 d\, d_{\mathit{ff}}),
+\end{equation}
+where batch $b$ has $B_b$ sequences padded to width $W_b$; fused attention is not counted. This estimate
+matches every profiler measurement in this paper within \CostModelErr\%. The official notebook pads the
+whole split to 512 tokens, so only \PadEff\% of processed positions are real tokens.
 
 \section{The AEGIS Approach}
 \label{sec:method}
-% Input compaction; dynamic padding; teacher; layer-truncated student; multitask distillation loss;
-% threshold calibration; final checkpoint is a standard RobertaForSequenceClassification.
+\textbf{Input compaction.} clang-format indentation becomes long runs of whitespace tokens. We collapse
+every whitespace run to a single space and use UniXcoder's tokenizer. This shortens the mean input
+from \TokRaw{} (CodeBERT, raw) to \TokOurs{} tokens and the share of truncated functions from
+\TruncRaw\% to \TruncOurs\% at 512 tokens. Comments are kept, since they carry the SATD tags.
+
+\textbf{Length-sorted dynamic padding.} At inference we sort functions by length, form batches of 600
+and pad each batch only to its own maximum, then restore the original order. Predictions are unchanged;
+only padding work disappears. The competition allows any test-time preprocessing except sampling.
+
+\textbf{Score-guided depth.} The student keeps the embeddings and the first $k$ transformer layers of
+the encoder, consistent with the finding that early layers of code encoders suffice for many
+classification tasks~\cite{grishina2023earlybird}. One shared encoder feeds the standard two-output
+classification head, so the checkpoint is a plain \texttt{RobertaForSequenceClassification}. We choose
+$k$ by the projected competition score on internal validation, not by F1.
+
+\textbf{Multitask distillation.} A 12-layer UniXcoder teacher is fine-tuned on the same data. The
+student, initialized from the teacher's first $k$ layers, minimizes
+\begin{equation}
+\mathcal{L} = \tfrac{\alpha}{2}\sum_{t} \mathrm{BCE}(z_t, y_t)
+ + \tfrac{1-\alpha}{2}\,T^2 \sum_{t} \mathrm{BCE}\big(z_t/T, \sigma(z^{\mathrm{T}}_t/T)\big),
+\end{equation}
+over the tasks $t\in\{\text{weakness},\text{MAT}\}$, with student logits $z_t$, teacher logits $z^{\mathrm{T}}_t$,
+$\alpha=0.5$ and $T=2$~\cite{hinton2015distilling}.
+
+\textbf{Per-task thresholds.} MAT is rare (\MatPrev\%), so a fixed 0.5 threshold is unlikely to maximize
+its F1~\cite{lipton2014f1}. For each task we pick the F1-maximizing threshold on internal validation and
+store it in the model configuration.
 
 \section{Experimental Setup}
 \label{sec:setup}
-% Internal validation split; hardware; hyperparameters; seeds; measurement protocol.
+We hold out a stratified 10\% of the official training split as internal validation (\ValN{} functions;
+exact duplicates of training functions are moved to the fit side). Model selection, early stopping and
+threshold tuning use only this split. The public test split is used once per reported model. All models
+are trained with AdamW (learning rate $2\cdot10^{-5}$ for the teacher, $5\cdot10^{-5}$ for students),
+batch size 32, linear warmup (6\%) and decay, bf16, length-grouped batches and seed 42 unless stated
+otherwise. The teacher trains for 3 epochs and students for 4. Inference cost is measured with the official
+measurement loop (two timed forward passes per batch under fp16 autocast and \texttt{torch.profiler}),
+re-implemented and validated against the official notebook, on an RTX 5080 Laptop GPU. Runtimes on
+the T4 used for the official ranking differ; GFLOPs do not depend on the hardware.
 
 \section{Results}
 \label{sec:results}
-% Main table (public test, official loop); frontier figure; ablations; error analysis.
+% Main table (public test, official loop); depth/frontier figure; ablations; error analysis.
 
 \section{Limitations}
 \label{sec:limitations}
+% labels: keyword MAT, heuristic W, noisy Big-Vul/Devign; clone overlap and random split;
+% runtime hardware dependence; not a production vulnerability detector.
 
 \section{Conclusion}
 \label{sec:conclusion}

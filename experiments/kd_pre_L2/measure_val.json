@@ -1,0 +1,78 @@
+{
+  "scores": [
+    {
+      "cat": "Vulnerability",
+      "precision": 0.9188870896511114,
+      "recall": 0.8947821100917431,
+      "f1": 0.906674413537657,
+      "accuracy": 0.9395094854775691,
+      "tp": 6242,
+      "fp": 551,
+      "tn": 13716,
+      "fn": 734
+    },
+    {
+      "cat": "MAT",
+      "precision": 0.9966996699669967,
+      "recall": 0.867816091954023,
+      "f1": 0.9278033794162827,
+      "accuracy": 0.9977875064727204,
+      "tp": 302,
+      "fp": 1,
+      "tn": 20894,
+      "fn": 46
+    }
+  ],
+  "avg_precision": 0.9577933798090541,
+  "avg_recall": 0.881299101022883,
+  "avg_f1": 0.9172388964769698,
+  "avg_runtime": 7.082501649856567,
+  "avg_flops": 96763.53892266001,
+  "score": 0.9424759349613666,
+  "n_samples": 21243,
+  "batching": "sorted",
+  "batch_size": 600,
+  "extra": {
+    "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\kd_pre_L2\\best",
+    "split": "val",
+    "thresholds": [
+      0.6399999999999999,
+      0.57
+    ],
+    "aegis": {
+      "max_length": 512,
+      "normalize": "single_line",
+      "prefix_tokens": null,
+      "thresholds": [
+        0.6399999999999999,
+        0.57
+      ],
+      "truncation": "head"
+    },
+    "analytic": {
+      "linear_gflops": 96750.40946688,
+      "attention_gflops": 5343.4073088,
+      "total_gflops": 102093.81677568
+    },
+    "mean_input_tokens": 153.7405262910135,
+    "attn_implementation": "sdpa",
+    "env": {
+      "python": "3.12.10",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+      "torch": "2.11.0+cu128",
+      "transformers": "4.57.6",
+      "numpy": "2.4.6",
+      "cuda_available": true,
+      "git_commit": "57c765c5109558b2a357919a05159dc27ae205ac-dirty",
+      "disk_free_gb": 239.7,
+      "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+      "gpu_mem_gb": 17.1,
+      "gpu_capability": "12.0",
+      "cuda": "12.8",
+      "cudnn": 91900,
+      "gpu_power_state": "32.52 W, 175.00 W, 232 MHz, 3090 MHz, P4",
+      "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+    }
+  }
+}

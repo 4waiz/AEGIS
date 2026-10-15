@@ -18,14 +18,15 @@ from aegis.evaluation.official import submission_score  # noqa: E402
 from aegis.paths import EXPERIMENTS_DIR, REPORTS_DIR  # noqa: E402
 
 BASELINE_SCORE_OFFICIAL = 0.7286  # formula applied to the organizers' printed T4 values
-# Real tokens in the public test split for UniXcoder + single-line input (reports/token_budget.csv).
-TEST_TOKENS_UNIXCODER_SINGLE_LINE = 4_702_705
+N_PUBLIC_TEST = 30_655
 
 
 def test_over_val(r: dict) -> float:
-    """Cost scales with processed tokens: ratio of public-test tokens to this run's val tokens.
-    Valid for UniXcoder-tokenized single-line inputs (all AEGIS students)."""
-    return TEST_TOKENS_UNIXCODER_SINGLE_LINE / (r["n_samples"] * r["extra"]["mean_input_tokens"])
+    """Cost scales with processed tokens. Internal validation and public test follow the same
+    (jointly stratified) distribution, so the sample-count ratio projects cost to test size.
+    For UniXcoder single-line input the token-count ratio differs by 0.2% (4,702,705 test tokens,
+    reports/token_budget.csv)."""
+    return N_PUBLIC_TEST / r["n_samples"]
 
 
 def main() -> None:

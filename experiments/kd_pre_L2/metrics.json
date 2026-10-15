@@ -1,0 +1,88 @@
+{
+  "name": "kd_pre_L2",
+  "config": {
+    "name": "kd_pre_L2",
+    "model": {
+      "init": "microsoft/unixcoder-base",
+      "tokenizer": "microsoft/unixcoder-base",
+      "num_layers": 2,
+      "layer_selection": "first"
+    },
+    "data": {
+      "normalize": "single_line",
+      "max_length": 512,
+      "truncation": "head"
+    },
+    "distill": {
+      "teacher_logits": "C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz"
+    },
+    "train": {
+      "epochs": 4,
+      "batch_size": 32,
+      "lr": 5e-05,
+      "warmup_ratio": 0.06,
+      "weight_decay": 0.01,
+      "seed": 42,
+      "bf16": true,
+      "kd_alpha": 0.5,
+      "kd_temperature": 2.0,
+      "eval_every_epochs": 0.5,
+      "patience": 2
+    }
+  },
+  "best": {
+    "val_mean_f1_tuned": 0.9171991911607851,
+    "val_tuned": {
+      "f1_vuln": 0.9065950029052876,
+      "f1_mat": 0.9278033794162827,
+      "p_vuln": 0.9188751472320377,
+      "r_vuln": 0.8946387614678899,
+      "p_mat": 0.9966996699669967,
+      "r_mat": 0.867816091954023,
+      "mean_f1": 0.9171991911607851
+    },
+    "val_at_0.5": {
+      "f1_vuln": 0.904836863194047,
+      "f1_mat": 0.9263803680981596,
+      "p_vuln": 0.9032857142857142,
+      "r_vuln": 0.9063933486238532,
+      "p_mat": 0.993421052631579,
+      "r_mat": 0.867816091954023,
+      "mean_f1": 0.9156086156461033
+    },
+    "thresholds": [
+      0.6399999999999999,
+      0.57
+    ],
+    "epoch": 4.0
+  },
+  "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\kd_pre_L2\\best",
+  "train_time_s": 828.4,
+  "peak_gpu_mem_gb": 4.01,
+  "params": {
+    "total": 55052546,
+    "embedding": 40284672,
+    "non_embedding": 14767874
+  },
+  "n_fit": 193343,
+  "n_val": 21243,
+  "mean_fit_tokens": 153.0089271398499,
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "57c765c5109558b2a357919a05159dc27ae205ac-dirty",
+    "disk_free_gb": 240.3,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "28.74 W, 175.00 W, 0 MHz, 3090 MHz, P0",
+    "power_scheme": "Power Scheme GUID: ee2528d8-0c7d-4ae0-b9c5-45cce8177a45  (PD Silent)"
+  }
+}
