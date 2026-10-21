@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Round 2: after round 1, dump teacher logits on the fit split, then multitask distillation runs.
 set -u
-export AEGIS_ARTIFACTS="C:/Users/awaiz/aegis_artifacts"
+export AEGIS_ARTIFACTS="${AEGIS_ARTIFACTS:-$(cd "$(dirname "$0")/.." && pwd)/artifacts}"
 cd "$(dirname "$0")/.."
 until grep -q ROUND1_DONE experiments/queue_round1.log 2>/dev/null; do sleep 30; done
 python -W ignore scripts/train.py --dump-teacher "$AEGIS_ARTIFACTS/teacher_unixcoder/best" configs/teacher_unixcoder.yaml "$AEGIS_ARTIFACTS/teacher_unixcoder/teacher_logits_fit.npz" > experiments/teacher_unixcoder/dump_logits.log 2>&1

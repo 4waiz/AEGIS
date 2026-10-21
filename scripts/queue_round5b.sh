@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Round 5b: clean, sequential public-test measurements (idle GPU) for every reported row (D15).
 set -u
-export AEGIS_ARTIFACTS="C:/Users/awaiz/aegis_artifacts"
+export AEGIS_ARTIFACTS="${AEGIS_ARTIFACTS:-$(cd "$(dirname "$0")/.." && pwd)/artifacts}"
 cd "$(dirname "$0")/.."
 M="python -W ignore scripts/measure.py"
 B=NLBSE/nlbse27-code-comment-classification-baseline

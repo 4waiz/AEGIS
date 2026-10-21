@@ -39,7 +39,7 @@ Hugging Face API queried), not via search snippets.
 | Generative-AI disclosure | ICSE'27 quotes IEEE policy: AI-generated content "shall be disclosed in the acknowledgements section of any paper submitted to an IEEE Conference". The AEGIS paper must include this disclosure. | V (same page) |
 | ORCID | ICSE asks authors to obtain an ORCID iD. | V (same page) |
 | Anonymity | Competition page: "need not be double-blind". General CFP: "All submissions must be anonymized". Resolved in favour of the competition-specific page (D1); confirmation requested. | V (conflict documented) |
-| Submission channel | Google Form on the competition page (not HotCRP). | V |
+| Submission channel | Google Form on the competition page (not HotCRP). **As of 2026-10-21 the linked form is still the NLBSE'26 form** ("fifth edition", deadline 19 Dec 2025). Fields: submission name, authors (`name, email, affiliation`), contact e-mails, authorship confirmation, paper PDF (max 10 MB), challenge (Code Comment Classification / Skill Classification), repository URL. It also states that submissions must cite the related work listed on the competition website. | V (form opened read-only, nothing filled) |
 | Acceptance criteria | clarity and detail; open-source code including training/tuning/evaluation pipeline; correct training/tuning/evaluation on the provided data; correct metric reporting; clear documentation. | V |
 | Deadlines (AoE) | submission 2026-11-13; notification 2026-12-11; camera-ready 2027-01-29. | V |
 | Venue | ICSE 2027, Dublin, 25 Apr - 1 May 2027; NLBSE day not yet announced. | V |

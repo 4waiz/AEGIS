@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Round 1: wait for the teacher, then measure + student sweep (sequential GPU use).
 set -u
-export AEGIS_ARTIFACTS="C:/Users/awaiz/aegis_artifacts"
+export AEGIS_ARTIFACTS="${AEGIS_ARTIFACTS:-$(cd "$(dirname "$0")/.." && pwd)/artifacts}"
 cd "$(dirname "$0")/.."
 while [ ! -f experiments/teacher_unixcoder/metrics.json ]; do sleep 30; done
 python -W ignore scripts/measure.py "$AEGIS_ARTIFACTS/teacher_unixcoder/best" --split val --out experiments/teacher_unixcoder/measure_val.json > experiments/teacher_unixcoder/measure_val.log 2>&1

@@ -25,6 +25,21 @@ from aegis.models.multitask import build_model, count_parameters
 from aegis.paths import ARTIFACTS_DIR, EXPERIMENTS_DIR
 
 
+def load_config(path: str) -> dict:
+    """Load a YAML config; string values may use environment variables, e.g. ${AEGIS_ARTIFACTS}."""
+    import os
+
+    def expand(v):
+        if isinstance(v, dict):
+            return {k: expand(x) for k, x in v.items()}
+        if isinstance(v, list):
+            return [expand(x) for x in v]
+        return os.path.expandvars(v) if isinstance(v, str) else v
+
+    os.environ.setdefault("AEGIS_ARTIFACTS", str(ARTIFACTS_DIR))
+    return expand(yaml.safe_load(Path(path).read_text()))
+
+
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -110,7 +125,7 @@ def multitask_loss(logits: torch.Tensor, labels: torch.Tensor, cfg: dict,
 
 
 def train(config_path: str) -> dict:
-    cfg = yaml.safe_load(Path(config_path).read_text())
+    cfg = load_config(config_path)
     name = cfg["name"]
     tcfg, dcfg, mcfg = cfg["train"], cfg["data"], cfg["model"]
     exp_dir = EXPERIMENTS_DIR / name
@@ -252,7 +267,7 @@ def train(config_path: str) -> dict:
 
 def dump_teacher_logits(checkpoint: str, config_path: str, out: str) -> None:
     """Teacher logits on the internal fit split, keyed by row_id, for distillation."""
-    cfg = yaml.safe_load(Path(config_path).read_text())
+    cfg = load_config(config_path)
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
     device = torch.device("cuda")

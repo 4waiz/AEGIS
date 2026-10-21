@@ -1,7 +1,7 @@
 # Seed repeat of kd_teacher_L3 (seed 44).
 name: kd_teacher_L3_s44
 model:
-  init: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/best
+  init: ${AEGIS_ARTIFACTS}/teacher_unixcoder/best
   tokenizer: microsoft/unixcoder-base
   num_layers: 3
   layer_selection: first
@@ -10,7 +10,7 @@ data:
   max_length: 512
   truncation: head
 distill:
-  teacher_logits: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz
+  teacher_logits: ${AEGIS_ARTIFACTS}/teacher_unixcoder/teacher_logits_fit.npz
 train:
   epochs: 4
   batch_size: 32

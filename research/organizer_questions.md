@@ -10,6 +10,10 @@ Dear organizers,
 thank you for preparing the NLBSE'27 multitask code classification competition. We would like to
 confirm a few details before submitting:
 
+0. **Submission form.** The "submission form" linked on nlbse2027.github.io/tools/ opens the
+   *NLBSE'26* form ("fifth edition", deadline 19 December 2025, ICSE'25 formatting). Is that the
+   correct form for NLBSE'27 entries, or will a new form be published?
+
 1. **Inference code.** Will you run the submitted model through the provided notebook unchanged
    (global `padding=True`, batch size 600, `RobertaForSequenceClassification`), or may participants
    supply their own inference cell (e.g. a different tokenizer/model class, input normalization,

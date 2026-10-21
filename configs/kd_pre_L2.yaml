@@ -10,7 +10,7 @@ data:
   max_length: 512
   truncation: head
 distill:
-  teacher_logits: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz
+  teacher_logits: ${AEGIS_ARTIFACTS}/teacher_unixcoder/teacher_logits_fit.npz
 train:
   epochs: 4
   batch_size: 32

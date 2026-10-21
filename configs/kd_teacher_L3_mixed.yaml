@@ -1,7 +1,7 @@
 # AEGIS student trained on a 50/50 mix of raw and single-line inputs (robust to either test-time format).
 name: kd_teacher_L3_mixed
 model:
-  init: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/best
+  init: ${AEGIS_ARTIFACTS}/teacher_unixcoder/best
   tokenizer: microsoft/unixcoder-base
   num_layers: 3
   layer_selection: first
@@ -11,7 +11,7 @@ data:
   truncation: head
   train_normalize: mixed
 distill:
-  teacher_logits: C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz
+  teacher_logits: ${AEGIS_ARTIFACTS}/teacher_unixcoder/teacher_logits_fit.npz
 train:
   epochs: 4
   batch_size: 32
