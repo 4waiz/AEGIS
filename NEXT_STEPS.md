@@ -4,7 +4,8 @@
    new result.
 2. **Fill author details** in paper/AEGIS.tex (affiliation, e-mail) and confirm the AI-use disclosure wording.
 3. T4 evaluation done (experiments/colab_t4/); the HF model is public.
-4. **Decide on sending** research/organizer_questions.md (needs the user's approval).
+4. Organizer questions **sent** 2026-10-22 (awaiz42ad@gmail.com). When they reply: confirm the submission form,
+   the inference procedure (our pipeline vs. unmodified notebook) and hidden-split scoring; adjust the paper if needed.
 5. Reviewer audit done (reports/reviewer_audit.md).
 6. Submission package ready in submission/ (checklist, REPRODUCE.md, form answers, model manifest).
 7. Make the GitHub repository and the HF model public at submission time (needs the user's approval).

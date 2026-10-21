@@ -1,7 +1,9 @@
 # Draft questions for the NLBSE'27 code-classification organizers
 
 To: Moritz Mock (momock@unibz.it), Thomas Borsani (tborsani@unibz.it), Barbara Russo (brusso@unibz.it)
-Status: DRAFT, not sent. Sending requires the author's approval.
+Status: **SENT** on 2026-10-22 at 00:30 (GST) from awaiz42ad@gmail.com to all three organizers, at the author's request.
+The sent version is plain text with the same content, numbered 1-8 (item 0 below became 1; "int8" was dropped from the precision question).
+Awaiting a reply; update DECISIONS.md and the paper once the organizers answer.
 
 Subject: NLBSE'27 multitask code classification: clarification questions
 

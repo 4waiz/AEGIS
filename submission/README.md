@@ -13,7 +13,7 @@ Deadline: **2026-11-13 AoE**.
 | Reproduction guide | `submission/REPRODUCE.md` | written and checked |
 | Official-loop evaluation on a Colab T4 | `notebooks/AEGIS_T4_evaluation.ipynb`; results in `experiments/colab_t4/` | done 2026-10-21: AEGIS 16.4 s, score 0.942 (baseline 192.7 s, 0.730) |
 | Submission-form answers | `submission/form_answers.md` | drafted; author details needed |
-| Questions for the organizers | `research/organizer_questions.md` | drafted, not sent |
+| Questions for the organizers | `research/organizer_questions.md` | **sent** 2026-10-22 from awaiz42ad@gmail.com; awaiting reply |
 
 ## Checklist before pressing "Submit"
 
