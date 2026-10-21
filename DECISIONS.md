@@ -115,3 +115,21 @@ Each entry: date, decision, evidence, consequences. Newest last.
   invalid. All public-test measurements (baselines included) are re-run sequentially on an idle GPU
   by scripts/queue_round5b.sh; the paper uses only those.
 - Lesson: background queues are now stopped by killing the python/bash processes, not only the wrapper.
+
+## D16 (2026-10-21): Corrections after the internal reviewer audit (reports/reviewer_audit.md)
+- D14's statement "no public-test scores of any student had been computed" is inaccurate: the orphaned run of
+  D15 had computed (but nobody had read) public-test scores before D14. The decision itself used internal
+  validation only.
+- D14's 0.9289 is the mixed model in the vanilla-notebook setting *with its tuned thresholds* (what the folded
+  export does). The committed robust_val_vanilla_notebook.json files were measured at 0.5 before folding
+  (0.9248 / 0.9280 / 0.9324). Worst-case losses recomputed from those committed numbers (0.0045 / 0.0026 /
+  0.0031) select the same model.
+- Tuned thresholds do not improve public-test F1 (|change| <= 0.0004 for students, -0.0019 for the teacher;
+  reports/test_statistics.json). They are kept, folded into the bias, only so that a 0.5 cut-off reproduces the
+  validated operating point.
+- Weakness-label provenance: OSPR projects (80% of the data) have weakness = W heuristic (MADE-WIC Table 2).
+  The paper now says "weakness" rather than "vulnerability" and reports F1 per label source.
+- The 3-layer optimum is flat: with costs totalled over the hidden split and unscaled constants, 2 layers would
+  lead by 0.001. Kept 3 layers; organizer question 2 asks how the hidden split is scored.
+- Control for teacher initialization (student_tinit_L3, 3 seeds) and two more seeds of the final configuration
+  (kd_teacher_L3_mixed_s43/s44) were run in round 6.

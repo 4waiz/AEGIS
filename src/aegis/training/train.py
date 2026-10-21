@@ -37,7 +37,7 @@ def load_config(path: str) -> dict:
         return os.path.expandvars(v) if isinstance(v, str) else v
 
     os.environ.setdefault("AEGIS_ARTIFACTS", str(ARTIFACTS_DIR))
-    return expand(yaml.safe_load(Path(path).read_text()))
+    return expand(yaml.safe_load(Path(path).read_text(encoding="utf-8")))
 
 
 def set_seed(seed: int) -> None:
@@ -131,9 +131,9 @@ def train(config_path: str) -> dict:
     exp_dir = EXPERIMENTS_DIR / name
     ckpt_dir = ARTIFACTS_DIR / name / "best"
     exp_dir.mkdir(parents=True, exist_ok=True)
-    (exp_dir / "config.yaml").write_text(yaml.safe_dump(cfg, sort_keys=False))
+    (exp_dir / "config.yaml").write_text(yaml.safe_dump(cfg, sort_keys=False), encoding="utf-8")
     env = environment()
-    (exp_dir / "env.json").write_text(json.dumps(env, indent=2, default=str))
+    (exp_dir / "env.json").write_text(json.dumps(env, indent=2, default=str), encoding="utf-8")
 
     set_seed(tcfg.get("seed", 42))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -187,7 +187,7 @@ def train(config_path: str) -> dict:
 
     rng = np.random.default_rng(tcfg.get("seed", 42))
     log_path = exp_dir / "train_log.jsonl"
-    log_path.write_text("")
+    log_path.write_text("", encoding="utf-8")
     best = {"val_mean_f1_tuned": -1.0}
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
@@ -261,7 +261,7 @@ def train(config_path: str) -> dict:
         "params": count_parameters(model), "n_fit": len(fit_inputs), "n_val": len(val_inputs),
         "mean_fit_tokens": float(lengths.mean()), "env": env,
     }
-    (exp_dir / "metrics.json").write_text(json.dumps(summary, indent=2, default=str))
+    (exp_dir / "metrics.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     return summary
 
 
@@ -270,7 +270,7 @@ def dump_teacher_logits(checkpoint: str, config_path: str, out: str) -> None:
     cfg = load_config(config_path)
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-    device = torch.device("cuda")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = AutoModelForSequenceClassification.from_pretrained(checkpoint).to(device)
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
     splits = load_internal_splits()

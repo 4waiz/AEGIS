@@ -47,7 +47,7 @@ def main() -> None:
            "test_tuned_thresholds_from_val": f1_at(pt, y_test, thr)}
     d = EXPERIMENTS_DIR / "linear_reference"
     d.mkdir(parents=True, exist_ok=True)
-    (d / "metrics.json").write_text(json.dumps(out, indent=2))
+    (d / "metrics.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print(json.dumps(out, indent=2))
 
 

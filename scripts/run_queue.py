@@ -17,7 +17,7 @@ ART = Path(os.environ.get("AEGIS_ARTIFACTS", ROOT / "artifacts"))
 
 def main() -> None:
     for cfg_path in sys.argv[1:]:
-        name = yaml.safe_load(Path(cfg_path).read_text())["name"]
+        name = yaml.safe_load(Path(cfg_path).read_text(encoding="utf-8"))["name"]
         exp = ROOT / "experiments" / name
         exp.mkdir(parents=True, exist_ok=True)
         print(f"=== {name}", flush=True)

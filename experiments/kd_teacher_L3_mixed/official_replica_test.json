@@ -1,0 +1,50 @@
+{
+  "model": "C:/Users/awaiz/aegis_artifacts/aegis_final",
+  "procedure": "official_notebook_replica",
+  "padded_length": 512,
+  "scores": [
+    {
+      "cat": "Vulnerability",
+      "precision": 0.9637650538770336,
+      "recall": 0.9075805809789097,
+      "f1": 0.9348293882569936,
+      "tp": 9123,
+      "fp": 343,
+      "tn": 20260,
+      "fn": 929
+    },
+    {
+      "cat": "MAT",
+      "precision": 0.9908256880733946,
+      "recall": 0.8554455445544554,
+      "f1": 0.9181721572794899,
+      "tp": 432,
+      "fp": 4,
+      "tn": 30146,
+      "fn": 73
+    }
+  ],
+  "avg_f1": 0.9265007727682417,
+  "avg_runtime": 45.53119456768036,
+  "avg_flops": 666660.6828211204,
+  "score": 0.9023501792260009,
+  "attn_implementation": "sdpa",
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "bc7847f82a77ed1424cf7674c82421ee9837ac90-dirty",
+    "disk_free_gb": 171.9,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "52.07 W, 175.00 W, 555 MHz, 3090 MHz, P4",
+    "power_scheme": "Power Scheme GUID: 62346f4c-22a8-45c0-adf0-24a1cb9f2739  (PD_Turbo)"
+  }
+}

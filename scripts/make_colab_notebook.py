@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 MODEL_ID = sys.argv[1] if len(sys.argv) > 1 else "4waiz/aegis-nlbse27"
+REVISION = sys.argv[2] if len(sys.argv) > 2 else "2011b2fa1e2577c24b56b4a8d551634af3522730"
 
 CELLS = [
     ("markdown", f"""# AEGIS: official NLBSE'27 measurement on a Colab T4
@@ -21,8 +22,9 @@ The measurement loop below is copied from the official `CodeBERT_baseline.ipynb`
 timing (input normalization, tokenizer, length-sorted batching with dynamic padding) and the
 per-task decision thresholds stored in the model config. Model: `{MODEL_ID}`."""),
     ("code", "!pip -q install datasets\nimport torch, transformers; print(torch.__version__, transformers.__version__, torch.cuda.get_device_name(0))"),
-    ("code", "# Needed only while the model repository is private: paste a Hugging Face *read* token.\n"
-             "from huggingface_hub import login\nlogin()"),
+    ("code", "# Log in only if the model repository is still private (it is public at submission time).\n"
+             "from huggingface_hub import HfApi, login\n"
+             f"try:\n    HfApi().model_info('{MODEL_ID}')\nexcept Exception:\n    login()"),
     ("code", """import re, time, numpy as np, pandas as pd, torch
 from datasets import load_dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, RobertaForSequenceClassification, RobertaTokenizer
@@ -76,9 +78,9 @@ def measure(model, batches, thresholds):
         torch.cuda.empty_cache()
     return np.concatenate(predictions), total_time, total_flops"""),
     ("markdown", "## 1. Official baseline (unchanged notebook procedure, same session)"),
-    ("code", """BASE = 'NLBSE/nlbse27-code-comment-classification-baseline'
-tok_b = RobertaTokenizer.from_pretrained(BASE)
-model_b = RobertaForSequenceClassification.from_pretrained(BASE).to(device).eval()
+    ("code", """BASE, BASE_REV = 'NLBSE/nlbse27-code-comment-classification-baseline', 'b8ffd89b848e0b3fdf8a043816b5d1801c923a0b'
+tok_b = RobertaTokenizer.from_pretrained(BASE, revision=BASE_REV)
+model_b = RobertaForSequenceClassification.from_pretrained(BASE, revision=BASE_REV).to(device).eval()
 enc = tok_b(test_data['Function'].tolist(), return_tensors='pt', padding=True, truncation=True, max_length=512)
 loader = DataLoader(TensorDataset(enc['input_ids'], enc['attention_mask']), batch_size=600)
 preds_b, t_b, f_b = measure(model_b, list(loader), [0.5, 0.5])
@@ -86,8 +88,9 @@ baseline = report(preds_b, t_b, f_b)
 del model_b; torch.cuda.empty_cache()"""),
     ("markdown", "## 2. AEGIS (preprocessing and batching happen before timing, as tokenization does in the official notebook)"),
     ("code", f"""MODEL = '{MODEL_ID}'
-model = AutoModelForSequenceClassification.from_pretrained(MODEL).to(device).eval()
-tok = AutoTokenizer.from_pretrained(MODEL)
+REVISION = '{REVISION}'
+model = AutoModelForSequenceClassification.from_pretrained(MODEL, revision=REVISION).to(device).eval()
+tok = AutoTokenizer.from_pretrained(MODEL, revision=REVISION)
 cfg = model.config.aegis
 print(cfg)
 
@@ -120,7 +123,7 @@ def main() -> None:
                      **({"outputs": [], "execution_count": None} if t == "code" else {})} for t, s in CELLS]}
     out = Path(__file__).resolve().parents[1] / "notebooks" / "AEGIS_T4_evaluation.ipynb"
     out.parent.mkdir(exist_ok=True)
-    out.write_text(json.dumps(nb, indent=1))
+    out.write_text(json.dumps(nb, indent=1), encoding="utf-8")
     print("wrote", out)
 
 

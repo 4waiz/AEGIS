@@ -36,8 +36,8 @@ RUNS_KD = {2: ["kd_teacher_L2"], 3: ["kd_teacher_L3", "kd_teacher_L3_s43", "kd_t
 def point(names: list[str]) -> tuple[float, float]:
     f1s, scores = [], []
     for n in names:
-        b = json.loads((ROOT / f"experiments/{n}/metrics.json").read_text())["best"]
-        r = json.loads((ROOT / f"experiments/{n}/measure_val.json").read_text())
+        b = json.loads((ROOT / f"experiments/{n}/metrics.json").read_text(encoding="utf-8"))["best"]
+        r = json.loads((ROOT / f"experiments/{n}/measure_val.json").read_text(encoding="utf-8"))
         k = test_over_val(r)
         f1s.append(b["val_mean_f1_tuned"])
         scores.append(submission_score(b["val_mean_f1_tuned"], r["avg_runtime"] * k, r["avg_flops"] * k))

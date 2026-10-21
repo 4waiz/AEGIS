@@ -100,6 +100,16 @@ Thresholds (from internal validation): [0.5, 0.5]
 | tcpdump | vuln | 27 | 22 | 0.9778 | 0.2 | 0.0 | 1 | 0 |
 | tcpdump | mat | 27 | 1 | 1.0 | 0.0 | 0.0 | 0 | 0 |
 
+## source_dataset
+| group | task | n | pos | F1 | FPR | FNR | FP | FN |
+|---|---|---|---|---|---|---|---|---|
+| Big-Vul | vuln | 5140 | 1431 | 0.8664 | 0.0156 | 0.2048 | 58 | 293 |
+| Big-Vul | mat | 5140 | 69 | 0.9474 | 0.0002 | 0.087 | 1 | 6 |
+| Devign | vuln | 882 | 624 | 0.7684 | 0.0853 | 0.3542 | 22 | 221 |
+| Devign | mat | 882 | 78 | 0.9536 | 0.0012 | 0.0769 | 1 | 6 |
+| OSPR | vuln | 24633 | 7997 | 0.9539 | 0.0196 | 0.0509 | 326 | 407 |
+| OSPR | mat | 24633 | 358 | 0.9222 | 0.0001 | 0.1397 | 2 | 50 |
+
 MAT false negatives with a SATD keyword in a comment: 1
 MAT false negatives without any SATD keyword: 61
 MAT false positives with a SATD keyword: 0

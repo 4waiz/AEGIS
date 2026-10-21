@@ -36,7 +36,7 @@ notebook does.
 import re, torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-repo = "<this-repo-id>"
+repo = "4waiz/aegis-nlbse27"
 tok = AutoTokenizer.from_pretrained(repo)
 model = AutoModelForSequenceClassification.from_pretrained(repo).eval()
 

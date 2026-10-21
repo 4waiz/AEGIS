@@ -172,7 +172,7 @@ def main() -> None:
         (prf((test.n_tok >= t).to_numpy(), test.y_vuln.to_numpy())["f1"], int(t))
         for t in np.percentile(test.n_tok, np.arange(5, 100, 5)))
 
-    (REPORTS_DIR / "dataset_stats.json").write_text(json.dumps(stats, indent=2, default=lambda o: o.item() if hasattr(o, "item") else str(o)))
+    (REPORTS_DIR / "dataset_stats.json").write_text(json.dumps(stats, indent=2, default=lambda o: o.item() if hasattr(o, "item") else str(o)), encoding="utf-8")
 
     # Figures -------------------------------------------------------------------------------------
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8, "text.color": INK,
@@ -227,7 +227,7 @@ def main() -> None:
         f"| Test padding efficiency under official global padding | {s['test_padding_efficiency_official']} |",
         f"| Filepath-majority probe for weakness on test (metadata, not used) | {s['metadata_probe_filepath_majority_vuln']} |",
     ]
-    (REPORTS_DIR / "data_quality.md").write_text("\n".join(md) + "\n")
+    (REPORTS_DIR / "data_quality.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(json.dumps(stats, indent=1, default=str))
 
 

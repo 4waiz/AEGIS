@@ -21,6 +21,13 @@ from aegis.data.dataset import extract_comments, function_hash, load_internal_sp
 from aegis.paths import EXPERIMENTS_DIR, REPORTS_DIR  # noqa: E402
 
 SATD = re.compile(r"\b(?:todo|fixme|hack|xxx)\b", re.I)
+# Project name -> MADE-WIC source collection. Derived from MADE-WIC Table 2 (arXiv 2408.05163): OSPR has
+# Linux Kernel, Chromium and Mozilla Firefox (no original vulnerability labels, so weakness = W heuristic);
+# Devign has FFmpeg and Qemu; Big-Vul has the other projects (its Chromium/Linux appear as "Chrome"/"linux"
+# here). Consistent with ~35% retention per project after the organizers' filtering. FFmpeg is in both
+# Devign and Big-Vul; it is grouped with Devign, which contributes most of its functions.
+SOURCE = {"Linux Kernel": "OSPR", "Chromium": "OSPR", "Mozilla Firefox": "OSPR",
+          "qemu": "Devign", "FFmpeg": "Devign"}
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dataset_audit import abstract_hash  # noqa: E402
 
@@ -42,7 +49,7 @@ def main() -> None:
                     help="override thresholds, e.g. 0.5 for an exported model with folded thresholds")
     args = ap.parse_args()
     exp = EXPERIMENTS_DIR / args.experiment
-    metrics = json.loads((exp / "metrics.json").read_text())
+    metrics = json.loads((exp / "metrics.json").read_text(encoding="utf-8"))
     thr = np.asarray([args.threshold] * 2 if args.threshold is not None else metrics["best"]["thresholds"])
     splits = load_internal_splits()
     if args.test:
@@ -61,8 +68,14 @@ def main() -> None:
 
     from transformers import AutoTokenizer
 
-    tok = AutoTokenizer.from_pretrained(metrics["checkpoint"])
-    aegis_cfg = json.loads((Path(metrics["checkpoint"]) / "config.json").read_text()).get("aegis", {})
+    ckpt = Path(metrics["checkpoint"])
+    if ckpt.exists():
+        tok = AutoTokenizer.from_pretrained(str(ckpt))
+        aegis_cfg = json.loads((ckpt / "config.json").read_text(encoding="utf-8")).get("aegis", {})
+    else:  # checkpoint deleted: the tokenizer and preprocessing are recorded in the experiment config
+        mcfg = metrics["config"]["model"]
+        tok = AutoTokenizer.from_pretrained(mcfg.get("tokenizer") or mcfg["init"])
+        aegis_cfg = metrics["config"]["data"]
     from aegis.data.preprocess import normalize
 
     df["n_tok"] = [len(x) + 2 for x in tok([normalize(s, aegis_cfg.get("normalize", "raw")) for s in df.Function],
@@ -87,6 +100,7 @@ def main() -> None:
         "has_comment": df.has_comment, "satd_keyword_in_comment": df.satd_kw,
         "exact_dup_in_fit": df.exact_dup_in_fit, "type2_clone_in_fit": df.clone_in_fit,
         "project": df.Projectname,
+        "source_dataset": df.Projectname.map(SOURCE).fillna("Big-Vul"),
     }
     for gname, g in groups.items():
         out[gname] = {str(k): {t: rates(sub, t) for t in ("vuln", "mat")} for k, sub in df.groupby(g, observed=True)}
@@ -100,7 +114,7 @@ def main() -> None:
     out["mat_fn_keyword_examples"] = [c[:300] for c in comments[fn_mat.index][fn_mat.satd_kw][:5]]
 
     REPORTS_DIR.mkdir(exist_ok=True)
-    (REPORTS_DIR / f"error_analysis_{args.experiment}{suffix}.json").write_text(json.dumps(out, indent=2, default=str))
+    (REPORTS_DIR / f"error_analysis_{args.experiment}{suffix}.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     lines = [f"# Error analysis: {args.experiment} ({out['split']})", "",
              f"Thresholds (from internal validation): {thr.tolist()}", ""]
     for gname in ["overall"] + list(groups):
@@ -116,7 +130,7 @@ def main() -> None:
     lines += [f"MAT false negatives with a SATD keyword in a comment: {out['mat_fn_with_keyword']}",
               f"MAT false negatives without any SATD keyword: {out['mat_fn_without_keyword']}",
               f"MAT false positives with a SATD keyword: {out['mat_fp_with_keyword']}"]
-    (REPORTS_DIR / f"error_analysis_{args.experiment}{suffix}.md").write_text("\n".join(lines) + "\n")
+    (REPORTS_DIR / f"error_analysis_{args.experiment}{suffix}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines[:40]))
 
 

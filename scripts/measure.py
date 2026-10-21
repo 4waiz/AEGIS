@@ -23,6 +23,7 @@ from aegis.data.dataset import load_internal_splits  # noqa: E402
 from aegis.envinfo import environment  # noqa: E402
 from aegis.evaluation.flops import encoder_flops  # noqa: E402
 from aegis.evaluation.official import evaluate_official, make_batches  # noqa: E402
+from aegis.paths import revision_for  # noqa: E402
 from aegis.training.train import prepare_split  # noqa: E402
 
 
@@ -40,8 +41,9 @@ def main() -> None:
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = AutoModelForSequenceClassification.from_pretrained(args.checkpoint).to(device).eval()
-    tokenizer = AutoTokenizer.from_pretrained(args.checkpoint)
+    rev = revision_for(args.checkpoint)
+    model = AutoModelForSequenceClassification.from_pretrained(args.checkpoint, revision=rev).to(device).eval()
+    tokenizer = AutoTokenizer.from_pretrained(args.checkpoint, revision=rev)
     aegis_cfg = getattr(model.config, "aegis", None) or {"normalize": "raw", "max_length": 512,
                                                           "truncation": "head", "thresholds": [0.5, 0.5]}
     if args.normalize:
@@ -70,7 +72,7 @@ def main() -> None:
     print("analytic", result.extra["analytic"])
     if args.out:
         Path(args.out).parent.mkdir(parents=True, exist_ok=True)
-        Path(args.out).write_text(json.dumps(result.to_dict(), indent=2, default=float))
+        Path(args.out).write_text(json.dumps(result.to_dict(), indent=2, default=float), encoding="utf-8")
         np.save(Path(args.out).with_suffix(".probs.npy"), probs)
 
 

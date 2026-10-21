@@ -17,6 +17,7 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from aegis.data.preprocess import normalize
+from aegis.paths import revision_for
 
 DEFAULTS = {"normalize": "raw", "max_length": 512, "truncation": "head", "thresholds": [0.5, 0.5],
             "prefix_tokens": None}
@@ -25,8 +26,9 @@ DEFAULTS = {"normalize": "raw", "max_length": 512, "truncation": "head", "thresh
 class AegisPredictor:
     def __init__(self, checkpoint: str, device: str | None = None, dtype: torch.dtype = torch.float16):
         self.device = torch.device(device or ("cuda" if torch.cuda.is_available() else "cpu"))
-        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint).to(self.device).eval()
-        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+        rev = revision_for(checkpoint)
+        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint, revision=rev).to(self.device).eval()
+        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint, revision=rev)
         self.cfg = {**DEFAULTS, **(getattr(self.model.config, "aegis", None) or {})}
         self.dtype = dtype if self.device.type == "cuda" else torch.float32
 

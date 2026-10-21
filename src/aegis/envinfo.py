@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-from aegis.paths import REPO_ROOT
+from aegis.paths import DATASET_REVISION, REPO_ROOT
 
 
 def git_commit() -> str:
@@ -34,6 +34,7 @@ def environment() -> dict:
         "numpy": numpy.__version__,
         "cuda_available": torch.cuda.is_available(),
         "git_commit": git_commit(),
+        "dataset_revision": DATASET_REVISION,
         "disk_free_gb": round(shutil.disk_usage(REPO_ROOT).free / 1e9, 1),
     }
     if torch.cuda.is_available():

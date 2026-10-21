@@ -14,14 +14,17 @@ import numpy as np
 import torch
 from transformers import AutoConfig, AutoModelForSequenceClassification, AutoTokenizer
 
+from aegis.paths import revision_for
+
 
 def build_model(cfg: dict):
     """cfg keys: init (HF id | 'scratch'), tokenizer, num_layers, layer_selection,
     scratch (dict of config overrides), embed_init ('pca:<hf id>' | None)."""
-    tokenizer = AutoTokenizer.from_pretrained(cfg.get("tokenizer") or cfg["init"])
+    tok_id = cfg.get("tokenizer") or cfg["init"]
+    tokenizer = AutoTokenizer.from_pretrained(tok_id, revision=revision_for(tok_id))
     labels = {"id2label": {0: "weakness", 1: "MAT"}, "label2id": {"weakness": 0, "MAT": 1}}
     if cfg["init"] == "scratch":
-        base = AutoConfig.from_pretrained(cfg["scratch_base"])
+        base = AutoConfig.from_pretrained(cfg["scratch_base"], revision=revision_for(cfg["scratch_base"]))
         conf = copy.deepcopy(base)
         for k, v in cfg.get("scratch", {}).items():
             setattr(conf, k, v)
@@ -33,7 +36,7 @@ def build_model(cfg: dict):
             _pca_embedding_init(model, cfg["embed_init"][4:])
     else:
         model = AutoModelForSequenceClassification.from_pretrained(
-            cfg["init"], num_labels=2, problem_type="multi_label_classification",
+            cfg["init"], revision=revision_for(cfg["init"]), num_labels=2, problem_type="multi_label_classification",
             ignore_mismatched_sizes=True, **labels,
         )
     if cfg.get("num_layers"):
@@ -66,7 +69,7 @@ def truncate_layers(model, k: int, selection: str = "first") -> None:
 def _pca_embedding_init(model, source: str) -> None:
     """Initialize a narrow model's token embeddings with the top principal components of a
     pretrained model's embedding matrix (same tokenizer required)."""
-    src = AutoModelForSequenceClassification.from_pretrained(source, num_labels=2)
+    src = AutoModelForSequenceClassification.from_pretrained(source, revision=revision_for(source), num_labels=2)
     emb = src.get_input_embeddings().weight.float()
     d = model.config.hidden_size
     centered = emb - emb.mean(0, keepdim=True)

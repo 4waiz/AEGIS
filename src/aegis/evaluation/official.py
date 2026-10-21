@@ -12,6 +12,10 @@ Measurement algorithm, unchanged from the notebook:
   * predictions = sigmoid(logits) > 0.5 (the participant may change the threshold logic of
     their own model, but the notebook uses 0.5).
 
+Deviation: the notebook applies ``sigmoid`` to the fp16 logits; we cast the logits to fp32 first. Decisions can
+differ only when the logit is within about 2e-3 of zero (at most 3 of 30,655 public-test functions for the final
+model, reports/test_statistics.json).
+
 Note: ``torch.profiler`` only attributes FLOPs to aten::mm/addmm/bmm/baddbmm/mul/add/conv2d.
 Fused attention (``scaled_dot_product_attention``) and GELU contribute 0 FLOPs to the
 official count. AEGIS reports an analytic FLOP estimate alongside the official number.

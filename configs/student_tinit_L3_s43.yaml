@@ -1,0 +1,21 @@
+# Control for distillation: 3 layers initialized from the fine-tuned teacher, trained WITHOUT distillation (seed 43).
+name: student_tinit_L3_s43
+model:
+  init: ${AEGIS_ARTIFACTS}/teacher_unixcoder/best
+  num_layers: 3
+  layer_selection: first
+  tokenizer: microsoft/unixcoder-base
+data:
+  normalize: single_line
+  max_length: 512
+  truncation: head
+train:
+  epochs: 4
+  batch_size: 32
+  lr: 5.0e-05
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  seed: 43
+  bf16: true
+  eval_every_epochs: 0.5
+  patience: 2

@@ -42,10 +42,13 @@ Large checkpoints are written to `$AEGIS_ARTIFACTS` (default `./artifacts`, git-
 
 ## Reproducing results
 
+The complete, ordered recipe (teacher, teacher-logit dump, final model, export, every ablation, tables and
+paper) with timings is in [submission/REPRODUCE.md](submission/REPRODUCE.md). The most common commands:
+
 | Step | Command |
 |---|---|
 | Dataset audit (reports/, figures/) | `python scripts/dataset_audit.py` |
-| Official baseline, official notebook loop | `python scripts/official_notebook_replica.py NLBSE/nlbse27-code-comment-classification-baseline experiments/baseline/official_replica.json` |
+| Official baseline, official notebook loop | `python scripts/official_notebook_replica.py NLBSE/nlbse27-code-comment-classification-baseline experiments/baseline/official_replica_rtx5080.json` |
 | Train a model | `python scripts/train.py configs/<config>.yaml` |
 | Score a checkpoint with the official protocol | `python scripts/measure.py $AEGIS_ARTIFACTS/<name>/best --split test` |
 | Lexical reference (TF-IDF + LR) | `python scripts/linear_reference.py` |
@@ -76,5 +79,6 @@ paper/          LaTeX sources of the competition paper
 
 ## License
 
-Code: MIT. The competition dataset and baseline are distributed by the NLBSE'27 organizers
+Code: MIT. Trained model (huggingface.co/4waiz/aegis-nlbse27): Apache-2.0, following its base model
+`microsoft/unixcoder-base`. The competition dataset and baseline are distributed by the NLBSE'27 organizers
 (repository under CC0); pretrained encoders keep their own licenses.

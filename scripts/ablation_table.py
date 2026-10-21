@@ -22,35 +22,43 @@ from aegis.evaluation.official import submission_score  # noqa: E402
 ROWS = [  # (group, label (LaTeX-safe), experiments [seeds])
     ("Depth (no KD)", "1 layer", ["student_unix_L1"]),
     ("Depth (no KD)", "2 layers", ["student_unix_L2"]),
-    ("Depth (no KD)", "3 layers$^\\dagger$", ["student_unix_L3", "student_unix_L3_s43", "student_unix_L3_s44"]),
+    ("Depth (no KD)", "3 layers", ["student_unix_L3", "student_unix_L3_s43", "student_unix_L3_s44"]),
     ("Depth (no KD)", "4 layers", ["student_unix_L4"]),
     ("Depth (no KD)", "6 layers", ["student_unix_L6"]),
     ("Depth (no KD)", "12 layers (teacher)", ["teacher_unixcoder"]),
     ("Distillation", "2 layers + KD", ["kd_teacher_L2"]),
-    ("Distillation", "3 layers + KD$^\\dagger$", ["kd_teacher_L3", "kd_teacher_L3_s43", "kd_teacher_L3_s44"]),
+    ("Distillation", "3 layers + KD", ["kd_teacher_L3", "kd_teacher_L3_s43", "kd_teacher_L3_s44"]),
     ("Distillation", "4 layers + KD", ["kd_teacher_L4"]),
     ("Variants", "2L + KD, pretrained init", ["kd_pre_L2"]),
     ("Variants", "3L + KD, 6 epochs", ["kd_teacher_L3_e6"]),
-    ("Variants", "3L + KD, raw input", ["kd_teacher_L3_raw"]),
-    ("Variants", "3L + KD, mixed input (final)", ["kd_teacher_L3_mixed"]),
+    ("Variants", "3L + KD, raw input", ["kd_teacher_L3_raw", "kd_teacher_L3_raw_s43"]),
+    ("Variants", "3L + KD, line breaks kept", ["kd_teacher_L3_collapse"]),
+    ("Variants", "3L + KD, mixed input (final)", ["kd_teacher_L3_mixed", "kd_teacher_L3_mixed_s43", "kd_teacher_L3_mixed_s44"]),
+    ("Control", "3L, teacher init, no KD", ["student_tinit_L3", "student_tinit_L3_s43", "student_tinit_L3_s44"]),
     ("Reference", "4$\\times$256 from scratch", ["student_scratch_4x256"]),
 ]
 
 
 def stats(names: list[str]) -> dict | None:
+    """F1 averaged over the seeds that exist (at least the primary run). Cost columns come from the primary
+    (first) run only, so that every row's cost was measured in the same GPU power mode."""
     recs = []
     for n in names:
         mf, mv = ROOT / f"experiments/{n}/metrics.json", ROOT / f"experiments/{n}/measure_val.json"
-        if not (mf.exists() and mv.exists()):
-            return None
-        b = json.loads(mf.read_text())["best"]
-        r = json.loads(mv.read_text())
-        k = test_over_val(r)
+        if not mf.exists():
+            continue
+        b = json.loads(mf.read_text(encoding="utf-8"))["best"]
         recs.append(dict(vuln=b["val_tuned"]["f1_vuln"], mat=b["val_tuned"]["f1_mat"], mean=b["val_mean_f1_tuned"],
-                         mean05=b["val_at_0.5"]["mean_f1"], gflops=r["avg_flops"], runtime=r["avg_runtime"],
-                         proj=submission_score(b["val_mean_f1_tuned"], r["avg_runtime"] * k, r["avg_flops"] * k)))
-    out = {key: float(np.mean([r[key] for r in recs])) for key in recs[0]}
-    out["mean_sd"] = float(np.std([r["mean"] for r in recs], ddof=1)) if len(recs) > 1 else None
+                         mean05=b["val_at_0.5"]["mean_f1"],
+                         cost=json.loads(mv.read_text(encoding="utf-8")) if mv.exists() else None))
+    if not recs or recs[0]["cost"] is None:
+        return None
+    out = {key: float(np.mean([r[key] for r in recs])) for key in ("vuln", "mat", "mean", "mean05")}
+    r = recs[0]["cost"]
+    k = test_over_val(r)
+    out.update(gflops=r["avg_flops"], runtime=r["avg_runtime"],
+               proj=submission_score(out["mean"], r["avg_runtime"] * k, r["avg_flops"] * k))
+    out["mean_sd"] = float(np.std([x["mean"] for x in recs], ddof=1)) if len(recs) > 1 else None
     out["n"] = len(recs)
     return out
 
@@ -75,17 +83,19 @@ def main() -> None:
         group = g
         if s["mean_sd"] is not None:
             sds.append(f"{s['mean_sd']:.4f}")
-        body.append(f"{label} & {s['vuln']:.3f} & {s['mat']:.3f} & {s['mean']:.3f} & {s['gflops'] / 1e3:.0f}k & {s['proj']:.3f} \\\\")
+        mark = f" ({s['n']})" if s["n"] > 1 else ""
+        body.append(f"{label}{mark} & {s['vuln']:.3f} & {s['mat']:.3f} & {s['mean']:.3f} & {s['gflops'] / 1e3:.0f}k & {s['proj']:.3f} \\\\")
     caption = (r"\caption{Internal-validation ablations. F1 uses validation-tuned thresholds; cost (GFLOPs) is measured "
                r"with the official loop on internal validation and the score projects it to the public-test size. "
-               rf"$^\dagger$Mean of three seeds (standard deviation of mean F1: {' and '.join(sds)}). "
-               r"Costs were measured in a lower GPU power mode than Table~\ref{tab:main}.}")
+               r"(n): F1 averaged over n seeds; the largest seed standard deviation of mean F1 is "
+               rf"{max(float(x) for x in sds):.4f}. Costs come from each configuration's seed-42 run, measured in a lower "
+               r"GPU power mode than Table~\ref{tab:main}.}")
     tex = [r"\begin{table}[t]", r"\centering", caption, r"\label{tab:ablations}", r"\setlength{\tabcolsep}{3pt}",
            r"\resizebox{\columnwidth}{!}{%", r"\begin{tabular}{lccccc}", r"\toprule",
            r"Model & Weak.\ F1 & MAT F1 & Mean F1 & GFLOPs & Score \\", r"\midrule",
            *body, r"\bottomrule", r"\end{tabular}}", r"\end{table}"]
-    (ROOT / "reports" / "ablations.md").write_text("\n".join(md) + "\n")
-    (ROOT / "paper" / "table_ablations.tex").write_text("\n".join(tex) + "\n")
+    (ROOT / "reports" / "ablations.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    (ROOT / "paper" / "table_ablations.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
     print("\n".join(md))
 
 

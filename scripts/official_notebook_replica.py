@@ -20,9 +20,10 @@ from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 from transformers import RobertaForSequenceClassification, RobertaTokenizer
 
-sys.path.insert(0, "src")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "src"))
 from aegis.data.dataset import load_split  # noqa: E402
 from aegis.envinfo import environment  # noqa: E402
+from aegis.paths import revision_for  # noqa: E402
 
 MODEL = sys.argv[1] if len(sys.argv) > 1 else "NLBSE/nlbse27-code-comment-classification-baseline"
 OUT = sys.argv[2] if len(sys.argv) > 2 else None
@@ -30,13 +31,13 @@ OUT = sys.argv[2] if len(sys.argv) > 2 else None
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
-tokenizer = RobertaTokenizer.from_pretrained(MODEL)
+tokenizer = RobertaTokenizer.from_pretrained(MODEL, revision=revision_for(MODEL))
 
 total_flops = 0
 total_time = 0
 scores = []
 
-model = RobertaForSequenceClassification.from_pretrained(MODEL)
+model = RobertaForSequenceClassification.from_pretrained(MODEL, revision=revision_for(MODEL))
 model.to(device)
 model.eval()
 

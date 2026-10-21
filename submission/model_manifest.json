@@ -1,0 +1,38 @@
+{
+  "model": "4waiz/aegis-nlbse27",
+  "hub_revision": "2011b2fa1e2577c24b56b4a8d551634af3522730",
+  "files": {
+    "config.json": {
+      "sha256": "207179cdf9b0ad921fd4971adfc8c824c5f6d1f4d75b53a23118be9542526ec9",
+      "bytes": 1157
+    },
+    "merges.txt": {
+      "sha256": "3b84414c9f8804a621da0fd4bfe77104ef536c350baaaf3c99003356b0cc85f4",
+      "bytes": 444183
+    },
+    "model.safetensors": {
+      "sha256": "b4c16913a0a96797a5981d38bb1fb229b9926b3ab0fcd8cd15184cb2d5a0a153",
+      "bytes": 248568408
+    },
+    "README.md": {
+      "sha256": "dd0d0978a05f2893c82336d04bc1bcc149ae5b69edef21213a3c53ac60365605",
+      "bytes": 4448
+    },
+    "special_tokens_map.json": {
+      "sha256": "75cbec71553267dadc77a583ef15122c2aa7422eb6635acc72a184a413f17c1c",
+      "bytes": 1008
+    },
+    "tokenizer.json": {
+      "sha256": "b247e9aa457813ce216286568b9adfe23421a9fa499b77c0853e7f1da1c0e9cb",
+      "bytes": 3579572
+    },
+    "tokenizer_config.json": {
+      "sha256": "2a2886951c861c525027b895dac0670ac2bf99ce82dd325939f85aa6079514ff",
+      "bytes": 1327
+    },
+    "vocab.json": {
+      "sha256": "d7c4a1de8e3c2185ec418a8c90c8b42a6c2254cef9bcbd32a3ab735241b626e0",
+      "bytes": 834821
+    }
+  }
+}
