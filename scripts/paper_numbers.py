@@ -208,20 +208,31 @@ def review_macros(m: dict, stats: dict) -> None:
     # Single-line distilled model on the public test
     sl = load("experiments/kd_teacher_L3/measure_test.json")
     m["SingleMeanFone"], m["SingleScore"] = f"{sl['avg_f1']:.3f}", f"{sl['score']:.3f}"
+    t4 = ROOT / "experiments" / "colab_t4" / "results.json"
+    if t4.exists():
+        r = json.loads(t4.read_text(encoding="utf-8"))
+        for key, name in (("Base", "official_baseline"), ("Aegis", "aegis")):
+            x = r[name]
+            m[f"Tfour{key}Fone"], m[f"Tfour{key}Runtime"] = f"{x['f1']:.3f}", f"{x['runtime']:.1f}"
+            m[f"Tfour{key}GflopsK"], m[f"Tfour{key}Score"] = f"{x['gflops'] / 1e3:,.0f}".replace(",", "{,}"), f"{x['score']:.3f}"
     rep = load("experiments/kd_teacher_L3_mixed/official_replica_test.json")
     van = load("experiments/kd_teacher_L3_mixed/robust_test_vanilla_notebook.json")
     m["ReplicaMatches"] = "identical" if all(rep["scores"][i][k] == van["scores"][i][k] for i in range(2)
                                              for k in ("tp", "fp", "fn")) else "different"
 
 
-MAIN_ROWS = [  # (label, layers, measurement file or None for the organizers' printed T4 values)
-    (r"CodeBERT baseline, organizers (T4)", 12, None),
+MAIN_ROWS = [  # (label, layers, source); "t4:<key>" = experiments/colab_t4/results.json, "rule" = midrule
+    (r"\multicolumn{8}{l}{\emph{Colab T4 (official ranking hardware), one session}}", None, "header"),
+    (r"CodeBERT baseline, official notebook", 12, "t4:official_baseline"),
+    (r"\textbf{AEGIS}", 3, "t4:aegis"),
+    (None, None, "rule"),
+    (r"\multicolumn{8}{l}{\emph{RTX 5080 Laptop GPU, one session}}", None, "header"),
     (r"CodeBERT baseline, official loop", 12, "experiments/baseline/measure_test_official.json"),
     (r"\quad + sorted dynamic padding", 12, "experiments/baseline/measure_test_sorted.json"),
     (r"UniXcoder teacher", 12, "experiments/teacher_unixcoder/measure_test.json"),
     (r"Student, no distillation", 3, "experiments/student_unix_L3/measure_test.json"),
     (r"Student + KD, single-line input", 3, "experiments/kd_teacher_L3/measure_test.json"),
-    (r"\textbf{AEGIS}", 3, "experiments/kd_teacher_L3_mixed/measure_test.json"),
+    (r"\textbf{AEGIS} (KD, mixed input)", 3, "experiments/kd_teacher_L3_mixed/measure_test.json"),
     (r"\quad AEGIS in the unmodified notebook", 3, "experiments/kd_teacher_L3_mixed/robust_test_vanilla_notebook.json"),
 ]
 
@@ -229,25 +240,34 @@ MAIN_ROWS = [  # (label, layers, measurement file or None for the organizers' pr
 def main_table(m: dict) -> None:
     """paper/table_main.tex: public-test results under the official measurement loop."""
     rows = []
-    for label, layers, path in MAIN_ROWS:
-        if path is None:
-            o = OFFICIAL_T4
-            vals = (0.938979, 0.881393, o["f1"], o["runtime"], o["gflops"],
-                    submission_score(o["f1"], o["runtime"], o["gflops"]))
-        else:
-            if not (ROOT / path).exists():
+    t4_path = ROOT / "experiments" / "colab_t4" / "results.json"
+    t4 = json.loads(t4_path.read_text(encoding="utf-8")) if t4_path.exists() else None
+    for label, layers, src in MAIN_ROWS:
+        if src == "rule":
+            rows.append(r"\midrule")
+            continue
+        if src == "header":
+            rows.append(label + r" \\")
+            continue
+        if src.startswith("t4:"):
+            if t4 is None:
                 continue
-            r = load(path)
+            x = t4[src[3:]]
+            vals = (x["f1_weakness"], x["f1_mat"], x["f1"], x["runtime"], x["gflops"], x["score"])
+        else:
+            if not (ROOT / src).exists():
+                continue
+            r = load(src)
             vals = (r["scores"][0]["f1"], r["scores"][1]["f1"], r["avg_f1"], r["avg_runtime"], r["avg_flops"], r["score"])
         v, mt, f, t, g, s = vals
         gk = f"{g / 1e3:,.0f}".replace(",", "{,}")
         rows.append(f"{label} & {layers} & {v:.3f} & {mt:.3f} & {f:.3f} & {t:.1f} & {gk}k & {s:.3f} \\\\")
     tex = [r"\begin{table*}[t]", r"\centering",
-           r"\caption{Public-test results with the official measurement loop (two timed forward passes per batch, fp16, "
-           r"\texttt{torch.profiler}). Runtime and GFLOPs are totals over the 30{,}655 functions. Except for the first row "
-           r"(values printed in the official notebook, Colab T4), all rows were measured on one RTX 5080 Laptop GPU in the "
-           r"same session; runtimes are hardware-dependent, GFLOPs are not. The last row runs AEGIS through the unmodified "
-           r"official notebook procedure (raw input, padding to 512, threshold 0.5).}",
+           r"\caption{Public-test results (30{,}655 functions) with the official measurement loop (two timed forward passes "
+           r"per batch, fp16, \texttt{torch.profiler}); runtime and GFLOPs are totals over the split. GFLOPs do not depend on "
+           r"the hardware; runtimes and scores are comparable only within a block. The organizers report 198.9\,s and a score "
+           r"of 0.729 for the baseline on their T4. The last row runs AEGIS through the unmodified notebook procedure "
+           r"(raw input, padding to 512, threshold 0.5).}",
            r"\label{tab:main}", r"\begin{tabular}{lcrrrrrr}", r"\toprule",
            r"Model & Layers & Weak.\ F1 & MAT F1 & Mean F1 & Runtime (s) & GFLOPs & Score \\", r"\midrule",
            *rows, r"\bottomrule", r"\end{tabular}", r"\end{table*}"]

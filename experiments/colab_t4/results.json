@@ -1,0 +1,15 @@
+{
+  "source": "notebooks/AEGIS_T4_evaluation.ipynb run on Google Colab (runtime 'T4 (Python 3)'), 2026-10-21 ~22:28 AST, in the author's Colab account. Values transcribed from the printed cell outputs (screenshots: baseline_output.png, aegis_output.png).",
+  "model": "4waiz/aegis-nlbse27@2011b2fa1e2577c24b56b4a8d551634af3522730",
+  "official_baseline": {
+    "f1_weakness": 0.938979, "f1_mat": 0.881393,
+    "f1": 0.9101860725779012, "runtime": 192.65198981761932, "gflops": 2666509.7131617293,
+    "score": 0.7298139313724349
+  },
+  "aegis": {
+    "precision_weakness": 0.957429, "recall_weakness": 0.908376, "f1_weakness": 0.932258,
+    "precision_mat": 0.991051, "recall_mat": 0.877228, "f1_mat": 0.930672,
+    "f1": 0.9314650843746555, "runtime": 16.38776957988739, "gflops": 206126.26406016905,
+    "score": 0.9418597457714712
+  }
+}
