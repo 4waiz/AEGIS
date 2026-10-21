@@ -60,6 +60,6 @@ action.
 
 ## Still open (author action)
 
-1. Affiliation and e-mail in the paper and the form; confirm the AI-use disclosure.
+1. Confirm the AI-use disclosure (authors, affiliation and e-mails were added on 2026-10-22).
 2. Organizer questions sent 2026-10-22; await the reply (most important: which submission form to use).
 3. At submission: make the GitHub repository public (the model already is), then submit the form.

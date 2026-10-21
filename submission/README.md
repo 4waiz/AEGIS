@@ -17,7 +17,7 @@ Deadline: **2026-11-13 AoE**.
 
 ## Checklist before pressing "Submit"
 
-- [x] Author affiliation and e-mail filled in `paper/AEGIS.tex` and in `form_answers.md` (Al Ain University, 202310183@aau.ac.ae).
+- [x] Authors, affiliation and e-mails filled in `paper/AEGIS.tex` and in `form_answers.md` (Awaiz Ahmed, 202310183@aau.ac.ae; Khubaib Amjad Alam, Khubaib.alam@aau.ac.ae; Al Ain University).
 - [ ] AI-use disclosure in the paper's acknowledgment confirmed by the author (IEEE policy).
 - [ ] Confirm with the organizers which form to use (the linked form is still the NLBSE'26 one).
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
