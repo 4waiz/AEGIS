@@ -194,6 +194,12 @@ def review_macros(m: dict, stats: dict) -> None:
     if tinit:
         ti = rng(tinit)
         m["TinitMean"], m["TinitRange"], m["TinitN"] = f"{np.mean(ti):.4f}", f"{min(ti):.4f}--{max(ti):.4f}", str(len(ti))
+        vul = lambda names: float(np.mean([json.loads((EXP / n / "metrics.json").read_text(encoding="utf-8"))["best"]["val_tuned"]["f1_vuln"] for n in names]))  # noqa: E731
+        v_no = vul(["student_unix_L3", "student_unix_L3_s43", "student_unix_L3_s44"])
+        v_ti = vul(tinit)
+        v_kd = vul(["kd_teacher_L3", "kd_teacher_L3_s43", "kd_teacher_L3_s44"])
+        m["InitVulnGain"], m["LossVulnGain"] = f"{v_ti - v_no:+.4f}", f"{v_kd - v_ti:+.4f}"
+        m["LossShare"] = f"{100 * (v_kd - v_ti) / (v_kd - v_no):.0f}"
     mixed = [n for n in ["kd_teacher_L3_mixed", "kd_teacher_L3_mixed_s43", "kd_teacher_L3_mixed_s44"] if (EXP / n / "metrics.json").exists()]
     mx = rng(mixed)
     m["MixedMean"], m["MixedRange"], m["MixedN"] = f"{np.mean(mx):.4f}", f"{min(mx):.4f}--{max(mx):.4f}", str(len(mx))

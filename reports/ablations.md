@@ -17,5 +17,6 @@ F1 with per-task thresholds tuned on internal validation; `F1@0.5` uses the fixe
 | Variants | 3L + KD, 6 epochs | 1 | 0.9377 | 0.9299 | 0.9338 | 0.9317 | 145,131 | 9.92 | 0.9435 |
 | Variants | 3L + KD, raw input | 2 | 0.9423 | 0.9245 | 0.9334 ± 0.0002 | 0.9330 | 169,213 | 11.77 | 0.9404 |
 | Variants | 3L + KD, line breaks kept | 1 | 0.9399 | 0.9294 | 0.9347 | 0.9331 | 158,587 | 10.65 | 0.9425 |
-| Variants | 3L + KD, mixed input (final) | 1 | 0.9346 | 0.9313 | 0.9329 | 0.9306 | 145,131 | 9.83 | 0.9430 |
+| Variants | 3L + KD, mixed input (final) | 3 | 0.9346 | 0.9313 | 0.9329 ± 0.0004 | 0.9304 | 145,131 | 9.83 | 0.9430 |
+| Control | 3L, teacher init, no KD | 3 | 0.9318 | 0.9303 | 0.9311 ± 0.0008 | 0.9291 | 145,131 | 9.46 | 0.9419 |
 | Reference | 4$\times$256 from scratch | 1 | 0.8027 | 0.9158 | 0.8592 | 0.8578 | 21,505 | 3.09 | 0.9126 |

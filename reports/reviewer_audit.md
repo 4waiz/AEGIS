@@ -25,7 +25,7 @@ action.
 | 4 | A | The KD effect is confounded with teacher initialization. | **Fixed by experiment:** 3-seed control with teacher initialization and no KD (`configs/student_tinit_L3*.yaml`). The paper reports the result and the effect is attributed accordingly. Welch p-values were replaced by seed ranges plus paired-bootstrap CIs on test. |
 | 5 | A | A test-scored model that beats AEGIS (single-line KD, 0.9447) was omitted. | **Fixed.** Added to Table I. The mixed-input cost is quantified: weakness −0.004 [−0.006, −0.001], exchanged for robustness to the unmodified notebook. |
 | 6 | A | The abstract's headline score assumes our inference code. | **Fixed.** The abstract gives both scores (0.944 / 0.908). |
-| 7 | A, C | No T4 measurement. | **Open (needs the author).** Reaching the private model from Colab needs a public model or the author's token. The notebook is ready, revisions are pinned, and it was smoke-tested. The paper states that no T4 numbers are reported. |
+| 7 | A, C | No T4 measurement. | **Fixed.** The model was made public at the author's request and the notebook was run on a Colab T4: the baseline takes 192.7 s (score 0.730; GFLOPs identical to the organizers' printout) and AEGIS 16.4 s (score 0.942), with mean F1 identical to the local run (`experiments/colab_t4/`). |
 | 8 | A | The 3-layer optimum holds only at public-test size. | **Disclosed.** Totalled over the hidden split without rescaled constants, 2 layers would lead by 0.001 (0.9275 vs. 0.9264). Organizer question 2 asks about this. |
 | 9 | C | User-specific paths in configs (blocker). | **Fixed** (`bc7847f`): `${AEGIS_ARTIFACTS}` placeholders, `load_config` expansion, test. |
 | 10 | C | Incomplete reproduction steps. | **Fixed:** `submission/REPRODUCE.md` gives an ordered recipe with timings, including the teacher-logit dump and export. |
@@ -61,6 +61,5 @@ action.
 ## Still open (author action)
 
 1. Affiliation and e-mail in the paper and the form; confirm the AI-use disclosure.
-2. T4 run: make the Hugging Face model public (or log in on Colab), then run `notebooks/AEGIS_T4_evaluation.ipynb`.
-3. Send `research/organizer_questions.md`. Question 0 matters most: the linked submission form is the NLBSE'26 one.
-4. At submission: make the GitHub repository and the model public, then submit the form.
+2. Send `research/organizer_questions.md`. Question 0 matters most: the linked submission form is the NLBSE'26 one.
+3. At submission: make the GitHub repository public (the model already is), then submit the form.

@@ -8,10 +8,10 @@ Deadline: **2026-11-13 AoE**.
 | Item | Location | Status |
 |---|---|---|
 | Paper (2-4 pages, ICSE'27 IEEEtran, not anonymized) | `submission/AEGIS.pdf` (built from `paper/AEGIS.tex`) | compiled, 4 pages |
-| Trained model | https://huggingface.co/4waiz/aegis-nlbse27 (revision `2011b2f`) | hosted, **private** |
+| Trained model | https://huggingface.co/4waiz/aegis-nlbse27 (revision `2011b2f`, hashes in `submission/model_manifest.json`) | hosted, **public** since 2026-10-21 |
 | Source code (training, tuning, evaluation) | https://github.com/4waiz/AEGIS | complete, **private** |
 | Reproduction guide | `submission/REPRODUCE.md` | written and checked |
-| Official-loop evaluation on a Colab T4 | `notebooks/AEGIS_T4_evaluation.ipynb` | ready; T4 run pending |
+| Official-loop evaluation on a Colab T4 | `notebooks/AEGIS_T4_evaluation.ipynb`; results in `experiments/colab_t4/` | done 2026-10-21: AEGIS 16.4 s, score 0.942 (baseline 192.7 s, 0.730) |
 | Submission-form answers | `submission/form_answers.md` | drafted; author details needed |
 | Questions for the organizers | `research/organizer_questions.md` | drafted, not sent |
 
@@ -21,9 +21,9 @@ Deadline: **2026-11-13 AoE**.
 - [ ] AI-use disclosure in the paper's acknowledgment confirmed by the author (IEEE policy).
 - [ ] Confirm with the organizers which form to use (the linked form is still the NLBSE'26 one).
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
-- [ ] Hugging Face model made public (Settings > Make public, or `huggingface_hub.HfApi().update_repo_settings("4waiz/aegis-nlbse27", private=False)`).
-- [ ] Optional: T4 numbers from `notebooks/AEGIS_T4_evaluation.ipynb` added to the paper.
-- [ ] `submission/AEGIS.pdf` re-built after the last edit (`cd paper && ../tools/tectonic/tectonic.exe AEGIS.tex`).
+- [x] Hugging Face model made public (2026-10-21).
+- [x] T4 numbers added to the paper (Table I, abstract).
+- [x] `submission/AEGIS.pdf` re-built after the last edit (2026-10-21).
 
 ## Competition requirements and where they are met
 

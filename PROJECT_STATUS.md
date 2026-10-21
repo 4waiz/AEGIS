@@ -15,8 +15,8 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 | 9. Software package | Working: training, measurement, export, inference, tests | src/aegis/, scripts/, tests/ |
 | 10. Demo | Not started (optional) | |
 | 11. Paper | Compiled with tectonic 0.17.0: 4 pages incl. references, IEEEtran, no overfull boxes; author details and AI-disclosure wording pending | paper/AEGIS.pdf |
-| 12. Reviewer audit | Not started | |
-| 13. Submission package | Model hosted (private) at huggingface.co/4waiz/aegis-nlbse27 @2011b2f, verified identical to the local export; T4 run and public release pending | docs/model_card.md, notebooks/AEGIS_T4_evaluation.ipynb |
+| 12. Reviewer audit | Done: three independent reviews, all findings resolved or disclosed | reports/reviewer_audit.md |
+| 13. Submission package | Ready except author details; model public on HF @2011b2f; Colab T4 run done (AEGIS 16.4 s, score 0.942); repo still private | submission/, experiments/colab_t4/ |
 
 ## Final model (D14)
 `kd_teacher_L3_mixed`, exported as `$AEGIS_ARTIFACTS/aegis_final`:

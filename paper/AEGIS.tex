@@ -169,9 +169,9 @@ notebook gives \ReplicaMatches{} predictions).
 (Fig.~\ref{fig:depth}, Table~\ref{tab:ablations}); the optimum is flat: totalled over the twice larger hidden
 split without rescaled constants, 2 layers would lead by $\approx$0.001 (\HiddenTwo{} vs.\ \HiddenThree).
 All three distilled 3-layer seeds (\KdRange) exceed all three undistilled ones (\NoKdRange) on internal validation,
-and the test split confirms the weakness gain (\KdTestVulnGain, \ci{\CiKdTestVuln}). Initializing from the teacher
-without distillation gives \TinitRange{} (\TinitN{} seeds), so the gain comes from the distillation loss, not
-from the initialization. MAT is unchanged by distillation; from two layers on, every model learns the tag rule. Tuned
+and the test split confirms the weakness gain (\KdTestVulnGain, \ci{\CiKdTestVuln}). A control that initializes from the teacher
+without distillation reaches \TinitRange{} (\TinitN{} seeds): of the weakness gain, \InitVulnGain{} comes from the
+initialization and \LossVulnGain{} (\LossShare\%) from the distillation loss. MAT is unchanged by distillation; from two layers on, every model learns the tag rule. Tuned
 thresholds changed public-test mean F1 by at most \ThrTestMax{} for the students, so their benefit is robustness
 to a 0.5 cut-off rather than accuracy.
 

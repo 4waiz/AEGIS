@@ -133,3 +133,8 @@ Each entry: date, decision, evidence, consequences. Newest last.
   lead by 0.001. Kept 3 layers; organizer question 2 asks how the hidden split is scored.
 - Control for teacher initialization (student_tinit_L3, 3 seeds) and two more seeds of the final configuration
   (kd_teacher_L3_mixed_s43/s44) were run in round 6.
+- Round-6 results: teacher init without KD 0.9302 / 0.9317 / 0.9313 (mean 0.9311) vs KD 0.9337 and no-KD
+  pretrained init 0.9306; 73% of the weakness gain comes from the distillation loss. Final configuration
+  across seeds: 0.9329 / 0.9334 / 0.9325 (seed 42, the submitted model, is the median).
+- Official T4 (Colab, 2026-10-21): baseline 192.7 s / 0.730, AEGIS 16.4 s / 0.942; the public Hub model
+  reproduces the reported predictions exactly (experiments/reproduce_hub/).

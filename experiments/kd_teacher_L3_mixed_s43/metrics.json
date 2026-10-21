@@ -1,0 +1,90 @@
+{
+  "name": "kd_teacher_L3_mixed_s43",
+  "config": {
+    "name": "kd_teacher_L3_mixed_s43",
+    "model": {
+      "init": "C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/best",
+      "tokenizer": "microsoft/unixcoder-base",
+      "num_layers": 3,
+      "layer_selection": "first"
+    },
+    "data": {
+      "normalize": "single_line",
+      "max_length": 512,
+      "truncation": "head",
+      "train_normalize": "mixed"
+    },
+    "distill": {
+      "teacher_logits": "C:/Users/awaiz/aegis_artifacts/teacher_unixcoder/teacher_logits_fit.npz"
+    },
+    "train": {
+      "epochs": 4,
+      "batch_size": 32,
+      "lr": 5e-05,
+      "warmup_ratio": 0.06,
+      "weight_decay": 0.01,
+      "seed": 43,
+      "bf16": true,
+      "kd_alpha": 0.5,
+      "kd_temperature": 2.0,
+      "eval_every_epochs": 0.5,
+      "patience": 2
+    }
+  },
+  "best": {
+    "val_mean_f1_tuned": 0.933367756786652,
+    "val_tuned": {
+      "f1_vuln": 0.9340138010350776,
+      "f1_mat": 0.9327217125382263,
+      "p_vuln": 0.9367070357554786,
+      "r_vuln": 0.9313360091743119,
+      "p_mat": 0.9967320261437909,
+      "r_mat": 0.8764367816091954,
+      "mean_f1": 0.933367756786652
+    },
+    "val_at_0.5": {
+      "f1_vuln": 0.9333618721461188,
+      "f1_mat": 0.9270516717325228,
+      "p_vuln": 0.9291193181818181,
+      "r_vuln": 0.9376433486238532,
+      "p_mat": 0.9838709677419355,
+      "r_mat": 0.8764367816091954,
+      "mean_f1": 0.9302067719393208
+    },
+    "thresholds": [
+      0.6,
+      0.7899999999999999
+    ],
+    "epoch": 3.5
+  },
+  "checkpoint": "C:\\Users\\awaiz\\aegis_artifacts\\kd_teacher_L3_mixed_s43\\best",
+  "train_time_s": 1207.5,
+  "peak_gpu_mem_gb": 4.1,
+  "params": {
+    "total": 62140418,
+    "embedding": 40284672,
+    "non_embedding": 21855746
+  },
+  "n_fit": 193343,
+  "n_val": 21243,
+  "mean_fit_tokens": 166.2980350982451,
+  "env": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.6",
+    "cuda_available": true,
+    "git_commit": "2cc968a535a8619b273dda6128a241aa471e7f13-dirty",
+    "dataset_revision": "feca19b90d1cc9fcf8ba5d6e693c4a94e249585c",
+    "disk_free_gb": 170.6,
+    "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "gpu_mem_gb": 17.1,
+    "gpu_capability": "12.0",
+    "cuda": "12.8",
+    "cudnn": 91900,
+    "gpu_power_state": "22.98 W, 175.00 W, 1012 MHz, 3090 MHz, P0",
+    "power_scheme": "Power Scheme GUID: 62346f4c-22a8-45c0-adf0-24a1cb9f2739  (PD_Turbo)"
+  }
+}

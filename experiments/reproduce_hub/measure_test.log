@@ -1,63 +1,38 @@
-Traceback (most recent call last):
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\utils\_http.py", line 403, in hf_raise_for_status
-    response.raise_for_status()
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\requests\models.py", line 1167, in raise_for_status
-    raise HTTPError(http_error_msg, response=self)
-requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/4waiz/aegis-nlbse27/resolve/main/config.json
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\transformers\utils\hub.py", line 479, in cached_files
-    hf_hub_download(
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\utils\_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 1014, in hf_hub_download
-    return _hf_hub_download_to_cache_dir(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 1121, in _hf_hub_download_to_cache_dir
-    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 1662, in _raise_on_head_call_error
-    raise head_call_error
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 1550, in _get_metadata_or_catch_error
-    metadata = get_hf_file_metadata(
-               ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\utils\_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 1467, in get_hf_file_metadata
-    r = _request_wrapper(
-        ^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 283, in _request_wrapper
-    response = _request_wrapper(
-               ^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\file_download.py", line 307, in _request_wrapper
-    hf_raise_for_status(response)
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\huggingface_hub\utils\_http.py", line 453, in hf_raise_for_status
-    raise _format(RepositoryNotFoundError, message, response) from e
-huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-6ad8fba9-395de7243e5984160a7f897f;9a572071-1ac1-428d-b6b7-fd903c6b71ee)
-
-Repository Not Found for url: https://huggingface.co/4waiz/aegis-nlbse27/resolve/main/config.json.
-Please make sure you specified the correct `repo_id` and `repo_type`.
-If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-Invalid username or password.
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\awaiz\OneDrive\Desktop\Github\AEGIS\scripts\measure.py", line 78, in <module>
-    main()
-  File "C:\Users\awaiz\OneDrive\Desktop\Github\AEGIS\scripts\measure.py", line 43, in main
-    model = AutoModelForSequenceClassification.from_pretrained(args.checkpoint).to(device).eval()
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\transformers\models\auto\auto_factory.py", line 508, in from_pretrained
-    resolved_config_file = cached_file(
-                           ^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\transformers\utils\hub.py", line 322, in cached_file
-    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\awaiz\AppData\Local\Programs\Python\Python312\Lib\site-packages\transformers\utils\hub.py", line 511, in cached_files
-    raise OSError(
-OSError: 4waiz/aegis-nlbse27 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
-If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+Predicting...:   0%|          | 0/52 [00:00<?, ?it/s]Predicting...:   2%|1         | 1/52 [00:02<02:26,  2.86s/it]Predicting...:   4%|3         | 2/52 [00:04<01:54,  2.29s/it]Predicting...:   6%|5         | 3/52 [00:06<01:36,  1.97s/it]Predicting...:   8%|7         | 4/52 [00:07<01:27,  1.83s/it]Predicting...:  10%|9         | 5/52 [00:09<01:20,  1.71s/it]Predicting...:  12%|#1        | 6/52 [00:10<01:14,  1.62s/it]Predicting...:  13%|#3        | 7/52 [00:12<01:07,  1.51s/it]Predicting...:  15%|#5        | 8/52 [00:13<01:02,  1.41s/it]Predicting...:  17%|#7        | 9/52 [00:14<00:57,  1.33s/it]Predicting...:  19%|#9        | 10/52 [00:15<00:53,  1.28s/it]Predicting...:  21%|##1       | 11/52 [00:16<00:50,  1.22s/it]Predicting...:  23%|##3       | 12/52 [00:17<00:48,  1.21s/it]Predicting...:  25%|##5       | 13/52 [00:18<00:43,  1.11s/it]Predicting...:  27%|##6       | 14/52 [00:19<00:39,  1.03s/it]Predicting...:  29%|##8       | 15/52 [00:20<00:35,  1.05it/s]Predicting...:  31%|###       | 16/52 [00:21<00:32,  1.11it/s]Predicting...:  33%|###2      | 17/52 [00:21<00:29,  1.19it/s]Predicting...:  35%|###4      | 18/52 [00:22<00:28,  1.19it/s]Predicting...:  37%|###6      | 19/52 [00:23<00:25,  1.32it/s]Predicting...:  38%|###8      | 20/52 [00:24<00:23,  1.34it/s]Predicting...:  40%|####      | 21/52 [00:24<00:21,  1.47it/s]Predicting...:  42%|####2     | 22/52 [00:25<00:19,  1.54it/s]Predicting...:  44%|####4     | 23/52 [00:25<00:19,  1.49it/s]Predicting...:  46%|####6     | 24/52 [00:26<00:16,  1.67it/s]Predicting...:  48%|####8     | 25/52 [00:26<00:14,  1.81it/s]Predicting...:  50%|#####     | 26/52 [00:27<00:13,  1.91it/s]Predicting...:  52%|#####1    | 27/52 [00:27<00:12,  2.03it/s]Predicting...:  54%|#####3    | 28/52 [00:28<00:10,  2.20it/s]Predicting...:  56%|#####5    | 29/52 [00:28<00:11,  2.05it/s]Predicting...:  58%|#####7    | 30/52 [00:28<00:09,  2.25it/s]Predicting...:  60%|#####9    | 31/52 [00:29<00:08,  2.44it/s]Predicting...:  62%|######1   | 32/52 [00:29<00:08,  2.49it/s]Predicting...:  63%|######3   | 33/52 [00:29<00:07,  2.63it/s]Predicting...:  65%|######5   | 34/52 [00:30<00:07,  2.46it/s]Predicting...:  67%|######7   | 35/52 [00:30<00:06,  2.70it/s]Predicting...:  69%|######9   | 36/52 [00:31<00:05,  2.91it/s]Predicting...:  71%|#######1  | 37/52 [00:31<00:04,  3.12it/s]Predicting...:  73%|#######3  | 38/52 [00:31<00:04,  3.17it/s]Predicting...:  75%|#######5  | 39/52 [00:31<00:03,  3.40it/s]Predicting...:  77%|#######6  | 40/52 [00:32<00:03,  3.06it/s]Predicting...:  79%|#######8  | 41/52 [00:32<00:03,  3.46it/s]Predicting...:  81%|########  | 42/52 [00:32<00:02,  3.80it/s]Predicting...:  83%|########2 | 43/52 [00:32<00:02,  4.06it/s]Predicting...:  85%|########4 | 44/52 [00:33<00:01,  4.30it/s]Predicting...:  87%|########6 | 45/52 [00:33<00:01,  4.39it/s]Predicting...:  88%|########8 | 46/52 [00:33<00:01,  3.68it/s]Predicting...:  90%|######### | 47/52 [00:33<00:01,  4.08it/s]Predicting...:  92%|#########2| 48/52 [00:33<00:00,  4.48it/s]Predicting...:  94%|#########4| 49/52 [00:34<00:00,  4.83it/s]Predicting...:  96%|#########6| 50/52 [00:34<00:00,  5.21it/s]Predicting...:  98%|#########8| 51/52 [00:34<00:00,  4.22it/s]Predicting...: 100%|##########| 52/52 [00:34<00:00,  4.82it/s]Predicting...: 100%|##########| 52/52 [00:34<00:00,  1.49it/s]
+warning: in the working copy of 'paper/AEGIS.tex', LF will be replaced by CRLF the next time Git touches it
+{
+ "scores": [
+  {
+   "cat": "Vulnerability",
+   "precision": 0.9574289608891685,
+   "recall": 0.9083764424990052,
+   "f1": 0.9322578998417479,
+   "accuracy": 0.9567117925297668,
+   "tp": 9131,
+   "fp": 406,
+   "tn": 20197,
+   "fn": 921
+  },
+  {
+   "cat": "MAT",
+   "precision": 0.9910514541387024,
+   "recall": 0.8772277227722772,
+   "f1": 0.930672268907563,
+   "accuracy": 0.9978470070135378,
+   "tp": 443,
+   "fp": 4,
+   "tn": 30146,
+   "fn": 62
+  }
+ ],
+ "avg_precision": 0.9742402075139355,
+ "avg_recall": 0.8928020826356412,
+ "avg_f1": 0.9314650843746555,
+ "avg_runtime": 13.740768671035767,
+ "avg_flops": 206122.53755053502,
+ "score": 0.9423893943872171,
+ "n_samples": 30655,
+ "batching": "sorted",
+ "batch_size": 600
+}
+analytic {'linear_gflops': 206096.43753984, 'attention_gflops': 11289.23739648, 'total_gflops': 217385.67493632}

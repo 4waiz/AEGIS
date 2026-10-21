@@ -1,0 +1,85 @@
+warning: in the working copy of 'scripts/error_analysis.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/paper_numbers.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/aegis/paths.py', LF will be replaced by CRLF the next time Git touches it
+step 500/24168 loss 0.3834 0.4 min
+step 1000/24168 loss 0.2787 0.8 min
+step 1500/24168 loss 0.2327 1.2 min
+step 2000/24168 loss 0.2052 1.5 min
+step 2500/24168 loss 0.1860 1.9 min
+step 3000/24168 loss 0.1722 2.3 min
+{"epoch": 0.5, "train_loss": 0.17169232486154687, "elapsed_s": 144.8} val@0.5 0.9053 (V 0.8897 M 0.9210) tuned 0.9108 thr [0.27999999999999997, 0.5099999999999999]
+step 3500/24168 loss 0.1012 2.8 min
+step 4000/24168 loss 0.0985 3.1 min
+step 4500/24168 loss 0.0965 3.5 min
+step 5000/24168 loss 0.0940 3.9 min
+step 5500/24168 loss 0.0923 4.2 min
+step 6000/24168 loss 0.0911 4.6 min
+{"epoch": 1.0, "train_loss": 0.09088572500140561, "elapsed_s": 284.4} val@0.5 0.9200 (V 0.9170 M 0.9231) tuned 0.9224 thr [0.41999999999999993, 0.18]
+step 6500/24168 loss 0.0702 5.1 min
+step 7000/24168 loss 0.0704 5.4 min
+step 7500/24168 loss 0.0694 5.8 min
+step 8000/24168 loss 0.0694 6.2 min
+step 8500/24168 loss 0.0689 6.5 min
+step 9000/24168 loss 0.0683 6.9 min
+{"epoch": 1.5, "train_loss": 0.0684088072037042, "elapsed_s": 425.3} val@0.5 0.9215 (V 0.9207 M 0.9224) tuned 0.9245 thr [0.6599999999999999, 0.6799999999999999]
+step 9500/24168 loss 0.0671 7.4 min
+step 10000/24168 loss 0.0649 7.8 min
+step 10500/24168 loss 0.0658 8.1 min
+step 11000/24168 loss 0.0652 8.5 min
+step 11500/24168 loss 0.0656 8.8 min
+step 12000/24168 loss 0.0653 9.2 min
+{"epoch": 2.0, "train_loss": 0.06511033816225778, "elapsed_s": 562.2} val@0.5 0.9269 (V 0.9267 M 0.9271) tuned 0.9292 thr [0.5299999999999999, 0.94]
+step 12500/24168 loss 0.0488 9.7 min
+step 13000/24168 loss 0.0478 10.0 min
+step 13500/24168 loss 0.0476 10.4 min
+step 14000/24168 loss 0.0470 10.7 min
+step 14500/24168 loss 0.0470 11.1 min
+step 15000/24168 loss 0.0472 11.5 min
+{"epoch": 2.5, "train_loss": 0.04731589566341434, "elapsed_s": 699.9} val@0.5 0.9260 (V 0.9264 M 0.9256) tuned 0.9295 thr [0.63, 0.95]
+step 15500/24168 loss 0.0488 12.0 min
+step 16000/24168 loss 0.0477 12.3 min
+step 16500/24168 loss 0.0475 12.7 min
+step 17000/24168 loss 0.0469 13.0 min
+step 17500/24168 loss 0.0470 13.4 min
+step 18000/24168 loss 0.0467 13.8 min
+{"epoch": 3.0, "train_loss": 0.04652418966879618, "elapsed_s": 837.5} val@0.5 0.9282 (V 0.9308 M 0.9256) tuned 0.9302 thr [0.41999999999999993, 0.9099999999999999]
+step 18500/24168 loss 0.0355 14.2 min
+step 19000/24168 loss 0.0342 14.6 min
+step 19500/24168 loss 0.0333 14.9 min
+step 20000/24168 loss 0.0329 15.3 min
+step 20500/24168 loss 0.0332 15.6 min
+step 21000/24168 loss 0.0327 16.0 min
+{"epoch": 3.5, "train_loss": 0.032472267142170684, "elapsed_s": 972.2} val@0.5 0.9268 (V 0.9282 M 0.9254) tuned 0.9283 thr [0.61, 0.8099999999999999]
+step 21500/24168 loss 0.0310 16.5 min
+step 22000/24168 loss 0.0315 16.8 min
+step 22500/24168 loss 0.0304 17.2 min
+step 23000/24168 loss 0.0312 17.5 min
+step 23500/24168 loss 0.0310 17.9 min
+step 24000/24168 loss 0.0312 18.3 min
+{"epoch": 4.0, "train_loss": 0.030981595678772414, "elapsed_s": 1111.9} val@0.5 0.9251 (V 0.9290 M 0.9212) tuned 0.9282 thr [0.6499999999999999, 0.8699999999999999]
+{
+  "val_mean_f1_tuned": 0.9302005404134042,
+  "val_tuned": {
+    "f1_vuln": 0.9321568060176479,
+    "f1_mat": 0.9282442748091603,
+    "p_vuln": 0.9407299270072993,
+    "r_vuln": 0.9237385321100917,
+    "p_mat": 0.990228013029316,
+    "r_mat": 0.8735632183908046,
+    "mean_f1": 0.9302005404134042
+  },
+  "val_at_0.5": {
+    "f1_vuln": 0.9307938354172725,
+    "f1_mat": 0.9256449165402124,
+    "p_vuln": 0.9442477876106194,
+    "r_vuln": 0.9177178899082569,
+    "p_mat": 0.9807073954983923,
+    "r_mat": 0.8764367816091954,
+    "mean_f1": 0.9282193759787425
+  },
+  "thresholds": [
+    0.41999999999999993,
+    0.9099999999999999
+  ],
+  "epoch": 3.0
+}
