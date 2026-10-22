@@ -18,7 +18,7 @@ Deadline: **2026-11-13 AoE**.
 ## Checklist before pressing "Submit"
 
 - [x] Authors, affiliation and e-mails filled in `paper/AEGIS.tex` and in `form_answers.md` (Awaiz Ahmed, 202310183@aau.ac.ae; Khubaib Amjad Alam, Khubaib.alam@aau.ac.ae; Al Ain University).
-- [ ] AI-use disclosure in the paper's acknowledgment confirmed by the author (IEEE policy).
+- [x] AI-use disclosure in the paper's acknowledgment (IEEE policy), shortened to one sentence (2026-10-22).
 - [ ] Confirm with the organizers which form to use (the linked form is still the NLBSE'26 one).
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
 - [x] Hugging Face model made public (2026-10-21).

@@ -2,8 +2,7 @@
 
 1. Paper compiles (tools/tectonic, 4 pages). Re-run `python scripts/paper_numbers.py` and recompile after any
    new result.
-2. Author details done (Awaiz Ahmed, Khubaib Amjad Alam; Al Ain University). Still to do: the authors confirm the
-   AI-use disclosure wording in the acknowledgment.
+2. Author details and the AI-use disclosure are final (Awaiz Ahmed, Khubaib Amjad Alam; Al Ain University).
 3. T4 evaluation done (experiments/colab_t4/); the HF model is public.
 4. Organizer questions **sent** 2026-10-22 (awaiz42ad@gmail.com). When they reply: confirm the submission form,
    the inference procedure (our pipeline vs. unmodified notebook) and hidden-split scoring; adjust the paper if needed.

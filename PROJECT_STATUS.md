@@ -14,7 +14,7 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 | 8. Error analysis | Done (internal val and public test) | reports/error_analysis_kd_teacher_L3*.md |
 | 9. Software package | Working: training, measurement, export, inference, tests | src/aegis/, scripts/, tests/ |
 | 10. Demo | Not started (optional) | |
-| 11. Paper | Compiled with tectonic 0.17.0: 4 pages incl. references, IEEEtran, no overfull boxes; author details and AI-disclosure wording pending | paper/AEGIS.pdf |
+| 11. Paper | Compiled with tectonic 0.17.0: 4 pages incl. references, IEEEtran, no overfull boxes; authors and AI-use disclosure final | paper/AEGIS.pdf |
 | 12. Reviewer audit | Done: three independent reviews, all findings resolved or disclosed | reports/reviewer_audit.md |
 | 13. Submission package | Ready except author details; model public on HF @2011b2f; Colab T4 run done (AEGIS 16.4 s, score 0.942); repo still private | submission/, experiments/colab_t4/ |
 
