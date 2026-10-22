@@ -1,0 +1,41 @@
+Predicting...:   0%|          | 0/52 [00:00<?, ?it/s]Predicting...:   2%|▏         | 1/52 [00:08<06:59,  8.22s/it]Predicting...:   4%|▍         | 2/52 [00:15<06:28,  7.78s/it]Predicting...:   6%|▌         | 3/52 [00:23<06:19,  7.74s/it]Predicting...:   8%|▊         | 4/52 [00:31<06:11,  7.73s/it]Predicting...:  10%|▉         | 5/52 [00:38<06:03,  7.74s/it]Predicting...:  12%|█▏        | 6/52 [00:46<05:54,  7.71s/it]Predicting...:  13%|█▎        | 7/52 [00:54<05:48,  7.74s/it]Predicting...:  15%|█▌        | 8/52 [01:01<05:38,  7.69s/it]Predicting...:  17%|█▋        | 9/52 [01:09<05:32,  7.74s/it]Predicting...:  19%|█▉        | 10/52 [01:17<05:24,  7.73s/it]Predicting...:  21%|██        | 11/52 [01:25<05:17,  7.75s/it]Predicting...:  23%|██▎       | 12/52 [01:33<05:11,  7.78s/it]Predicting...:  25%|██▌       | 13/52 [01:40<05:01,  7.74s/it]Predicting...:  27%|██▋       | 14/52 [01:48<04:55,  7.77s/it]Predicting...:  29%|██▉       | 15/52 [01:56<04:46,  7.75s/it]Predicting...:  31%|███       | 16/52 [02:04<04:40,  7.79s/it]Predicting...:  33%|███▎      | 17/52 [02:11<04:32,  7.79s/it]Predicting...:  35%|███▍      | 18/52 [02:19<04:26,  7.84s/it]Predicting...:  37%|███▋      | 19/52 [02:27<04:17,  7.81s/it]Predicting...:  38%|███▊      | 20/52 [02:35<04:10,  7.82s/it]Predicting...:  40%|████      | 21/52 [02:43<04:01,  7.78s/it]Predicting...:  42%|████▏     | 22/52 [02:50<03:53,  7.77s/it]Predicting...:  44%|████▍     | 23/52 [02:58<03:44,  7.74s/it]Predicting...:  46%|████▌     | 24/52 [03:06<03:35,  7.70s/it]Predicting...:  48%|████▊     | 25/52 [03:13<03:25,  7.63s/it]Predicting...:  50%|█████     | 26/52 [03:21<03:18,  7.63s/it]Predicting...:  52%|█████▏    | 27/52 [03:28<03:09,  7.58s/it]Predicting...:  54%|█████▍    | 28/52 [03:36<03:02,  7.62s/it]Predicting...:  56%|█████▌    | 29/52 [03:43<02:54,  7.58s/it]Predicting...:  58%|█████▊    | 30/52 [03:51<02:47,  7.61s/it]Predicting...:  60%|█████▉    | 31/52 [03:59<02:40,  7.62s/it]Predicting...:  62%|██████▏   | 32/52 [04:06<02:31,  7.57s/it]Predicting...:  63%|██████▎   | 33/52 [04:14<02:24,  7.60s/it]Predicting...:  65%|██████▌   | 34/52 [04:21<02:16,  7.56s/it]Predicting...:  67%|██████▋   | 35/52 [04:29<02:08,  7.57s/it]Predicting...:  69%|██████▉   | 36/52 [04:36<02:00,  7.54s/it]Predicting...:  71%|███████   | 37/52 [04:44<01:54,  7.61s/it]Predicting...:  73%|███████▎  | 38/52 [04:52<01:45,  7.56s/it]Predicting...:  75%|███████▌  | 39/52 [04:59<01:38,  7.60s/it]Predicting...:  77%|███████▋  | 40/52 [05:07<01:31,  7.61s/it]Predicting...:  79%|███████▉  | 41/52 [05:14<01:23,  7.57s/it]Predicting...:  81%|████████  | 42/52 [05:22<01:16,  7.61s/it]Predicting...:  83%|████████▎ | 43/52 [05:30<01:08,  7.58s/it]Predicting...:  85%|████████▍ | 44/52 [05:37<01:00,  7.61s/it]Predicting...:  87%|████████▋ | 45/52 [05:45<00:52,  7.56s/it]Predicting...:  88%|████████▊ | 46/52 [05:52<00:45,  7.59s/it]Predicting...:  90%|█████████ | 47/52 [06:00<00:37,  7.57s/it]Predicting...:  92%|█████████▏| 48/52 [06:08<00:30,  7.59s/it]Predicting...:  94%|█████████▍| 49/52 [06:15<00:22,  7.53s/it]Predicting...:  96%|█████████▌| 50/52 [06:23<00:15,  7.57s/it]Predicting...:  98%|█████████▊| 51/52 [06:30<00:07,  7.56s/it]Predicting...: 100%|██████████| 52/52 [06:31<00:00,  5.57s/it]Predicting...: 100%|██████████| 52/52 [06:31<00:00,  7.53s/it]
+warning: in the working copy of 'DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'paper/AEGIS.tex', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'research/competition_intelligence.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'submission/README.md', LF will be replaced by CRLF the next time Git touches it
+{
+ "scores": [
+  {
+   "cat": "Vulnerability",
+   "precision": 0.9428399518652226,
+   "recall": 0.9353362514922403,
+   "f1": 0.9390731122652817,
+   "accuracy": 0.9602022508563041,
+   "tp": 9402,
+   "fp": 570,
+   "tn": 20033,
+   "fn": 650
+  },
+  {
+   "cat": "MAT",
+   "precision": 0.9782608695652174,
+   "recall": 0.801980198019802,
+   "f1": 0.8813928182807399,
+   "accuracy": 0.9964442994617517,
+   "tp": 405,
+   "fp": 9,
+   "tn": 30141,
+   "fn": 100
+  }
+ ],
+ "avg_precision": 0.9605504107152201,
+ "avg_recall": 0.8686582247560212,
+ "avg_f1": 0.9102329652730108,
+ "avg_runtime": 184.3234097957611,
+ "avg_flops": 2666497.659072002,
+ "score": 0.7315085865998541,
+ "n_samples": 30655,
+ "batching": "official",
+ "batch_size": 600
+}
+analytic {'linear_gflops': 2666196.26107392, 'attention_gflops': 296240.00053248, 'total_gflops': 2962436.2616064}

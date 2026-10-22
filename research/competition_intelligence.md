@@ -46,6 +46,13 @@ Hugging Face API queried), not via search snippets.
 | Registration / presentation / fees | Not stated on NLBSE pages; ICSE registration terms not yet published for workshops. | U (check closer to camera-ready) |
 | Contacts | Moritz Mock (momock@unibz.it), Thomas Borsani (tborsani@unibz.it), Barbara Russo (brusso@unibz.it). | V |
 
+**Organizers' answers (e-mail from Moritz Mock, 2026-10-22; research/organizer_questions.md).** A new
+submission form will be released; own inference code is allowed if the timing/GFLOPs measurement is kept; the
+constants are rescaled for the hidden split; the final evaluation uses 10 forward passes per batch (the
+notebook's 2 was an oversight); the baseline score is 0.73 (0.7299 with 10 passes); distillation, tuned
+thresholds and fp16 are allowed; the competition paper need not be double-blind. These supersede the "U" rows
+above on quantization/thresholds and the anonymity conflict.
+
 ## 3. Labels and inputs
 
 - Columns: `Projectname`, `Filepath`, `Function`, `Label` (`int8[2]`, order `[weakness, MAT]`). There is **no separate comment column**. The instructions notebook says so explicitly: "The current two-label CSV files contain Function but no separate developer-comment column." Comments occur only inside `Function`. (V)

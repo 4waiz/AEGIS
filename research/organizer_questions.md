@@ -3,7 +3,8 @@
 To: Moritz Mock (momock@unibz.it), Thomas Borsani (tborsani@unibz.it), Barbara Russo (brusso@unibz.it)
 Status: **SENT** on 2026-10-22 at 00:30 (GST) from awaiz42ad@gmail.com to all three organizers, at the author's request.
 The sent version is plain text with the same content, numbered 1-8 (item 0 below became 1; "int8" was dropped from the precision question).
-Awaiting a reply; update DECISIONS.md and the paper once the organizers answer.
+**ANSWERED** on 2026-10-22 at 21:34 (GST) by Moritz Mock, copying Borsani, Russo and workshop.nlbse@protonmail.com.
+The answers are recorded at the end of this file and in DECISIONS.md D17.
 
 Subject: NLBSE'27 multitask code classification: clarification questions
 
@@ -37,3 +38,18 @@ confirm a few details before submitting:
 
 Best regards,
 Awaiz Ahmed
+
+## Organizers' answers (Moritz Mock, 2026-10-22)
+
+Numbered as in the sent e-mail (item 0 above = 1).
+
+1. **Form:** a new form for this year will be released soon.
+2. **Inference code:** participants may change it, as long as the timing and GFLOPs measurement is kept.
+3. **Hidden split:** the constants will be adjusted accordingly.
+4. **Repetitions:** the notebook's 2 passes were an oversight; the final evaluation uses 10. The organizers re-ran
+   the notebook with 10.
+5. **Baseline score:** with 10 repetitions the time and GFLOPs changed slightly and the score became 0.7299.
+   Our 0.7286 was correct either way; the baseline score is 0.73.
+6. **Distillation:** allowed.
+7. **Thresholds / fp16:** yes.
+8. **Anonymity:** double-blind is not needed for the competition, only for the workshop's regular track.

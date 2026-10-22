@@ -138,3 +138,20 @@ Each entry: date, decision, evidence, consequences. Newest last.
   across seeds: 0.9329 / 0.9334 / 0.9325 (seed 42, the submitted model, is the median).
 - Official T4 (Colab, 2026-10-21): baseline 192.7 s / 0.730, AEGIS 16.4 s / 0.942; the public Hub model
   reproduces the reported predictions exactly (experiments/reproduce_hub/).
+
+## D17 (2026-10-22): Organizers' answers (research/organizer_questions.md)
+- Our own inference code (input normalization, length-sorted batching with dynamic padding) is allowed as long
+  as the timing and GFLOPs measurement is kept. The headline numbers therefore use the AEGIS pipeline; the
+  unmodified-notebook result stays in the paper as a robustness check.
+- The constants are rescaled for the hidden split, so the public-test depth optimum (3 layers) carries over; the
+  D16 caveat (2 layers ahead by 0.001 with unscaled constants) no longer applies.
+- The final evaluation averages 10 forward passes per batch, not the notebook's 2. `scripts/measure.py
+  --repetitions` supports both; scripts/queue_round7.sh measures AEGIS and the baseline both ways in one
+  session (experiments/repetitions_check/). The paper's tables keep the 2-pass protocol of the released notebook.
+- The official baseline score is 0.73 (0.7299 in the organizers' 10-pass rerun; 0.7286 from the printed values).
+- Distillation, tuned thresholds and fp16 are allowed; the competition paper need not be anonymized.
+- A new submission form will be published; do not use the NLBSE'26 form.
+- Round-7 result (experiments/repetitions_check/): GFLOPs per pass are identical with 2 and 10 passes; scores moved
+  by at most 0.00012 (AEGIS 0.94250 -> 0.94238, baseline 0.73151 -> 0.73150). Runtimes in that session were about
+  twice those of Table I although the PD_Turbo scheme was active (cause not identified), so only the 2-vs-10
+  difference within the session is used; Table I is unchanged.

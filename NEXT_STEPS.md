@@ -4,8 +4,9 @@
    new result.
 2. Author details and the AI-use disclosure are final (Awaiz Ahmed, Khubaib Amjad Alam; Al Ain University).
 3. T4 evaluation done (experiments/colab_t4/); the HF model is public.
-4. Organizer questions **sent** 2026-10-22 (awaiz42ad@gmail.com). When they reply: confirm the submission form,
-   the inference procedure (our pipeline vs. unmodified notebook) and hidden-split scoring; adjust the paper if needed.
+4. Organizers **answered** 2026-10-22 (DECISIONS.md D17): own inference code allowed, constants rescaled for the
+   hidden split, final evaluation uses 10 passes per batch, baseline score 0.73. **Wait for the new NLBSE'27
+   submission form** (the organizers will publish it); do not use the NLBSE'26 form.
 5. Reviewer audit done (reports/reviewer_audit.md).
 6. Submission package ready in submission/ (checklist, REPRODUCE.md, form answers, model manifest).
 7. Make the GitHub repository and the HF model public at submission time (needs the user's approval).

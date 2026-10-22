@@ -130,8 +130,9 @@ initialized from the teacher's first $k$ layers, minimizes
 \end{equation}
 over $t\in\{\text{weakness},\text{MAT}\}$ with student and teacher logits $z_t$, $z^{\mathrm{T}}_t$, $\alpha=0.5$,
 $T=2$~\cite{hinton2015distilling}.
-\textbf{Robustness to the evaluation procedure.} Whether the organizers run participants' inference code is not
-specified. The final student is trained on a seeded 50/50 mix of raw and normalized functions, and its per-task
+\textbf{Robustness to the evaluation procedure.} The organizers allow participants' own inference code as long as
+the timing and GFLOPs measurement is kept (e-mail of 22 Oct.\ 2026). So that the model also works through the
+unmodified notebook, the final student is trained on a seeded 50/50 mix of raw and normalized functions, and its per-task
 thresholds $\tau_t$, tuned on internal validation~\cite{lipton2014f1}, are folded into the output bias
 ($b_t \leftarrow b_t - \mathrm{logit}(\tau_t)$), so a 0.5 cut-off reproduces them.
 
@@ -143,7 +144,9 @@ half epoch, patience 2) and threshold tuning use only internal validation, so va
 optimistic. Training uses AdamW (learning rate $2\cdot10^{-5}$ teacher, $5\cdot10^{-5}$ students; weight decay 0.01),
 batch 32, 6\% warmup with linear decay, bf16 and seed 42; the teacher trains 3 epochs, students 4. Cost is measured
 with the official loop (two timed passes per batch, fp16, \texttt{torch.profiler}), re-implemented and checked
-against the official notebook, on an RTX 5080 Laptop GPU, and for the final comparison on a Colab T4 with the released notebook. Each block of
+against the official notebook, on an RTX 5080 Laptop GPU, and for the final comparison on a Colab T4 with the released notebook. The final ranking averages ten passes
+instead of two (organizers' e-mail); GFLOPs per pass are unchanged, and in one session on our GPU both scores
+moved by at most \RepsMaxDelta. Each block of
 Table~\ref{tab:main} was measured in one session;
 no public-test result informed any decision (an accidental early test run, documented in the repository, was
 discarded). GFLOPs do not depend on the hardware; runtimes do.
@@ -172,8 +175,8 @@ notebook gives \ReplicaMatches{} predictions).
 \end{figure}
 
 \textbf{Depth and distillation.} F1 grows with depth, but the projected score peaks at 3 layers
-(Fig.~\ref{fig:depth}, Table~\ref{tab:ablations}); the optimum is flat: totalled over the twice larger hidden
-split without rescaled constants, 2 layers would lead by $\approx$0.001 (\HiddenTwo{} vs.\ \HiddenThree).
+(Fig.~\ref{fig:depth}, Table~\ref{tab:ablations}). The optimum is flat, and it carries over to the twice larger
+hidden split because the organizers rescale the score constants to its size.
 All three distilled 3-layer seeds (\KdRange) exceed all three undistilled ones (\NoKdRange) on internal validation,
 and the test split confirms the weakness gain (\KdTestVulnGain, \ci{\CiKdTestVuln}). A control that initializes from the teacher
 without distillation reaches \TinitRange{} (\TinitN{} seeds): of the weakness gain, \InitVulnGain{} comes from the

@@ -135,8 +135,12 @@ def run_measurement(
     threshold: float | Sequence[float] = 0.5,
     autocast: bool = True,
     progress: bool = True,
+    repetitions: int = 2,
 ) -> tuple[np.ndarray, np.ndarray, float, float]:
-    """The notebook's per-batch measurement loop. Returns (preds, probs, avg_runtime, avg_gflops)."""
+    """The notebook's per-batch measurement loop. Returns (preds, probs, avg_runtime, avg_gflops).
+
+    The released notebook runs 2 forward passes per batch; the organizers' final evaluation runs 10
+    (e-mail of 2026-10-22). Runtime and GFLOPs are averaged over the passes either way."""
     total_flops = 0.0
     total_time = 0.0
     preds, probs_all = [], []
@@ -153,7 +157,7 @@ def run_measurement(
         with torch.no_grad():
             with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=autocast):
                 with torch.profiler.profile(with_flops=True) as p:
-                    for _ in range(2):
+                    for _ in range(repetitions):
                         outputs = forward(input_ids, attention_mask)
         total_time += time.time() - begin
         total_flops += sum(k.flops for k in p.key_averages()) / 1e9
@@ -163,7 +167,7 @@ def run_measurement(
         del input_ids, attention_mask, outputs, probs
         if device.type == "cuda":
             torch.cuda.empty_cache()
-    return np.concatenate(preds), np.concatenate(probs_all), total_time / 2, total_flops / 2
+    return np.concatenate(preds), np.concatenate(probs_all), total_time / repetitions, total_flops / repetitions
 
 
 def evaluate_official(
@@ -177,12 +181,13 @@ def evaluate_official(
     threshold: float | Sequence[float] = 0.5,
     max_length: int | None = None,
     progress: bool = True,
+    repetitions: int = 2,
 ) -> tuple[OfficialResult, np.ndarray]:
     """Run the official measurement and scoring. Returns the result and per-sample probabilities
     in the original sample order."""
     batches, order = make_batches(input_ids, pad_id, batch_size, batching, max_length)
     preds_sorted, probs_sorted, avg_runtime, avg_flops = run_measurement(
-        forward, batches, device, threshold=threshold, progress=progress
+        forward, batches, device, threshold=threshold, progress=progress, repetitions=repetitions
     )
     preds = np.empty_like(preds_sorted)
     probs = np.empty_like(probs_sorted)

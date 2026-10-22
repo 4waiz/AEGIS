@@ -26,7 +26,7 @@ action.
 | 5 | A | A test-scored model that beats AEGIS (single-line KD, 0.9447) was omitted. | **Fixed.** Added to Table I. The mixed-input cost is quantified: weakness −0.004 [−0.006, −0.001], exchanged for robustness to the unmodified notebook. |
 | 6 | A | The abstract's headline score assumes our inference code. | **Fixed.** The abstract gives both scores (0.944 / 0.908). |
 | 7 | A, C | No T4 measurement. | **Fixed.** The model was made public at the author's request and the notebook was run on a Colab T4: the baseline takes 192.7 s (score 0.730; GFLOPs identical to the organizers' printout) and AEGIS 16.4 s (score 0.942), with mean F1 identical to the local run (`experiments/colab_t4/`). |
-| 8 | A | The 3-layer optimum holds only at public-test size. | **Disclosed.** Totalled over the hidden split without rescaled constants, 2 layers would lead by 0.001 (0.9275 vs. 0.9264). Organizer question 2 asks about this. |
+| 8 | A | The 3-layer optimum holds only at public-test size. | **Resolved by the organizers** (2026-10-22): the constants are rescaled for the hidden split. Without rescaling, 2 layers would have led by 0.001 (0.9275 vs. 0.9264). |
 | 9 | C | User-specific paths in configs (blocker). | **Fixed** (`bc7847f`): `${AEGIS_ARTIFACTS}` placeholders, `load_config` expansion, test. |
 | 10 | C | Incomplete reproduction steps. | **Fixed:** `submission/REPRODUCE.md` gives an ordered recipe with timings, including the teacher-logit dump and export. |
 | 11 | C | Checkpoints missing; no hash. | **Fixed.** The artifacts folder had been deleted (Recycle Bin) and was restored. `submission/model_manifest.json` records SHA-256 of every file of the released model. |

@@ -35,6 +35,8 @@ def main() -> None:
     ap.add_argument("--batch-size", type=int, default=600)
     ap.add_argument("--threshold", default="tuned")
     ap.add_argument("--normalize", help="override the checkpoint's input normalization (e.g. raw)")
+    ap.add_argument("--repetitions", type=int, default=2,
+                    help="forward passes per batch: 2 in the released notebook, 10 in the final evaluation")
     ap.add_argument("--out")
     args = ap.parse_args()
 
@@ -59,10 +61,12 @@ def main() -> None:
 
     # No warm-up: the official notebook times the very first batch too.
     result, probs = evaluate_official(forward, inputs, labels, tokenizer.pad_token_id, device,
-                                      batch_size=args.batch_size, batching=args.batching, threshold=thr)
+                                      batch_size=args.batch_size, batching=args.batching, threshold=thr,
+                                      repetitions=args.repetitions)
     batches, _ = make_batches(inputs, tokenizer.pad_token_id, args.batch_size, args.batching)
     result.extra = {
         "checkpoint": args.checkpoint, "split": args.split, "thresholds": thr, "aegis": aegis_cfg,
+        "repetitions": args.repetitions,
         "analytic": encoder_flops(model.config, [(b[0].shape[0], b[0].shape[1]) for b in batches]),
         "mean_input_tokens": float(np.mean([len(x) for x in inputs])),
         "attn_implementation": getattr(model.config, "_attn_implementation", None),

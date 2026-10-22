@@ -13,13 +13,13 @@ Deadline: **2026-11-13 AoE**.
 | Reproduction guide | `submission/REPRODUCE.md` | written and checked |
 | Official-loop evaluation on a Colab T4 | `notebooks/AEGIS_T4_evaluation.ipynb`; results in `experiments/colab_t4/` | done 2026-10-21: AEGIS 16.4 s, score 0.942 (baseline 192.7 s, 0.730) |
 | Submission-form answers | `submission/form_answers.md` | complete |
-| Questions for the organizers | `research/organizer_questions.md` | **sent** 2026-10-22 from awaiz42ad@gmail.com; awaiting reply |
+| Questions for the organizers | `research/organizer_questions.md` | sent and **answered** 2026-10-22 (DECISIONS.md D17) |
 
 ## Checklist before pressing "Submit"
 
 - [x] Authors, affiliation and e-mails filled in `paper/AEGIS.tex` and in `form_answers.md` (Awaiz Ahmed, 202310183@aau.ac.ae; Khubaib Amjad Alam, Khubaib.alam@aau.ac.ae; Al Ain University).
 - [x] AI-use disclosure in the paper's acknowledgment (IEEE policy), shortened to one sentence (2026-10-22).
-- [ ] Confirm with the organizers which form to use (the linked form is still the NLBSE'26 one).
+- [ ] Use the new NLBSE'27 form once the organizers publish it (they confirmed on 2026-10-22 that a new one is coming; the linked form is still the NLBSE'26 one).
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
 - [x] Hugging Face model made public (2026-10-21).
 - [x] T4 numbers added to the paper (Table I, abstract).

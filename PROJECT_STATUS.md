@@ -6,7 +6,7 @@ Last updated: 2026-10-15. Deadline: 2026-11-13 AoE (29 days).
 
 | Phase | Status | Evidence |
 |---|---|---|
-| 0. Competition intelligence | Done; organizer questions drafted, **not sent** | research/competition_intelligence.md, research/organizer_questions.md |
+| 0. Competition intelligence | Done; organizer questions sent and answered 2026-10-22 (DECISIONS.md D17) | research/competition_intelligence.md, research/organizer_questions.md |
 | 1. Dataset forensics | Done | research/dataset_audit.md, reports/dataset_stats.json, reports/token_budget.csv |
 | 2. Baseline reproduction | Done (checkpoint reproduction with the official loop) | experiments/baseline/ |
 | 3-6. Architecture, contribution, experiments, score optimization | Done for this cycle | experiments/, reports/leaderboard.md, DECISIONS.md D8-D15 |

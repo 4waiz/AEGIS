@@ -221,6 +221,9 @@ def review_macros(m: dict, stats: dict) -> None:
             x = r[name]
             m[f"Tfour{key}Fone"], m[f"Tfour{key}Runtime"] = f"{x['f1']:.3f}", f"{x['runtime']:.1f}"
             m[f"Tfour{key}GflopsK"], m[f"Tfour{key}Score"] = f"{x['gflops'] / 1e3:,.0f}".replace(",", "{,}"), f"{x['score']:.3f}"
+    # 10 vs. 2 timed passes per batch (final evaluation vs. released notebook), one session on our GPU
+    reps = {(n, r): load(f"experiments/repetitions_check/{n}_r{r}.json") for n in ("aegis", "baseline") for r in (2, 10)}
+    m["RepsMaxDelta"] = f"{max(abs(reps[n, 10]['score'] - reps[n, 2]['score']) for n in ('aegis', 'baseline')):.5f}"
     rep = load("experiments/kd_teacher_L3_mixed/official_replica_test.json")
     van = load("experiments/kd_teacher_L3_mixed/robust_test_vanilla_notebook.json")
     m["ReplicaMatches"] = "identical" if all(rep["scores"][i][k] == van["scores"][i][k] for i in range(2)
