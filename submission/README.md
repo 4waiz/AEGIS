@@ -23,7 +23,7 @@ Deadline: **2026-11-13 AoE**.
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
 - [x] Hugging Face model made public (2026-10-21).
 - [x] T4 numbers added to the paper (Table I, abstract).
-- [x] `submission/AEGIS.pdf` re-built after the last edit (2026-10-21).
+- [x] `submission/AEGIS.pdf` re-built after the last edit (2026-10-22).
 
 ## Competition requirements and where they are met
 
