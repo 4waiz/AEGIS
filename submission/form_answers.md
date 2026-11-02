@@ -1,7 +1,7 @@
 # Draft answers for the competition submission form
 
-Form linked from https://nlbse2027.github.io/tools/ (as of 2026-10-21 this link opens the **NLBSE'26** form;
-confirm the correct form with the organizers before submitting). Nothing has been filled in or submitted.
+Form: **NLBSE'27 Tool Submission**, https://forms.gle/yx2CcKLYYBSjWoiJ8 (linked from https://nlbse2027.github.io/tools/,
+checked 2026-11-03). Deadline **2026-11-27 AoE**. Nothing has been filled in or submitted.
 
 | Field | Answer |
 |---|---|

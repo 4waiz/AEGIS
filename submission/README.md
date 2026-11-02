@@ -1,7 +1,7 @@
 # AEGIS: NLBSE'27 submission package
 
 Everything needed to submit the AEGIS entry to the NLBSE'27 multitask code classification tool competition.
-Deadline: **2026-11-13 AoE**.
+Deadline: **2026-11-27 AoE** (extended from 2026-11-13).
 
 ## Contents
 
@@ -19,7 +19,7 @@ Deadline: **2026-11-13 AoE**.
 
 - [x] Authors, affiliation and e-mails filled in `paper/AEGIS.tex` and in `form_answers.md` (Awaiz Ahmed, 202310183@aau.ac.ae; Khubaib Amjad Alam, Khubaib.alam@aau.ac.ae; Al Ain University).
 - [x] AI-use disclosure in the paper's acknowledgment (IEEE policy), shortened to one sentence (2026-10-22).
-- [ ] Use the new NLBSE'27 form once the organizers publish it (they confirmed on 2026-10-22 that a new one is coming; the linked form is still the NLBSE'26 one).
+- [x] New NLBSE'27 form published: https://forms.gle/yx2CcKLYYBSjWoiJ8 (checked 2026-11-03; same fields as `form_answers.md`).
 - [ ] GitHub repository made public (`gh repo edit 4waiz/AEGIS --visibility public --accept-visibility-change-consequences`).
 - [x] Hugging Face model made public (2026-10-21).
 - [x] T4 numbers added to the paper (Table I, abstract).

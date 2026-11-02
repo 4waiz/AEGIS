@@ -15,7 +15,7 @@ Hugging Face API queried), not via search snippets.
 | Baseline/evaluation notebook | Colab `1q1fGPpU7uxaK1mUVHa3b2xJOtEwhWwLG` = repo `CodeBERT_baseline.ipynb` | V (code identical except a model-id typo `commnet` in the Colab copy) |
 | Dataset | `NLBSE/nlbse27-code-comment-classification`, revision `feca19b9…` (2026-08-19) | V |
 | Baseline checkpoint | `NLBSE/nlbse27-code-comment-classification-baseline`, revision `b8ffd89b…` (2026-08-19), no model card | V |
-| Submission form | https://docs.google.com/forms/d/1EinwODkpYaEzejk3TCiLxFgPmkwv0J5d1jOkFMePj7Q (linked from the rules page) | V (link only; not opened/submitted) |
+| Submission form | NLBSE'27 form https://forms.gle/yx2CcKLYYBSjWoiJ8 (published by 2026-11-03; deadline moved to 2026-11-27 AoE). Old NLBSE'26 form: https://docs.google.com/forms/d/1EinwODkpYaEzejk3TCiLxFgPmkwv0J5d1jOkFMePj7Q | V (link only; not opened/submitted) |
 
 ## 2. Rules (verified wording)
 
